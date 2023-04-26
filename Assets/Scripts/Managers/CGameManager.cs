@@ -11,8 +11,8 @@ public class CGameManager : MonoSingleton<CGameManager>
 
     void StartGame()
     {
-        // Load Game Data
-        // Load Game Configs
-        // Start Gameplay
+        // load Game Configs
+        // load Game Data
+        CGamePlayManager.Instance.StartGame();
     }
 }

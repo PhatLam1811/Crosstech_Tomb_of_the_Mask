@@ -2,20 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CGamePlayManager : MonoBehaviour
+public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 {
-    private void Start()
-    {
-                
-    }
-
     private void Update()
     {
-        
     }
 
-    void GameStart()
+    // called after game data is fully loaded
+    public void StartGame()
     {
+        Debug.Log("Game started!");
 
+        CInputManager.Instance.StartGame();
     }
 }
