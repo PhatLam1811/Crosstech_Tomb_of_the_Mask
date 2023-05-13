@@ -10,6 +10,8 @@ public class CInputManager : MonoSingleton<CInputManager>
 
     private InputAction touchPositionAction;
 
+    private InputAction testAction;
+
     private void OnDisable()
     {
         this.UnSubscribeInputEventListerner();
@@ -22,7 +24,7 @@ public class CInputManager : MonoSingleton<CInputManager>
 
     private void Initialize()
     {
-        this.touchPositionAction = this.playerInput.actions["MouseTouch"];
+        this.touchPositionAction = this.playerInput.actions["test"];
         this.SubscribeInputEventListerner();
     }
 

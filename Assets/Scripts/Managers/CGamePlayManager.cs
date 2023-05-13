@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 {
+    [SerializeField] private CPlayer _player;
+
     private void Update()
     {
     }
@@ -11,8 +13,6 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
     // called after game data is fully loaded
     public void StartGame()
     {
-        Debug.Log("Game started!");
 
-        CInputManager.Instance.StartGame();
     }
 }
