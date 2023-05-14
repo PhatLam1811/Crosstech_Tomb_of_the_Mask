@@ -27,15 +27,10 @@ public class CPlayer : CBaseGameObject
         this.Move();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Is Collided!");
-        this.OnHittingWalls();
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Is Collided!");
+
         if (!this._isOnPlatform)
         {
             this.OnHittingWalls();
@@ -62,12 +57,16 @@ public class CPlayer : CBaseGameObject
             {
                 case PlayerMoves.Up:
                     this.movingVector = Vector3.up; break;
+                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Left:
                     this.movingVector = Vector3.left; break;
+                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Down:
                     this.movingVector = Vector3.down; break;
+                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.down * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Right:
                     this.movingVector = Vector3.right; break;
+                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 5f, ForceMode2D.Impulse); break;
                 default: 
                     break;
             }
@@ -83,7 +82,8 @@ public class CPlayer : CBaseGameObject
 
     private void OnHittingWalls()
     {
-        // this.transform.position += this.movingVector * -0.005f;
+        Debug.Log(this.transform.position);
+        this.transform.position += this.movingVector * -0.037f;
         this.movingVector = Vector3.zero;
         this._isOnPlatform = true;
     }
@@ -91,7 +91,7 @@ public class CPlayer : CBaseGameObject
     public void StartGame()
     {
         this.movingVector = Vector3.zero;
-        this.speed = 5.0f; // this will be configurate outside later on
+        this.speed = 6.0f; // this will be configurate outside later on
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
