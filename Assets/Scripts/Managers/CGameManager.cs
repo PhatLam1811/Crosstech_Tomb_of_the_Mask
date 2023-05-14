@@ -15,4 +15,9 @@ public class CGameManager : MonoSingleton<CGameManager>
         // load Game Data
         CGamePlayManager.Instance.StartGame();
     }
+
+    public T GetResourceFile<T>(string path) where T : UnityEngine.Object
+    {
+        return Resources.Load<T>(path) as T;
+    }
 }

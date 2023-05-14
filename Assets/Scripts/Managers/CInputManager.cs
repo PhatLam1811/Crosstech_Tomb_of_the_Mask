@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class CInputManager : MonoSingleton<CInputManager>
 {
-    [SerializeField] 
-    private PlayerInput playerInput;
+    public PlayerInput playerInput;
 
     private InputAction touchPositionAction;
 

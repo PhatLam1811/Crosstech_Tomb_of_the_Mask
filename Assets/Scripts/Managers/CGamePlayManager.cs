@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 {
-    [SerializeField] private CPlayer _player;
+    public CPlayer _player;
+
+    public GridLayout _grid;
+
+    public GameObject dotGame;
 
     private void Update()
     {
         this.PseudoInputProcess();
     }
 
-    // called after game data is fully loaded
     public void StartGame()
     {
+        this.LoadLevelMap();
         this._player.StartGame();
     }
 
@@ -30,5 +34,21 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 
         if (Input.GetKeyDown(KeyCode.D))
             this._player.RegisterNextMove(PlayerMoves.Right);
+    }
+
+    private void LoadLevelMap()
+    {
+        CLevelConfig levelConfig = CLevelConfigs.Instance._levelConfigs[0];
+
+        // Debug.Log(levelConfig._collectableObjectPositionConfigs[0]);
+
+        foreach (CCollectableObjectPositionConfig config in levelConfig._collectableObjectPositionConfigs)
+        {
+            Vector3Int cellPos = new Vector3Int(config.x, config.y, 0);
+
+            Vector3 worldPos = _grid.CellToWorld(cellPos);
+
+            Instantiate(this.dotGame, worldPos, Quaternion.identity);
+        }
     }
 }

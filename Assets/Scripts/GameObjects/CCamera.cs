@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class CCamera : CBaseGameObject
 {
-    [SerializeField] private Transform _playerTransform;
+    public Transform _playerTransform;
 
     private void Update()
     {
