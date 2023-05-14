@@ -24,7 +24,7 @@ public class CInputManager : MonoSingleton<CInputManager>
 
     private void Initialize()
     {
-        this.touchPositionAction = this.playerInput.actions["test"];
+        this.touchPositionAction = this.playerInput.actions["MouseTouch"];
         this.SubscribeInputEventListerner();
     }
 

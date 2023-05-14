@@ -27,9 +27,19 @@ public class CPlayer : CBaseGameObject
         this.Move();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Is Collided!");
+        this.OnHittingWalls();
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        this.OnHittingWalls();
+        Debug.Log("Is Collided!");
+        if (!this._isOnPlatform)
+        {
+            this.OnHittingWalls();
+        }
     }
 
     private void Initialize()
@@ -61,6 +71,8 @@ public class CPlayer : CBaseGameObject
                 default: 
                     break;
             }
+
+            this._isOnPlatform = false;
         }
     }
 
@@ -71,6 +83,7 @@ public class CPlayer : CBaseGameObject
 
     private void OnHittingWalls()
     {
+        // this.transform.position += this.movingVector * -0.005f;
         this.movingVector = Vector3.zero;
         this._isOnPlatform = true;
     }
@@ -78,7 +91,7 @@ public class CPlayer : CBaseGameObject
     public void StartGame()
     {
         this.movingVector = Vector3.zero;
-        this.speed = 1.0f; // this will be configurate outside later on
+        this.speed = 5.0f; // this will be configurate outside later on
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
@@ -88,6 +101,7 @@ public class CPlayer : CBaseGameObject
     public void RegisterNextMove(PlayerMoves nextMove)
     {
         this.movesOnStandBy.Enqueue(nextMove);
+        Debug.Log(this.movesOnStandBy.Count);
     }
 }
 
