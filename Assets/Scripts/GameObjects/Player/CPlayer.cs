@@ -27,6 +27,16 @@ public class CPlayer : CBaseGameObject
         this.Move();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Is Triggered!");
+
+        if (collision.TryGetComponent<CDotGame>(out CDotGame dotGame))
+        {
+            CGamePlayManager.Instance.OnPlayerHitDotGame(dotGame);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Is Collided!");

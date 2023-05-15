@@ -6,10 +6,10 @@ public class CGameManager : MonoSingleton<CGameManager>
 {
     private void Start()
     {
-        this.StartGame();
+        this.OpenApp();
     }
 
-    void StartGame()
+    void OpenApp()
     {
         // load Game Configs
         // load Game Data

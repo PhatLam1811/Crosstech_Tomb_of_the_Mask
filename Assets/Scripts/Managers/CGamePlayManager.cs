@@ -6,7 +6,7 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 {
     public CPlayer _player;
 
-    public GridLayout _grid;
+    public Grid _grid;
 
     public GameObject dotGame;
 
@@ -40,8 +40,6 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
     {
         CLevelConfig levelConfig = CLevelConfigs.Instance._levelConfigs[0];
 
-        // Debug.Log(levelConfig._collectableObjectPositionConfigs[0]);
-
         foreach (CCollectableObjectPositionConfig config in levelConfig._collectableObjectPositionConfigs)
         {
             Vector3Int cellPos = new Vector3Int(config.x, config.y, 0);
@@ -51,4 +49,13 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
             Instantiate(this.dotGame, worldPos, Quaternion.identity);
         }
     }
+
+    public void OnPlayerHitDotGame(CDotGame collidedDotGame)
+    {
+        collidedDotGame.OnCollectedByPlayer();
+    }
+
+    public void OnPlayerHitStar() { }
+
+    public void OnPlayerHitCoin() { }
 }
