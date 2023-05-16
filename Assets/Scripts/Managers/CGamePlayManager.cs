@@ -8,7 +8,9 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 
     public Grid _grid;
 
-    public GameObject dotGame;
+    public GameObject prefab_dotGame;
+    public GameObject prefab_star;
+    public GameObject prefab_coin;
 
     private void Update()
     {
@@ -46,7 +48,15 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 
             Vector3 worldPos = _grid.CellToWorld(cellPos);
 
-            Instantiate(this.dotGame, worldPos, Quaternion.identity);
+            switch (config._id)
+            {
+                case GameDefine.DOT_TILE_ID:
+                    Instantiate(this.prefab_dotGame, worldPos, Quaternion.identity); break;
+                case GameDefine.STAR_TILE_ID:
+                    Instantiate(this.prefab_star, worldPos, Quaternion.identity); break;
+                case GameDefine.COIN_TILE_ID:
+                    Instantiate(this.prefab_coin, worldPos, Quaternion.identity); break;
+            }
         }
     }
 
