@@ -44,14 +44,18 @@ public class CGameManager : MonoSingleton<CGameManager>
         seq.Join(_shelzyLogo.GetComponent<SpriteRenderer>().DOFade(0f, 2f));
         seq.AppendCallback(() =>
         {
+            CSoundManager.Instance.PlayFx(GameDefine.TITLE_REVEAL_FX_KEY);
             _titleAnimator.Play(GameDefine.TITLE_REVEAL_ANIM);
         });
         seq.AppendInterval(2f);
-        seq.Append(_sceneryObjects[0].GetComponent<SpriteRenderer>().DOFade(1f, 2f));
-
-        for (int i = 1; i < _sceneryObjects.Length; i++)
+        seq.AppendCallback(() =>
         {
-            seq.Join(_sceneryObjects[i].GetComponent<SpriteRenderer>().DOFade(1f, 2f));
+            CSoundManager.Instance.PlayLoopBGM(GameDefine.START_SCENE_WATER_BGM_KEY);
+        });
+
+        foreach (GameObject sceneryObject in _sceneryObjects)
+        {
+            seq.Join(sceneryObject.GetComponent<SpriteRenderer>().DOFade(1f, 2f));
         }
 
         seq.Join(_tapToPlayButton.DOFade(1f, 2f));
