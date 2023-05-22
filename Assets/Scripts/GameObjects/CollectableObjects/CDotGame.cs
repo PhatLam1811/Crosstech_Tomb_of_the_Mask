@@ -4,13 +4,4 @@ using UnityEngine;
 
 public class CDotGame : CBaseCollectableObject
 {
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-
-    }
 }

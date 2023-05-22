@@ -12,6 +12,16 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
     public GameObject prefab_star;
     public GameObject prefab_coin;
 
+    public int currentLevelTotalDots;
+
+    public int currentLevelCollectedDots;
+    public int currentLevelCollectedStars;
+
+    private void Start()
+    {
+        CGamePlayManager.Instance.StartGame();
+    }
+
     private void Update()
     {
         this.PseudoInputProcess();
@@ -51,7 +61,8 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
             switch (config._id)
             {
                 case GameDefine.DOT_TILE_ID:
-                    Instantiate(this.prefab_dotGame, worldPos, Quaternion.identity); break;
+                    Instantiate(this.prefab_dotGame, worldPos, Quaternion.identity);
+                    this.currentLevelTotalDots++; break;
                 case GameDefine.STAR_TILE_ID:
                     Instantiate(this.prefab_star, worldPos, Quaternion.identity); break;
                 case GameDefine.COIN_TILE_ID:
@@ -60,12 +71,21 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
         }
     }
 
-    public void OnPlayerHitDotGame(CDotGame collidedDotGame)
+    public void OnPlayerHitDotGame(CDotGame collectedDotGame)
     {
-        collidedDotGame.OnCollectedByPlayer();
+        this.currentLevelCollectedDots++;
+        collectedDotGame.OnCollectedByPlayer();
     }
 
-    public void OnPlayerHitStar() { }
+    public void OnPlayerHitStar(CStar collectedStar) 
+    {
+        this.currentLevelCollectedStars++;
+        collectedStar.OnCollectedByPlayer();
+    }
 
-    public void OnPlayerHitCoin() { }
+    public void OnPlayerHitCoin(CCoin collectedCoin)
+    {
+        collectedCoin.OnCollectedByPlayer();
+        // update player's total coin
+    }
 }

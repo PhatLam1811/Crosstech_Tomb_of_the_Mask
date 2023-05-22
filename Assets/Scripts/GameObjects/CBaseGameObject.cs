@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class CBaseGameObject : MonoBehaviour
 {
-    private void Start()
+    protected Vector3 movingVector;
+    protected float speed;
+
+    void Start()
     {
-        
+        this.Initialize();
     }
 
-    private void Update()
+    protected virtual void Initialize()
     {
-        
+        this.movingVector = Vector3.zero;
+        this.speed = 0.0f;
     }
 }

@@ -1,20 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CPlayer : CBaseGameObject
 {
-    private Vector3 movingVector;
-    private float speed;
-
     private Queue<PlayerMoves> movesOnStandBy;
 
     private bool _isOnPlatform;
-
-    private void Start()
-    {
-        this.Initialize();
-    }
 
     private void Update()
     {
@@ -29,12 +22,22 @@ public class CPlayer : CBaseGameObject
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Is Triggered!");
-
         if (collision.TryGetComponent<CDotGame>(out CDotGame dotGame))
         {
-            CGamePlayManager.Instance.OnPlayerHitDotGame(dotGame);
+            CGamePlayManager.Instance.OnPlayerHitDotGame(dotGame); return;
         }
+
+        if (collision.TryGetComponent<CStar>(out CStar star))
+        {
+            CGamePlayManager.Instance.OnPlayerHitStar(star); return;
+        }
+
+        if (collision.TryGetComponent<CCoin>(out CCoin coin))
+        {
+            CGamePlayManager.Instance.OnPlayerHitCoin(coin); return;
+        }
+
+        Debug.Log("Is Triggered!");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -47,7 +50,7 @@ public class CPlayer : CBaseGameObject
         }
     }
 
-    private void Initialize()
+    protected override void Initialize()
     {
         this.movingVector = Vector3.zero;
         this.speed = 1.0f; // this will be configurate outside later on
@@ -67,16 +70,12 @@ public class CPlayer : CBaseGameObject
             {
                 case PlayerMoves.Up:
                     this.movingVector = Vector3.up; break;
-                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Left:
                     this.movingVector = Vector3.left; break;
-                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Down:
                     this.movingVector = Vector3.down; break;
-                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.down * 5f, ForceMode2D.Impulse); break;
                 case PlayerMoves.Right:
                     this.movingVector = Vector3.right; break;
-                    // this.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 5f, ForceMode2D.Impulse); break;
                 default: 
                     break;
             }
@@ -92,20 +91,14 @@ public class CPlayer : CBaseGameObject
 
     private void OnHittingWalls()
     {
-        Debug.Log(this.transform.position);
-        this.transform.position += this.movingVector * -0.037f;
+        // this.transform.position += this.movingVector * -0.037f;
         this.movingVector = Vector3.zero;
         this._isOnPlatform = true;
     }
 
     public void StartGame()
     {
-        this.movingVector = Vector3.zero;
         this.speed = 6.0f; // this will be configurate outside later on
-
-        this.movesOnStandBy = new Queue<PlayerMoves>();
-
-        this._isOnPlatform = true;
     }
 
     public void RegisterNextMove(PlayerMoves nextMove)
