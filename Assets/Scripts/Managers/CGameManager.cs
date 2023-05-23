@@ -26,9 +26,10 @@ public class CGameManager : MonoSingleton<CGameManager>
     {
         // load Game Configs
         // load Game Data
-        // CGamePlayManager.Instance.StartGame();
-        this.PlayLoadingScene();
+        
         DontDestroyOnLoad(this.gameObject);
+
+        this.PlayLoadingScene();
     }
 
     public void PlayLoadingScene()
@@ -66,7 +67,7 @@ public class CGameManager : MonoSingleton<CGameManager>
     public void OnTapToPlayClicked()
     {
         SceneManager.LoadSceneAsync(GameDefine.PLAY_SCENE_ID);
-        // CGamePlayManager.Instance.StartGame();
+        CSoundManager.Instance.StopBGM();
     }
 
     public T GetResourceFile<T>(string path) where T : UnityEngine.Object

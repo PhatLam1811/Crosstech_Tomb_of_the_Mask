@@ -26,9 +26,16 @@ public class CPlayerConfigs : ScriptableObject
     }
     #endregion
 
-    public int maxLife;
+    public int maxEnergy;
+    public int defaultEnergy;
+
     public float speed;
+
+    public int collectedCoins;
+    public int collectedDots;
+
     public int defaultMask;
+    
     public List<CMaskConfig> masks;
 }
 
