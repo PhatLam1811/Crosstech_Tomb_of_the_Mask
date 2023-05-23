@@ -22,13 +22,17 @@ public class CGameManager : MonoSingleton<CGameManager>
         this.OpenApp();
     }
 
+    private void Update()
+    {
+        this.OnGameManageKeyInputProcess();
+    }
+
     void OpenApp()
     {
-        // load Game Configs
-        // load Game Data
-        
+        // load Game Configs        
         DontDestroyOnLoad(this.gameObject);
 
+        CGameDataManager.Instance.OpenApp();
         this.PlayLoadingScene();
     }
 
@@ -68,6 +72,14 @@ public class CGameManager : MonoSingleton<CGameManager>
     {
         SceneManager.LoadSceneAsync(GameDefine.PLAY_SCENE_ID);
         CSoundManager.Instance.StopBGM();
+    }
+
+    public void OnGameManageKeyInputProcess()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CGameDataManager.Instance.ClearGameData();
+        }
     }
 
     public T GetResourceFile<T>(string path) where T : UnityEngine.Object
