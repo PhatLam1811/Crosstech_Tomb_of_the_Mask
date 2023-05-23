@@ -10,6 +10,8 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     public void OpenApp()
     {
         this.LoadGameData();
+
+        CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
     }
 
     public void LoadGameData()
@@ -23,7 +25,7 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
                 if (!string.IsNullOrEmpty(jsonData))
                 {
                     this._gameData = JsonUtility.FromJson<CGameDatas>(jsonData);        
-                    // Debug.Log(jsonData);
+                    Debug.Log(jsonData);
                 }
                 else
                 {
@@ -48,6 +50,7 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     {
         string jsonData = JsonUtility.ToJson(this._gameData);
         PlayerPrefs.SetString(GameDefine.GAME_DATA, jsonData);
+        Debug.Log("GAME DATA SAVED!");
     }
 
     public void CreateNewGameData()
@@ -61,5 +64,10 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     {
         PlayerPrefs.DeleteKey(GameDefine.GAME_DATA);
         this.CreateNewGameData();
+    }
+
+    public void OnPlayerBoosterUpdated(BoosterType type)
+    {
+        this.SaveGameData();
     }
 }

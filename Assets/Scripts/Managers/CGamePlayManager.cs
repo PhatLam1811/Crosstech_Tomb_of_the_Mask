@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CGamePlayManager : MonoSingleton<CGamePlayManager>
+public class CGameplayManager : MonoSingleton<CGameplayManager>
 {
     public CPlayer _player;
 
@@ -19,7 +19,7 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
 
     private void Start()
     {
-        CGamePlayManager.Instance.StartGame();
+        CGameplayManager.Instance.StartGame();
     }
 
     private void Update()
@@ -30,6 +30,9 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
     public void StartGame()
     {
         this.LoadLevelMap();
+
+        CGameplayUIManager.Instance.StartGame();
+
         this._player.StartGame();
     }
 
@@ -86,6 +89,6 @@ public class CGamePlayManager : MonoSingleton<CGamePlayManager>
     public void OnPlayerHitCoin(CCoin collectedCoin)
     {
         collectedCoin.OnCollectedByPlayer();
-        // update player's total coin
+        CPlayerBoosterDatas.Instance.AddValueBooster(BoosterType.COIN, 1);
     }
 }

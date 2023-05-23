@@ -32,17 +32,17 @@ public class CPlayer : CBaseGameObject
     {
         if (collision.TryGetComponent<CDotGame>(out CDotGame dotGame))
         {
-            CGamePlayManager.Instance.OnPlayerHitDotGame(dotGame); return;
+            CGameplayManager.Instance.OnPlayerHitDotGame(dotGame); return;
         }
 
         if (collision.TryGetComponent<CStar>(out CStar star))
         {
-            CGamePlayManager.Instance.OnPlayerHitStar(star); return;
+            CGameplayManager.Instance.OnPlayerHitStar(star); return;
         }
 
         if (collision.TryGetComponent<CCoin>(out CCoin coin))
         {
-            CGamePlayManager.Instance.OnPlayerHitCoin(coin); return;
+            CGameplayManager.Instance.OnPlayerHitCoin(coin); return;
         }
 
         Debug.Log("Is Triggered!");

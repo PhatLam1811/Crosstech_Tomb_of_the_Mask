@@ -12,6 +12,13 @@ public enum BoosterType
     GAMEDOT = 3
 }
 
+public enum BoosterUpdateType
+{
+    ADD = 0,
+    SUBTRACT = 1,
+    SET = 2
+}
+
 [System.Serializable]
 public class CBoosterDataCommodity
 {
@@ -123,6 +130,7 @@ public class CPlayerBoosterDatas
         if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.AddValue(value);
+            this.OnBoosterUpdatedCallback(type);
         }
         else
         {
@@ -145,6 +153,7 @@ public class CPlayerBoosterDatas
         if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.SubtractValue(value);
+            this.OnBoosterUpdatedCallback(type);
         }
         else
         {
@@ -167,10 +176,34 @@ public class CPlayerBoosterDatas
         if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.SetValue(value);
+            this.OnBoosterUpdatedCallback(type);
         }
         else
         {
             Debug.LogError($"NOT EXISTED BOOSTER {type}");
+        }
+    }
+
+    public CBoosterDataCommodity GetBooster(BoosterType type)
+    {
+        if (this._userBoosterDatas == null)
+        {
+            this.CreateNew();
+        }
+
+        if (this._dictionaryUserBooster == null)
+        {
+            this.SetUpDictionary();
+        }
+
+        if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
+        {
+            return booster;
+        }
+        else
+        {
+            Debug.LogError($"NOT EXISTED BOOSTER {type}");
+            return null;
         }
     }
 
