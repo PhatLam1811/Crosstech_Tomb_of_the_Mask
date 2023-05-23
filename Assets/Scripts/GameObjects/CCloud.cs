@@ -7,8 +7,8 @@ public class CCloud : CBaseGameObject
     private static float minSpeed = 0.5f;
     private static float maxSpeed = 1.0f;
 
-    private static float outOfRightEdgeViewportPosX = 1.3f;
-    private static float outOfLeftEdgeViewportPosX = -0.3f;
+    private static float outOfViewportRightEdge = 1.3f;
+    private static float outOfViewportLeftEdge = -0.3f;
 
     private static float minRePositionViewportPosY = 0.6f;
     private static float maxRePositionViewportPosY = 0.9f;
@@ -28,7 +28,7 @@ public class CCloud : CBaseGameObject
     {
         Vector3 currentViewportPos = Utils.WorldToViewportPos(Camera.main, this.transform.position);
 
-        if (currentViewportPos.x >= outOfRightEdgeViewportPosX)
+        if (currentViewportPos.x >= outOfViewportRightEdge)
         {
             this.transform.position = this.RandomizeRePosition();
         }
@@ -38,7 +38,7 @@ public class CCloud : CBaseGameObject
 
     private Vector3 RandomizeRePosition()
     {
-        float viewportRePositionPosX = outOfLeftEdgeViewportPosX;
+        float viewportRePositionPosX = outOfViewportLeftEdge;
         float viewportRePositionPosY = Random.Range(minRePositionViewportPosY, maxRePositionViewportPosY);
 
         Vector3 viewportRePositionPos = new Vector3(viewportRePositionPosX, viewportRePositionPosY);
