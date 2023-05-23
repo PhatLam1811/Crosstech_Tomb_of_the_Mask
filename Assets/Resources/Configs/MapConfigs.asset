@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65e9d7efeb0cf1940a0687e53fad7100, type: 3}
-  m_Name: LevelConfigs
+  m_Name: MapConfigs
   m_EditorClassIdentifier: 
-  _levelConfigs:
+  _mapConfigs:
   - _id: 0
     _collectableObjectPositionConfigs:
     - _id: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     - _id: 0
       x: -6
       y: 4
-    - _id: 2
+    - _id: 0
       x: -6
       y: 6
     - _id: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
     - _id: 0
       x: -12
       y: 6
-    - _id: 2
+    - _id: 0
       x: -14
       y: 6
     - _id: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
     - _id: 0
       x: -22
       y: 4
-    - _id: 2
+    - _id: 0
       x: -22
       y: 2
     - _id: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
     - _id: 0
       x: -16
       y: 0
-    - _id: 2
+    - _id: 0
       x: -16
       y: 2
     - _id: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
     - _id: 0
       x: -10
       y: 14
-    - _id: 2
+    - _id: 0
       x: -10
       y: 12
     - _id: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
     - _id: 0
       x: -8
       y: 10
-    - _id: 2
+    - _id: 0
       x: -6
       y: 10
     - _id: 0
@@ -153,13 +153,13 @@ MonoBehaviour:
     - _id: 0
       x: -2
       y: 16
-    - _id: 2
+    - _id: 0
       x: -2
       y: 18
     - _id: 0
       x: -2
       y: 20
-    - _id: 2
+    - _id: 0
       x: -2
       y: 22
     - _id: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     - _id: 0
       x: -10
       y: 18
-    - _id: 2
+    - _id: 0
       x: -8
       y: 18
     - _id: 1
@@ -243,9 +243,3 @@ MonoBehaviour:
     - _id: 0
       x: -4
       y: 44
-    - _id: 0
-      x: -4
-      y: 46
-    - _id: 0
-      x: -4
-      y: 48

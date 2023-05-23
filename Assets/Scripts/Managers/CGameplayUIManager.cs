@@ -19,8 +19,12 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     {
         if (type == BoosterType.COIN)
         {
-            CBoosterDataCommodity coinBooster = CPlayerBoosterDatas.Instance.GetBooster(type);
-            this._tmpPlayerCoins.text = coinBooster.value.ToString();
+            long playerCoins = CPlayerBoosterDatas.Instance.GetBoosterValue(type);
+            
+            if (playerCoins != -1)
+            {
+                this._tmpPlayerCoins.text = playerCoins.ToString();
+            }
         }
     }
 

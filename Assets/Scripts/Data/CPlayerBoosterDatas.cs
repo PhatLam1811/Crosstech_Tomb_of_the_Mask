@@ -6,17 +6,11 @@ using UnityEngine.Events;
 
 public enum BoosterType
 {
-    EXP = 0,
-    ENERGY = 1,
-    COIN = 2,
-    GAMEDOT = 3
-}
-
-public enum BoosterUpdateType
-{
-    ADD = 0,
-    SUBTRACT = 1,
-    SET = 2
+    LEVEL = 0,
+    EXP = 1,
+    ENERGY = 2,
+    COIN = 3,
+    GAMEDOT = 4
 }
 
 [System.Serializable]
@@ -52,15 +46,16 @@ public class CBoosterDataCommodity
 [System.Serializable]
 public class CPlayerBoosterDatas
 {
-    public List<CBoosterDataCommodity> _userBoosterDatas;
-    public Dictionary<BoosterType, CBoosterDataCommodity> _dictionaryUserBooster;
-
-    public const int INITIAL_EXP = 0;
-    public const int INITIAL_ENERGY = 5;
-    public const int INITIAL_COINS = 500;
-    public const int INITIAL_GAMEDOTS = 0;
-
     public static CPlayerBoosterDatas Instance => CGameDataManager.Instance._gameData?._playerBoosterDatas;
+
+    public List<CBoosterDataCommodity> _playerBoosterDatas;
+    public Dictionary<BoosterType, CBoosterDataCommodity> _dictionaryPlayerBooster;
+
+    private const int INITIAL_LEVEL = 1;
+    private const int INITIAL_EXP = 0;
+    private const int INITIAL_ENERGY = 5;
+    private const int INITIAL_COINS = 500;
+    private const int INITIAL_GAMEDOTS = 0;
 
     public UnityAction<BoosterType> _callbackOnBoosterUpdated; 
 
@@ -71,43 +66,44 @@ public class CPlayerBoosterDatas
 
     private void SetUpDictionary()
     {
-        this._dictionaryUserBooster = new Dictionary<BoosterType, CBoosterDataCommodity>();
+        this._dictionaryPlayerBooster = new Dictionary<BoosterType, CBoosterDataCommodity>();
 
-        foreach(CBoosterDataCommodity boosterData in this._userBoosterDatas)
+        foreach(CBoosterDataCommodity boosterData in this._playerBoosterDatas)
         {
-            if (!this._dictionaryUserBooster.ContainsKey(boosterData.type))
+            if (!this._dictionaryPlayerBooster.ContainsKey(boosterData.type))
             {
-                this._dictionaryUserBooster.Add(boosterData.type, boosterData);
+                this._dictionaryPlayerBooster.Add(boosterData.type, boosterData);
             }
         }
     }
 
     public void CreateNew()
     {
-        this._userBoosterDatas = new List<CBoosterDataCommodity>();
+        this._playerBoosterDatas = new List<CBoosterDataCommodity>();
 
-        this._userBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.EXP, value: INITIAL_EXP));
-        this._userBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.ENERGY, value: INITIAL_ENERGY));
-        this._userBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.COIN, value: INITIAL_COINS));
-        this._userBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.GAMEDOT, value: INITIAL_GAMEDOTS));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.LEVEL, value: INITIAL_LEVEL));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.EXP, value: INITIAL_EXP));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.ENERGY, value: INITIAL_ENERGY));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.COIN, value: INITIAL_COINS));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.GAMEDOT, value: INITIAL_GAMEDOTS));
     }
 
     public void AddNewBooster(BoosterType type, long value)
     {
-        if (this._userBoosterDatas == null)
+        if (this._playerBoosterDatas == null)
         {
             this.CreateNew();
         }
 
-        if (this._dictionaryUserBooster == null)
+        if (this._dictionaryPlayerBooster == null)
         {
             this.SetUpDictionary();
         }
 
-        if (!this._dictionaryUserBooster.ContainsKey(type))
+        if (!this._dictionaryPlayerBooster.ContainsKey(type))
         {
             CBoosterDataCommodity newBooster = new CBoosterDataCommodity(type, value);
-            this._dictionaryUserBooster.Add(type, newBooster);
+            this._dictionaryPlayerBooster.Add(type, newBooster);
         }
         else
         {
@@ -117,17 +113,17 @@ public class CPlayerBoosterDatas
 
     public void AddValueBooster(BoosterType type, long value)
     {
-        if (this._userBoosterDatas == null)
+        if (this._playerBoosterDatas == null)
         {
             this.CreateNew();
         }
 
-        if (this._dictionaryUserBooster == null)
+        if (this._dictionaryPlayerBooster == null)
         {
             this.SetUpDictionary();
         }
 
-        if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
+        if (this._dictionaryPlayerBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.AddValue(value);
             this.OnBoosterUpdatedCallback(type);
@@ -140,17 +136,17 @@ public class CPlayerBoosterDatas
 
     public void SubtractValueBooster(BoosterType type, long value)
     {
-        if (this._userBoosterDatas == null)
+        if (this._playerBoosterDatas == null)
         {
             this.CreateNew();
         }
 
-        if (this._dictionaryUserBooster == null)
+        if (this._dictionaryPlayerBooster == null)
         {
             this.SetUpDictionary();
         }
 
-        if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
+        if (this._dictionaryPlayerBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.SubtractValue(value);
             this.OnBoosterUpdatedCallback(type);
@@ -163,17 +159,17 @@ public class CPlayerBoosterDatas
 
     public void SetValueBooster(BoosterType type, long value)
     {
-        if (this._userBoosterDatas == null)
+        if (this._playerBoosterDatas == null)
         {
             this.CreateNew();
         }
 
-        if (this._dictionaryUserBooster == null)
+        if (this._dictionaryPlayerBooster == null)
         {
             this.SetUpDictionary();
         }
 
-        if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
+        if (this._dictionaryPlayerBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
             booster.SetValue(value);
             this.OnBoosterUpdatedCallback(type);
@@ -184,26 +180,26 @@ public class CPlayerBoosterDatas
         }
     }
 
-    public CBoosterDataCommodity GetBooster(BoosterType type)
+    public long GetBoosterValue(BoosterType type)
     {
-        if (this._userBoosterDatas == null)
+        if (this._playerBoosterDatas == null)
         {
             this.CreateNew();
         }
 
-        if (this._dictionaryUserBooster == null)
+        if (this._dictionaryPlayerBooster == null)
         {
             this.SetUpDictionary();
         }
 
-        if (this._dictionaryUserBooster.TryGetValue(type, out CBoosterDataCommodity booster))
+        if (this._dictionaryPlayerBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
-            return booster;
+            return booster.value;
         }
         else
         {
             Debug.LogError($"NOT EXISTED BOOSTER {type}");
-            return null;
+            return -1;
         }
     }
 

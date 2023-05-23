@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Level Configs", fileName = "LevelConfigs")]
-public class CLevelConfigs : ScriptableObject
+[CreateAssetMenu(menuName = "Game/Map Configs", fileName = "MapConfigs")]
+public class CMapConfigs : ScriptableObject
 {
     #region Singleton
-    private static CLevelConfigs _instance;
+    private static CMapConfigs _instance;
 
-    public static CLevelConfigs Instance
+    public static CMapConfigs Instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = CGameManager.Instance.GetResourceFile<CLevelConfigs>(GameDefine.LEVEL_CONFIGS_FILE_PATH);
+                _instance = CGameManager.Instance.GetResourceFile<CMapConfigs>(GameDefine.MAP_CONFIGS_FILE_PATH);
 
                 if (_instance == null)
                 {
-                    Debug.LogError("Couldn't load resource file of type : " + typeof(CLevelConfigs).ToString());
+                    Debug.LogError("Couldn't load resource file of type : " + typeof(CMapConfigs).ToString());
                 }
             }
             return _instance;
@@ -27,13 +27,14 @@ public class CLevelConfigs : ScriptableObject
     }
     #endregion
 
-    public List<CLevelConfig> _levelConfigs;
+    public List<CMapConfig> _mapConfigs;
 }
 
 [System.Serializable]
-public class CLevelConfig
+public class CMapConfig
 {
     public int _id;
+
     public List<CCollectableObjectPositionConfig> _collectableObjectPositionConfigs;
 }
 

@@ -6,7 +6,10 @@ using UnityEngine;
 [System.Serializable]
 public class CGameDatas
 {
+    public static CGameDatas Instance => CGameDataManager.Instance._gameData;
+
     public CPlayerBoosterDatas _playerBoosterDatas;
+    public CMapDatas _mapDatas;
 
     public void OpenApp()
     {
@@ -16,6 +19,9 @@ public class CGameDatas
     public void CreateNew()
     {
         this._playerBoosterDatas = new CPlayerBoosterDatas();
+        this._mapDatas = new CMapDatas();
+
         this._playerBoosterDatas.CreateNew();
+        this._mapDatas.CreateNew();
     }
 }

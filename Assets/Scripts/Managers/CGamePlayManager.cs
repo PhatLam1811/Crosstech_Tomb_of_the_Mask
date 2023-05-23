@@ -8,14 +8,17 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     public Grid _grid;
 
+    public GameObject prefab_exit;
     public GameObject prefab_dotGame;
     public GameObject prefab_star;
     public GameObject prefab_coin;
 
-    public int currentLevelTotalDots;
+    public int currentMapTotalCoins = 0;
 
-    public int currentLevelCollectedDots;
-    public int currentLevelCollectedStars;
+    public int currentMapTotalDots;
+
+    public int currentMapCollectedDots;
+    public int currentMapCollectedStars;
 
     private void Start()
     {
@@ -53,7 +56,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private void LoadLevelMap()
     {
-        CLevelConfig levelConfig = CLevelConfigs.Instance._levelConfigs[0];
+        CMapConfig levelConfig = CMapConfigs.Instance._mapConfigs[0];
 
         foreach (CCollectableObjectPositionConfig config in levelConfig._collectableObjectPositionConfigs)
         {
@@ -64,25 +67,36 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             switch (config._id)
             {
                 case GameDefine.DOT_TILE_ID:
-                    Instantiate(this.prefab_dotGame, worldPos, Quaternion.identity);
-                    this.currentLevelTotalDots++; break;
+                    int min = 1;
+                    int max = 10;
+                    if (this.currentMapTotalCoins * 10 >= levelConfig._collectableObjectPositionConfigs.Count || Random.Range(min, max) != 1)
+                    {
+                        Instantiate(this.prefab_dotGame, worldPos, Quaternion.identity);
+                        this.currentMapTotalDots++;
+                    }    
+                    else
+                    {
+                        Instantiate(this.prefab_coin, worldPos, Quaternion.identity);
+                        this.currentMapTotalCoins++;
+                    }
+                    break;
                 case GameDefine.STAR_TILE_ID:
                     Instantiate(this.prefab_star, worldPos, Quaternion.identity); break;
-                case GameDefine.COIN_TILE_ID:
-                    Instantiate(this.prefab_coin, worldPos, Quaternion.identity); break;
+                case GameDefine.EXIT_TILE_ID:
+                    Instantiate(this.prefab_exit, worldPos, Quaternion.identity); break;
             }
         }
     }
 
     public void OnPlayerHitDotGame(CDotGame collectedDotGame)
     {
-        this.currentLevelCollectedDots++;
+        this.currentMapCollectedDots++;
         collectedDotGame.OnCollectedByPlayer();
     }
 
     public void OnPlayerHitStar(CStar collectedStar) 
     {
-        this.currentLevelCollectedStars++;
+        this.currentMapCollectedStars++;
         collectedStar.OnCollectedByPlayer();
     }
 
