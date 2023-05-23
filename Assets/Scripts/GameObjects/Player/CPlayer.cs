@@ -1,16 +1,24 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
 public class CPlayer : CBaseGameObject
 {
+    /// <summary>
+    /// 4 collider ở 4 phía của player, nhưng theo game gốc thì chỉ cần 1 cái ở dưới chân thôi vì player có rotation nữa. Cái này optimize sau
+    /// </summary>
+    public CPlayerCollider[] _colliders;
+    bool isMoving;
+
     private Queue<PlayerMoves> movesOnStandBy;
 
     private bool _isOnPlatform;
-
-    private void Update()
+    private void LateUpdate()
     {
+        if (!isMoving)
+            return;
+
         // only move in another direction if the player has collided with a wall
         if (this._isOnPlatform)
         {
@@ -40,16 +48,27 @@ public class CPlayer : CBaseGameObject
         Debug.Log("Is Triggered!");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Is Collided!");
+    /// <summary>
+    /// Dời logic bắt collision vào các collider con
+    /// </summary>
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("OnCollisionEnter2D!");
 
-        if (!this._isOnPlatform)
-        {
-            this.OnHittingWalls();
-        }
-    }
+    //    if (!this._isOnPlatform)
+    //    {
+    //        this.OnHittingWalls();
+    //    }
+    //}
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    Debug.Log("OnCollisionStay2D!");
 
+    //    if (!this._isOnPlatform)
+    //    {
+    //        this.OnHittingWalls();
+    //    }
+    //}
     protected override void Initialize()
     {
         this.movingVector = Vector3.zero;
@@ -81,6 +100,19 @@ public class CPlayer : CBaseGameObject
             }
 
             this._isOnPlatform = false;
+
+            ///Chỉ bật collider ở hướng user đang di chuyển, các collider khác tắt đi để không quẹt cạ vào tường
+            for (int i = 0; i < _colliders.Length; i++)
+            {
+                if (i == (int)nextMove)
+                    this._colliders[i].ReadyForCatchCollide();
+                else
+                    this._colliders[i].TurnCollider(false);
+            }
+
+            isMoving = true;
+
+            //Move();
         }
     }
 
@@ -89,21 +121,47 @@ public class CPlayer : CBaseGameObject
         this.transform.position += this.movingVector * this.speed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// Chạm tường:
+    /// Không di chuyển nửa
+    /// Snap lại vị trí của player item cho đúng vào cell
+    /// </summary>
     private void OnHittingWalls()
     {
-        // this.transform.position += this.movingVector * -0.037f;
         this.movingVector = Vector3.zero;
         this._isOnPlatform = true;
+        this.transform.position += this.movingVector * -0.037f;
+        isMoving = false;
+    }
+    /// <summary>
+    /// Collider invoke khi nó va chạm wall => tắt nó đi và xử lý chạm tường
+    /// </summary>
+    /// <param name="collider"></param>
+    private void OnColliderReceive(CPlayerCollider collider)
+    {
+        OnHittingWalls();
+        collider.TurnCollider(false);
     }
 
     public void StartGame()
     {
         this.speed = 6.0f; // this will be configurate outside later on
+
+
+        foreach (CPlayerCollider collider in this._colliders)
+        {
+            collider.onCollider -= OnColliderReceive;
+            collider.onCollider += OnColliderReceive;
+
+            collider.TurnCollider( false);
+        }
+
     }
 
     public void RegisterNextMove(PlayerMoves nextMove)
     {
         this.movesOnStandBy.Enqueue(nextMove);
+        PrepareForNextMove();
         Debug.Log(this.movesOnStandBy.Count);
     }
 }
