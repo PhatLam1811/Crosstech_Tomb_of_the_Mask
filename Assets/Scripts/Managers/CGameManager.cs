@@ -27,12 +27,14 @@ public class CGameManager : MonoSingleton<CGameManager>
         this.OnGameManageKeyInputProcess();
     }
 
-    void OpenApp()
+    private void OpenApp()
     {
         // load Game Configs        
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();
+        CDialogManager.Instance.OpenApp();
+
         this.PlayLoadingScene();
     }
 

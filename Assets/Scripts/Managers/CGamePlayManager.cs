@@ -6,6 +6,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 {
     public CPlayer _player;
 
+    public Transform _canvasPos;
+
     public Grid _grid;
 
     public GameObject prefab_exit;
@@ -109,6 +111,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerReachExit()
     {
         // Map cleared dialog appears
+        CDialogManager.Instance.ShowDialog<CMapClearedDialog>(GameDefine.DIALOG_MAP_CLEARED_PATH, this._canvasPos);
         // Count & save collected gamedots
         // Count collected stars
         // Update map data

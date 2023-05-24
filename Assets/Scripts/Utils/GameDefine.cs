@@ -12,6 +12,7 @@ public class GameDefine
     public const string GAME_DATA = "GAME_DATA";
 
     // CONFIGS
+    public const string DIALOG_CONFIGS_FILE_PATH = "Configs/DialogConfigs";
     public const string PLAYER_CONFIGS_FILE_PATH = "Configs/PlayerConfigs";
     public const string MAP_CONFIGS_FILE_PATH = "Configs/MapConfigs";
     public const string SOUND_CONFIGS_FILE_PATH = "Configs/SoundConfigs";
@@ -28,4 +29,7 @@ public class GameDefine
     // SOUNDS
     public const string TITLE_REVEAL_FX_KEY = "Logo";
     public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
+
+    // DIALOGS
+    public const string DIALOG_MAP_CLEARED_PATH = "Dialogs/map_cleared_dialog";
 }
