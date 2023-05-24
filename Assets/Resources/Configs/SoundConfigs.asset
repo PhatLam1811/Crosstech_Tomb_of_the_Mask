@@ -15,3 +15,8 @@ MonoBehaviour:
   audioClips:
   - {fileID: 8300000, guid: 25f2e5bb1d1573c489aeb4718315149c, type: 3}
   - {fileID: 8300000, guid: c943e1dcdd2540a40bbe270ab4c1a959, type: 3}
+  - {fileID: 8300000, guid: fc520e95769bbdc489a06759c721e1b7, type: 3}
+  - {fileID: 8300000, guid: 868b29ccd5ec10b438998844c428c028, type: 3}
+  - {fileID: 8300000, guid: 79ea650cd930a6945b2965f32261142e, type: 3}
+  - {fileID: 8300000, guid: 37d89ba72e4599143a714684fea01b64, type: 3}
+  - {fileID: 8300000, guid: 86d43e61fa36cfb45aafbb3bd1d80ca6, type: 3}

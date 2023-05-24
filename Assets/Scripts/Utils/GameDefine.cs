@@ -19,6 +19,8 @@ public class GameDefine
 
     // ANIMATIONS
     public const string TITLE_REVEAL_ANIM = "title_reveal";
+    public const string NOTIFY_ANIM = "notify";
+    public const string STAR_GETS_ANIM = "star_get";
 
     // TILES
     public const int DOT_TILE_ID = 0;
@@ -28,6 +30,12 @@ public class GameDefine
 
     // SOUNDS
     public const string TITLE_REVEAL_FX_KEY = "Logo";
+    public const string STAR_COLLECTED_1_FX_KEY = "1_star";
+    public const string STAR_COLLECTED_2_FX_KEY = "2_star";
+    public const string STAR_COLLECTED_3_FX_KEY = "3_star";
+    public const string SCORE_COUNT_FX_KEY = "Score_count";
+    public const string POWER_UP_OFF_FX_KEY = "Power_up_off";
+    public const string BUTTON_CLICK_FX_KEY = "Button_2";
     public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
 
     // DIALOGS

@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CMapResult
+{
+    public bool isCleared;
+    public float percentDotsCollected;
+    public int starsCollected;
+}
+
 public class CGameplayManager : MonoSingleton<CGameplayManager>
 {
     public CPlayer _player;
@@ -110,8 +117,23 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     public void OnPlayerReachExit()
     {
-        // Map cleared dialog appears
-        CDialogManager.Instance.ShowDialog<CMapClearedDialog>(GameDefine.DIALOG_MAP_CLEARED_PATH, this._canvasPos);
+        float percentDotsCollected = (this.currentMapCollectedDots * 1.0f) / this.currentMapTotalDots;
+        
+        Debug.Log("collected dots = " + this.currentMapCollectedDots);
+        Debug.Log("total dots = " + this.currentMapTotalDots);
+        Debug.Log("percent dots = " + percentDotsCollected);
+
+        CMapResult result = new CMapResult()
+        {
+            isCleared = true,
+            percentDotsCollected = percentDotsCollected,
+            starsCollected = this.currentMapCollectedStars
+        };
+
+        CDialogManager.Instance.ShowDialog<CMapClearedDialog>(
+            path: GameDefine.DIALOG_MAP_CLEARED_PATH, 
+            canvasPos: this._canvasPos, 
+            data: result);
         // Count & save collected gamedots
         // Count collected stars
         // Update map data
