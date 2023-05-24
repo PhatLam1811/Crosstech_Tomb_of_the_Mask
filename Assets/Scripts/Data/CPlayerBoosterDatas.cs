@@ -13,6 +13,13 @@ public enum BoosterType
     GAMEDOT = 4
 }
 
+public enum BoosterUpdateType
+{
+    ADD_VALUE = 0,
+    SUBTRACT_VALUE = 1,
+    SET_VALUE = 2
+}
+
 [System.Serializable]
 public class CBoosterDataCommodity
 {

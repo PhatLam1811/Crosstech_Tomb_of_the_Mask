@@ -103,7 +103,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerHitCoin(CCoin collectedCoin)
     {
         collectedCoin.OnCollectedByPlayer();
-        CPlayerBoosterDatas.Instance.AddValueBooster(BoosterType.COIN, 1);
+        CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.COIN, 1);
     }
 
     public void OnPlayerReachExit()

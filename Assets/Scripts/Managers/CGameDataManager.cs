@@ -66,6 +66,21 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
         this.CreateNewGameData();
     }
 
+    public void UpdatePlayerBoosterData(BoosterUpdateType updateType, BoosterType boosterType, long value)
+    {
+        if (this._gameData == null)
+        {
+            this.CreateNewGameData();
+        }
+
+        this._gameData.UpdatePlayerBooster(updateType, boosterType, value);
+    }
+
+    public long GetPlayerBoosterData(BoosterType type)
+    {
+        return CPlayerBoosterDatas.Instance.GetBoosterValue(type);
+    }
+
     public void OnPlayerBoosterUpdated(BoosterType type)
     {
         this.SaveGameData();

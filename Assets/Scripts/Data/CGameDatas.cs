@@ -24,4 +24,22 @@ public class CGameDatas
         this._playerBoosterDatas.CreateNew();
         this._mapDatas.CreateNew();
     }
+
+    public void UpdatePlayerBooster(BoosterUpdateType updateType, BoosterType boosterType, long value)
+    {
+        if (this._playerBoosterDatas == null)
+        {
+            Debug.LogError($"DATA NULL OF TYPE: {typeof(CPlayerBoosterDatas)}!"); return;
+        }
+
+        switch(updateType)
+        {
+            case BoosterUpdateType.ADD_VALUE:
+                this._playerBoosterDatas.AddValueBooster(boosterType, value); break;
+            case BoosterUpdateType.SUBTRACT_VALUE:
+                this._playerBoosterDatas.SubtractValueBooster(boosterType, value); break;
+            case BoosterUpdateType.SET_VALUE:
+                this._playerBoosterDatas.SetValueBooster(boosterType, value); break;
+        }
+    }
 }
