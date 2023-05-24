@@ -13,4 +13,24 @@ public class Utils
     {
         return camera.ViewportToWorldPoint(viewportPos);
     }
+
+    public static Vector3 WorldToScreenPos(Camera camera, Vector3 worldPos)
+    {
+        return camera.WorldToScreenPoint(worldPos);
+    }
+
+    public static Vector3 ScreenToWorldPos(Camera camera, Vector3 screenPos)
+    {
+        return camera.ScreenToWorldPoint(screenPos);
+    }
+
+    public static Vector3 ViewportToScreenPos(Camera camera, Vector3 viewportPos)
+    {
+        return camera.ViewportToScreenPoint(viewportPos);
+    }
+
+    public static Vector3 ScreenToViewportPos(Camera camera, Vector3 screenPos)
+    {
+        return camera.ScreenToViewportPoint(screenPos);
+    }
 }

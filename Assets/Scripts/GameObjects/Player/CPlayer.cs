@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+public enum PlayerMoves
+{
+    Up,
+    Left,
+    Down,
+    Right
+}
+
 public class CPlayer : CBaseGameObject
 {
     /// <summary>
@@ -45,6 +53,11 @@ public class CPlayer : CBaseGameObject
             CGameplayManager.Instance.OnPlayerHitCoin(coin); return;
         }
 
+        if (collision.TryGetComponent<CExit>(out CExit exit))
+        {
+            CGameplayManager.Instance.OnPlayerReachExit(); return;
+        }
+
         Debug.Log("Is Triggered!");
     }
 
@@ -69,10 +82,11 @@ public class CPlayer : CBaseGameObject
     //        this.OnHittingWalls();
     //    }
     //}
+
     protected override void Initialize()
     {
         this.movingVector = Vector3.zero;
-        this.speed = 1.0f; // this will be configurate outside later on
+        this.speed = 10.0f; // this will be configurate outside later on
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
@@ -164,12 +178,4 @@ public class CPlayer : CBaseGameObject
         PrepareForNextMove();
         Debug.Log(this.movesOnStandBy.Count);
     }
-}
-
-public enum PlayerMoves
-{
-    Up, 
-    Left, 
-    Down, 
-    Right
 }

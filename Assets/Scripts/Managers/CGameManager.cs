@@ -82,6 +82,21 @@ public class CGameManager : MonoSingleton<CGameManager>
         }
     }
 
+    public void OnShowDialog<T>(string path, object data = null, UnityEngine.Events.UnityAction callbackCompleteShow = null) where T : CBaseDialog
+    {
+        GameObject dialogPrefab = this.GetResourceFile<GameObject>(path);
+
+        if (dialogPrefab != null)
+        {
+            //T dialogComponent = (Instantiate(dialogPrefab, this.canvasPos)).GetComponent<T>();
+
+            //if (dialogComponent != null)
+            //{
+            //    dialogComponent.OnShow(data, callbackCompleteShow);
+            //}
+        }
+    }
+
     public T GetResourceFile<T>(string path) where T : UnityEngine.Object
     {
         return Resources.Load<T>(path) as T;

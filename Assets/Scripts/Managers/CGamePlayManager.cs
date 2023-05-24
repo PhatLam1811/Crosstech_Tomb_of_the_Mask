@@ -14,11 +14,10 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public GameObject prefab_coin;
 
     public int currentMapTotalCoins = 0;
+    public int currentMapTotalDots = 0;
 
-    public int currentMapTotalDots;
-
-    public int currentMapCollectedDots;
-    public int currentMapCollectedStars;
+    public int currentMapCollectedDots = 0;
+    public int currentMapCollectedStars = 0;
 
     private void Start()
     {
@@ -98,11 +97,21 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     {
         this.currentMapCollectedStars++;
         collectedStar.OnCollectedByPlayer();
+        CGameplayUIManager.Instance.OnPlayerCollectedStar(this.currentMapCollectedStars);
     }
 
     public void OnPlayerHitCoin(CCoin collectedCoin)
     {
         collectedCoin.OnCollectedByPlayer();
         CPlayerBoosterDatas.Instance.AddValueBooster(BoosterType.COIN, 1);
+    }
+
+    public void OnPlayerReachExit()
+    {
+        // Map cleared dialog appears
+        // Count & save collected gamedots
+        // Count collected stars
+        // Update map data
+        // CMapDatas.Instance.SetMapStars( this.currentMapCollectedStars);
     }
 }

@@ -7,6 +7,7 @@ using TMPro;
 public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 {
     public TextMeshProUGUI _tmpPlayerCoins;
+    public CGameplayStarsHolder _starsHolder;
     public Button _btnPause;
     public Button _btnShield;
 
@@ -26,6 +27,11 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
                 this._tmpPlayerCoins.text = playerCoins.ToString();
             }
         }
+    }
+
+    public void OnPlayerCollectedStar(int starNumber) 
+    {
+        this._starsHolder.OnStarCollected(starNumber);
     }
 
     public void OnPauseBtnClicked()

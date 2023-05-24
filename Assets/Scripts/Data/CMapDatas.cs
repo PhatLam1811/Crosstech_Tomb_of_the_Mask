@@ -25,7 +25,7 @@ public class CMapData
 [System.Serializable]
 public class CMapDatas
 {
-    public static CPlayerBoosterDatas Instance => CGameDataManager.Instance._gameData?._playerBoosterDatas;
+    public static CMapDatas Instance => CGameDataManager.Instance._gameData?._mapDatas;
 
     public List<CMapData> _mapDatas;
     public Dictionary<int, CMapData> _dictionaryMapDatas;
