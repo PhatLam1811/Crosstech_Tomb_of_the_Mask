@@ -20,7 +20,7 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     {
         if (type == BoosterType.COIN)
         {
-            long playerCoins = CGameDataManager.Instance.GetPlayerBoosterData(type);
+            long playerCoins = CGameDataManager.Instance.GetPlayerBoosterData(type).value;
             
             if (playerCoins != -1)
             {

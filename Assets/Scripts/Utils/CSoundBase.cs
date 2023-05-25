@@ -6,12 +6,12 @@ public class CSoundBase : MonoBehaviour
 {
     public AudioSource _audioSource;
 
-    public void Play(string key)
+    public float Play(string key)
     {
         if (string.IsNullOrEmpty(key))
         {
             Debug.LogError("KEY NULL: " + key);
-            return;
+            return 0.0f;
         }
 
         if (this._audioSource != null)
@@ -21,7 +21,11 @@ public class CSoundBase : MonoBehaviour
             this._audioSource.mute = false;
 
             this._audioSource.Play();
+
+            return this._audioSource.clip.length;
         }
+
+        return 0.0f;
     }
 
     public void PlayLoop(string key)

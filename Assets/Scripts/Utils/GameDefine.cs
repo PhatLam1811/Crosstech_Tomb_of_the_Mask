@@ -36,6 +36,7 @@ public class GameDefine
     public const string SCORE_COUNT_FX_KEY = "Score_count";
     public const string POWER_UP_OFF_FX_KEY = "Power_up_off";
     public const string BUTTON_CLICK_FX_KEY = "Button_2";
+    public const string FADE_ZOOM_FX_KEY = "Fade_zoom_1";
     public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
 
     // DIALOGS

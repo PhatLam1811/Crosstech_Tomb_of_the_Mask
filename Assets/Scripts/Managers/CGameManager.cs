@@ -51,13 +51,13 @@ public class CGameManager : MonoSingleton<CGameManager>
         seq.Join(_shelzyLogo.GetComponent<SpriteRenderer>().DOFade(0f, 2f));
         seq.AppendCallback(() =>
         {
-            CSoundManager.Instance.PlayFx(GameDefine.TITLE_REVEAL_FX_KEY);
+            CGameSoundManager.Instance.PlayFx(GameDefine.TITLE_REVEAL_FX_KEY);
             _titleAnimator.Play(GameDefine.TITLE_REVEAL_ANIM);
         });
         seq.AppendInterval(2f);
         seq.AppendCallback(() =>
         {
-            CSoundManager.Instance.PlayLoopBGM(GameDefine.START_SCENE_WATER_BGM_KEY);
+            CGameSoundManager.Instance.PlayLoopBGM(GameDefine.START_SCENE_WATER_BGM_KEY);
         });
 
         foreach (GameObject sceneryObject in _sceneryObjects)
@@ -72,8 +72,18 @@ public class CGameManager : MonoSingleton<CGameManager>
 
     public void OnTapToPlayClicked()
     {
-        SceneManager.LoadSceneAsync(GameDefine.PLAY_SCENE_ID);
-        CSoundManager.Instance.StopBGM();
+        CGameSoundManager.Instance.StopBGM();
+        CGameSoundManager.Instance.AssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
+        CGameSoundManager.Instance.PlayFx(GameDefine.FADE_ZOOM_FX_KEY);
+    }
+
+    public void OnLoadingSceneChangeFxEnd(bool isPlaying)
+    {
+        if (!isPlaying)
+        {
+            CGameSoundManager.Instance.UnAssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
+            SceneManager.LoadSceneAsync(GameDefine.PLAY_SCENE_ID);
+        }
     }
 
     public void OnGameManageKeyInputProcess()

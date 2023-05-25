@@ -22,10 +22,17 @@ public class CMapClearedDialog : CBaseDialog
     public Button btn_next_stage;
     public Button btn_close;
 
+    private int _mapId;
+
     private int starsCollected = 0;
 
     private float coins_progress_bar_fill_amount = 0.0f;
     private float shield_progress_bar_fill_amount = 0.0f;
+
+    public override void OnShow(object data = null, UnityAction callback = null)
+    {
+        base.OnShow(data, callback);
+    }
 
     public override void OnCompleteShow()
     {
@@ -33,9 +40,11 @@ public class CMapClearedDialog : CBaseDialog
 
         if (this.data != null)
         {
-            if (this.data.GetType() == typeof(CMapResult))
+            if (this.data.GetType() == typeof(CMapClearedDialogData))
             {
-                CMapResult result = data as CMapResult;
+                CMapClearedDialogData result = data as CMapClearedDialogData;
+
+                this._mapId = result._mapId;
 
                 this.starsCollected = result.starsCollected;
 
@@ -88,11 +97,11 @@ public class CMapClearedDialog : CBaseDialog
             switch(i)
             {
                 case 0:
-                    CSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_1_FX_KEY); break;
+                    CGameSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_1_FX_KEY); break;
                 case 1:
-                    CSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_2_FX_KEY); break;
+                    CGameSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_2_FX_KEY); break;
                 case 2:
-                    CSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_3_FX_KEY); break;
+                    CGameSoundManager.Instance.PlayFx(GameDefine.STAR_COLLECTED_3_FX_KEY); break;
             }
 
             yield return new WaitForSeconds(delayTime);
@@ -103,37 +112,41 @@ public class CMapClearedDialog : CBaseDialog
 
     private void PlayCollectedDotsFillAmount()
     {
-        
         const float duration = 1.0f;
         this.img_collected_dots_bonus_coins_progress_bar
             .DOFillAmount(this.coins_progress_bar_fill_amount, duration)
-            .OnStart(() => CSoundManager.Instance.PlayLoopFx(GameDefine.SCORE_COUNT_FX_KEY))
+            .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.SCORE_COUNT_FX_KEY))
             .OnComplete(() =>
             {
-                CSoundManager.Instance.StopFx();
+                CGameSoundManager.Instance.StopFx();
 
                 if (this.coins_progress_bar_fill_amount == 1.0f)
                 {
-                    this.PlayBonusAcquiredAnim();
+                    if (!CGameDataManager.Instance.GetGameMapData(this._mapId).isBonusCollected)
+                    {
+                        this.PlayBonusAcquiredAnim();
+                        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_BONUS_COLLECTED, this._mapId);
+                    }
                 }
             });
     }
 
     private void PlayBonusAcquiredAnim()
     {
-        CSoundManager.Instance.PlayFx(GameDefine.POWER_UP_OFF_FX_KEY);
+        CGameSoundManager.Instance.PlayFx(GameDefine.POWER_UP_OFF_FX_KEY);
         this.img_bonus_coin_animator.Play(GameDefine.NOTIFY_ANIM);
     }
 
     public void OnBtnClaimChestPressed()
     {
-        CSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CHEST_CLAIMED, this._mapId);
         Debug.Log("Show Wheel Bonus");
     }
 
     public void OnBtnNextStagePressed()
     {
-        CSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
         Debug.Log("Load next map");
     }
 

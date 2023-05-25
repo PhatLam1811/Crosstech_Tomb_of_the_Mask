@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CMapResult
+public class CMapClearedDialogData
 {
+    public int _mapId;
+
     public bool isCleared;
     public float percentDotsCollected;
     public int starsCollected;
@@ -22,6 +24,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public GameObject prefab_star;
     public GameObject prefab_coin;
 
+    public int _currentMapId = 1;
+
     public int currentMapTotalCoins = 0;
     public int currentMapTotalDots = 0;
 
@@ -30,7 +34,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private void Start()
     {
-        CGameplayManager.Instance.StartGame();
+        this.StartGame();
     }
 
     private void Update()
@@ -38,9 +42,17 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this.PseudoInputProcess();
     }
 
+    public void PlayMap(int id)
+    {
+        this._currentMapId = id;
+        Debug.Log("On Play Map");
+    }
+
     public void StartGame()
     {
-        this.LoadLevelMap();
+        Debug.Log("On Start Game");
+
+        this.LoadMap();
 
         CGameplayUIManager.Instance.StartGame();
 
@@ -62,7 +74,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             this._player.RegisterNextMove(PlayerMoves.Right);
     }
 
-    private void LoadLevelMap()
+    private void LoadMap()
     {
         CMapConfig levelConfig = CMapConfigs.Instance._mapConfigs[0];
 
@@ -118,13 +130,10 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerReachExit()
     {
         float percentDotsCollected = (this.currentMapCollectedDots * 1.0f) / this.currentMapTotalDots;
-        
-        Debug.Log("collected dots = " + this.currentMapCollectedDots);
-        Debug.Log("total dots = " + this.currentMapTotalDots);
-        Debug.Log("percent dots = " + percentDotsCollected);
 
-        CMapResult result = new CMapResult()
+        CMapClearedDialogData result = new CMapClearedDialogData()
         {
+            _mapId = this._currentMapId,
             isCleared = true,
             percentDotsCollected = percentDotsCollected,
             starsCollected = this.currentMapCollectedStars
@@ -134,9 +143,9 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             path: GameDefine.DIALOG_MAP_CLEARED_PATH, 
             canvasPos: this._canvasPos, 
             data: result);
-        // Count & save collected gamedots
-        // Count collected stars
-        // Update map data
-        // CMapDatas.Instance.SetMapStars( this.currentMapCollectedStars);
+
+        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CLEARED, this._currentMapId);
+        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_GAME_MAP_STARS, this._currentMapId, this.currentMapCollectedStars);
+        CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.GAMEDOT, this.currentMapCollectedDots);
     }
 }

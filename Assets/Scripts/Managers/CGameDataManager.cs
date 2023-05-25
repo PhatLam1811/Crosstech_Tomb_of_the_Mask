@@ -10,8 +10,6 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     public void OpenApp()
     {
         this.LoadGameData();
-
-        CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
     }
 
     public void LoadGameData()
@@ -76,13 +74,24 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
         this._gameData.UpdatePlayerBooster(updateType, boosterType, value);
     }
 
-    public long GetPlayerBoosterData(BoosterType type)
+    public void UpdateGameMapData(GameMapUpdateType updateType, int id, int stars = -1)
+
     {
-        return CPlayerBoosterDatas.Instance.GetBoosterValue(type);
+        if (this._gameData == null)
+        {
+            this.CreateNewGameData();
+        }
+
+        this._gameData.UpdateGameMap(updateType, id, stars);
     }
 
-    public void OnPlayerBoosterUpdated(BoosterType type)
+    public CBoosterDataCommodity GetPlayerBoosterData(BoosterType type)
     {
-        this.SaveGameData();
+        return CPlayerBoosterDatas.Instance.GetBoosterData(type);
+    }
+
+    public CMapDataCommodity GetGameMapData(int id)
+    {
+        return CGameMapDatas.Instance.GetGameMapData(id);
     }
 }

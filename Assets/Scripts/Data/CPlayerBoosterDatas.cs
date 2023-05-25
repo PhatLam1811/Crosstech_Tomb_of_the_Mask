@@ -95,29 +95,6 @@ public class CPlayerBoosterDatas
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.GAMEDOT, value: INITIAL_GAMEDOTS));
     }
 
-    public void AddNewBooster(BoosterType type, long value)
-    {
-        if (this._playerBoosterDatas == null)
-        {
-            this.CreateNew();
-        }
-
-        if (this._dictionaryPlayerBooster == null)
-        {
-            this.SetUpDictionary();
-        }
-
-        if (!this._dictionaryPlayerBooster.ContainsKey(type))
-        {
-            CBoosterDataCommodity newBooster = new CBoosterDataCommodity(type, value);
-            this._dictionaryPlayerBooster.Add(type, newBooster);
-        }
-        else
-        {
-            Debug.LogError($"EXISTED BOOSTER {type}");
-        }
-    }
-
     public void AddValueBooster(BoosterType type, long value)
     {
         if (this._playerBoosterDatas == null)
@@ -187,7 +164,7 @@ public class CPlayerBoosterDatas
         }
     }
 
-    public long GetBoosterValue(BoosterType type)
+    public CBoosterDataCommodity GetBoosterData(BoosterType type)
     {
         if (this._playerBoosterDatas == null)
         {
@@ -201,12 +178,12 @@ public class CPlayerBoosterDatas
 
         if (this._dictionaryPlayerBooster.TryGetValue(type, out CBoosterDataCommodity booster))
         {
-            return booster.value;
+            return booster;
         }
         else
         {
             Debug.LogError($"NOT EXISTED BOOSTER {type}");
-            return -1;
+            return null;
         }
     }
 
