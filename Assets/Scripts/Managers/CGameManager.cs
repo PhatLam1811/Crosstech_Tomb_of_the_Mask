@@ -82,7 +82,7 @@ public class CGameManager : MonoSingleton<CGameManager>
         if (!isPlaying)
         {
             CGameSoundManager.Instance.UnAssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
-            SceneManager.LoadSceneAsync(GameDefine.PLAY_SCENE_ID);
+            SceneManager.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
         }
     }
 

@@ -6,7 +6,8 @@ public class GameDefine
 {
     // SCENES
     public const int LOADING_SCENE_ID = 0;
-    public const int PLAY_SCENE_ID = 1;
+    public const int HOME_SCENE_ID = 1;
+    public const int PLAY_SCENE_ID = 2;
 
     // DATA
     public const string GAME_DATA = "GAME_DATA";

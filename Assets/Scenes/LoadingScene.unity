@@ -698,7 +698,6 @@ GameObject:
   m_Component:
   - component: {fileID: 347719734}
   - component: {fileID: 347719737}
-  - component: {fileID: 347719735}
   - component: {fileID: 347719736}
   m_Layer: 0
   m_Name: GameSoundManager
@@ -724,20 +723,6 @@ Transform:
   m_Father: {fileID: 1246513099}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &347719735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347719733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46ef288e67c34114cac96fa903b64df6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fxSoundBase: {fileID: 603912403}
-  _bgmSoundBase: {fileID: 1689374902}
 --- !u!81 &347719736
 AudioListener:
   m_ObjectHideFlags: 0
@@ -758,8 +743,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e8211d4d98628489f13df4bcf1e77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fxSoundBase: {fileID: 0}
-  _bgmSoundBase: {fileID: 0}
+  _fxSoundBase: {fileID: 603912403}
+  _bgmSoundBase: {fileID: 1689374902}
 --- !u!1 &418851627
 GameObject:
   m_ObjectHideFlags: 0
