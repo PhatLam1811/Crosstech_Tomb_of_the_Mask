@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CDialogManager : MonoSingleton<CDialogManager>
+public class CGameDialogManager : MonoSingleton<CGameDialogManager>
 {
     private Dictionary<string, GameObject> _dialogs;
 

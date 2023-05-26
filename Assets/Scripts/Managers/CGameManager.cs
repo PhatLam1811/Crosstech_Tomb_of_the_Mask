@@ -33,7 +33,7 @@ public class CGameManager : MonoSingleton<CGameManager>
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();
-        CDialogManager.Instance.OpenApp();
+        CGameDialogManager.Instance.OpenApp();
 
         this.PlayLoadingScene();
     }

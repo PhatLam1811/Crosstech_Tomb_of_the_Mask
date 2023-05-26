@@ -139,7 +139,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             starsCollected = this.currentMapCollectedStars
         };
 
-        CDialogManager.Instance.ShowDialog<CMapClearedDialog>(
+        CGameDialogManager.Instance.ShowDialog<CMapClearedDialog>(
             path: GameDefine.DIALOG_MAP_CLEARED_PATH, 
             canvasPos: this._canvasPos, 
             data: result);
