@@ -34,17 +34,11 @@ public class CPlayer : CBaseGameObject
 
     private void FixedUpdate()
     {
-        //if (!this._isMoving) return;
-
         // only move in another direction if the player has collided with a wall
         if (!this._isMoving)
-        {
             this.PrepareForNextMove();
-        }
         else
-        {
             this.AttemptToMove();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -100,7 +94,6 @@ public class CPlayer : CBaseGameObject
     public void RegisterNextMove(PlayerMoves nextMove)
     {
         this.movesOnStandBy.Enqueue(nextMove);
-        this.PrepareForNextMove();
     }
 
     private void PrepareForNextMove()

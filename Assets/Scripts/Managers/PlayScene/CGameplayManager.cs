@@ -20,6 +20,11 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     private int collectedDots = 0;
     private int collectedStars = 0;
 
+    private void Update()
+    {
+        this.PseudoInputProcess();
+    }
+
     public void PlayMap(int id)
     {
         this._onPlayingMapId = id;
