@@ -73,7 +73,7 @@ public class CPlayer : CBaseGameObject
     protected override void Initialize()
     {
         this.movingVector = Vector3.zero;
-        this.speed = 10.0f; // this will be configurate outside later on
+        this.speed = 15.0f; // this will be configurate outside later on
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
@@ -90,7 +90,7 @@ public class CPlayer : CBaseGameObject
 
     private IEnumerator PlayStartGameAnimation()
     {
-        this._visual.PlayAnimation(CPlayerVisual.PLAYER_START_GAME_ANIM);
+        this._visual.PlayStartAnimation();
 
         yield return new WaitForSeconds(2.0f);
 

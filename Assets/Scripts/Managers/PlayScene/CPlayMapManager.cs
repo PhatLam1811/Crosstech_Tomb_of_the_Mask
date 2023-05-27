@@ -7,6 +7,7 @@ public class CPlayMapManager : MonoSingleton<CPlayMapManager>
     public Grid _grid;
 
     public GameObject prefab_player;
+    public GameObject prefab_gate;
     public GameObject prefab_exit;
     public GameObject prefab_dotGame;
     public GameObject prefab_star;
@@ -25,10 +26,17 @@ public class CPlayMapManager : MonoSingleton<CPlayMapManager>
         CMapConfig mapConfig = CMapConfigs.Instance._mapConfigs[0];
 
         this.LoadCollectableObjects(mapConfig);
+        this.LoadGate(mapConfig);
         this.LoadExit(mapConfig);
         CPlayer player = this.LoadPlayer(mapConfig);
 
         CGameplayManager.Instance.StartGame(player);
+    }
+
+    private void LoadGate(CMapConfig mapConfig)
+    {
+        Vector3 gateWorldPos = this._grid.CellToWorld(mapConfig._playerStartPosition);
+        Instantiate(this.prefab_gate, gateWorldPos, Quaternion.identity);
     }
 
     private void LoadExit(CMapConfig mapConfig)

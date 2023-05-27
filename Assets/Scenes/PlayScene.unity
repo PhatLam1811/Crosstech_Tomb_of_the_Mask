@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _grid: {fileID: 18896899}
   prefab_player: {fileID: 6211400873284541333, guid: 5ccc5690ec6f39d40a33723960b11e59, type: 3}
+  prefab_gate: {fileID: 2449710878173750820, guid: c05cfd0a496eeb04c9018fe36a769c67, type: 3}
   prefab_exit: {fileID: 1797995865943744569, guid: b1a19ec741d9ea04cb6ce649af5adea2, type: 3}
   prefab_dotGame: {fileID: 9199973547387815430, guid: 970d4ccc9c0d5124abba40976bc0de5d, type: 3}
   prefab_star: {fileID: 671411310915996524, guid: 6787f63832d7f874ebe81791a9f45d76, type: 3}

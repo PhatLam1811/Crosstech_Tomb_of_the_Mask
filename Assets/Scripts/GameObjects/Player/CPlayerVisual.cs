@@ -25,6 +25,12 @@ public class CPlayerVisual : MonoBehaviour
     }
 #endif
 
+    public void PlayStartAnimation()
+    {
+        this.spriteRenderer.DOFade(1.0f, 1.5f);
+        this.animator.Play(PLAYER_START_GAME_ANIM);
+    }    
+
     public void PlayAnimation(string key)
     {
         this.animator.Play(key);
