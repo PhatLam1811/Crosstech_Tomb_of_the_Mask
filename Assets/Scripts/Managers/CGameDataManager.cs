@@ -74,6 +74,16 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
         this._gameData.UpdatePlayerBooster(updateType, boosterType, value);
     }
 
+    public void UpdatePlayerLevelData(int exp)
+    {
+        if (this._gameData == null)
+        {
+            this.CreateNewGameData();
+        }
+
+        this._gameData.UpdatePlayerLevel(exp);
+    }
+
     public void UpdateGameMapData(GameMapUpdateType updateType, int id, int stars = -1)
 
     {
@@ -88,6 +98,11 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     public CBoosterDataCommodity GetPlayerBoosterData(BoosterType type)
     {
         return CPlayerBoosterDatas.Instance.GetBoosterData(type);
+    }
+
+    public CPlayerLevelData GetPlayerLevelData()
+    {
+        return CPlayerLevelData.Instance;
     }
 
     public CMapDataCommodity GetGameMapData(int id)

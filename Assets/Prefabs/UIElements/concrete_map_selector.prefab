@@ -135,6 +135,9 @@ MonoBehaviour:
   img_vertical_up_connector: {fileID: 6428061942322943026}
   img_vertical_down_connector: {fileID: 8243552727213975587}
   tmp_map_id: {fileID: 6864967926738408386}
+  btn_unlocked_map: {fileID: 6864967928067283954}
+  img_locked_map: {fileID: 4404583360341818212}
+  _mapId: 0
 --- !u!114 &4766191075536120214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,7 +804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6864967928067283955}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7781822784640127889}
+        m_TargetAssemblyTypeName: CConcreteMapSelector, Assembly-CSharp
+        m_MethodName: OnClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6864967928460873756
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,11 @@ public class CMapSelectorDialog : CBaseDialog
     public override void OnShow(object data = null, UnityAction callback = null)
     {
         base.OnShow(data, callback);
+        this.LoadMapSelectorsList();
+    }
 
+    private void LoadMapSelectorsList()
+    {
         int counter = 2;
         Transform currentRow = this.panel_container_transform_row_1;
 
@@ -31,7 +36,8 @@ public class CMapSelectorDialog : CBaseDialog
                 this.isDownConnectorNext = !this.isDownConnectorNext;
             }
 
-            this.InstantiateNewMapSelector(i, currentRow);
+            bool isLastUnlockedMap = CHomeSceneHandler.Instance.IsLastUnlockedMap(i);
+            this.InstantiateNewMapSelector(i, currentRow, isLastUnlockedMap);
 
             if (counter == 2)
             {
@@ -45,13 +51,13 @@ public class CMapSelectorDialog : CBaseDialog
         }
     }
 
-    private void InstantiateNewMapSelector(int mapId, Transform pos)
+    private void InstantiateNewMapSelector(int mapId, Transform pos, bool isLastUnlockedMap)
     {
         GameObject newConcreteMapSelector = Instantiate(this.prefab_concrete_map_selector, pos);
 
         if (newConcreteMapSelector.TryGetComponent(out CConcreteMapSelector script))
         {
-            script.SetUpMapSelector(mapId, this.isDownConnectorNext);
+            script.SetUpMapSelector(mapId, this.isDownConnectorNext, isLastUnlockedMap);
         }
     }
 

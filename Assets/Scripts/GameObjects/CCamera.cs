@@ -5,7 +5,12 @@ using DG.Tweening;
 
 public class CCamera : CBaseGameObject
 {
-    public Transform _playerTransform;
+    private Transform _playerTransform;
+
+    private void Start()
+    {
+        this._playerTransform = CGameplayManager.Instance.GetPlayer().transform;
+    }
 
     private void Update()
     {

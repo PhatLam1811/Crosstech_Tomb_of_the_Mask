@@ -74,7 +74,7 @@ public class CGameManager : MonoSingleton<CGameManager>
     {
         CGameSoundManager.Instance.StopBGM();
         CGameSoundManager.Instance.AssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
-        CGameSoundManager.Instance.PlayFx(GameDefine.FADE_ZOOM_FX_KEY);
+        CGameSoundManager.Instance.PlayFx(GameDefine.TAP_TO_PLAY_FX_KEY);
     }
 
     public void OnLoadingSceneChangeFxEnd(bool isPlaying)
@@ -82,7 +82,7 @@ public class CGameManager : MonoSingleton<CGameManager>
         if (!isPlaying)
         {
             CGameSoundManager.Instance.UnAssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
-            SceneManager.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
+            this.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
         }
     }
 
@@ -94,19 +94,14 @@ public class CGameManager : MonoSingleton<CGameManager>
         }
     }
 
-    public void OnShowDialog<T>(string path, object data = null, UnityEngine.Events.UnityAction callbackCompleteShow = null) where T : CBaseDialog
+    public void LoadSceneAsync(int key)
     {
-        GameObject dialogPrefab = this.GetResourceFile<GameObject>(path);
+        SceneManager.LoadSceneAsync(key);
+    }
 
-        if (dialogPrefab != null)
-        {
-            //T dialogComponent = (Instantiate(dialogPrefab, this.canvasPos)).GetComponent<T>();
-
-            //if (dialogComponent != null)
-            //{
-            //    dialogComponent.OnShow(data, callbackCompleteShow);
-            //}
-        }
+    public void LoadScene(int key)
+    {
+        SceneManager.LoadScene(key);
     }
 
     public T GetResourceFile<T>(string path) where T : UnityEngine.Object

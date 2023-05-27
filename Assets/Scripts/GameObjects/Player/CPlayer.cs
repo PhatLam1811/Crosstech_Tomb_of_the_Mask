@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public enum PlayerMoves
 {
@@ -13,27 +14,37 @@ public enum PlayerMoves
 
 public class CPlayer : CBaseGameObject
 {
-    /// <summary>
-    /// 4 collider ở 4 phía của player, nhưng theo game gốc thì chỉ cần 1 cái ở dưới chân thôi vì player có rotation nữa. Cái này optimize sau
-    /// </summary>
-    public CPlayerCollider[] _colliders;
-    bool isMoving;
+    public CPlayerVisual _visual;
+
+    public Transform _raycastPos1;
+    public Transform _raycastPos2;
+
+    private int _currentAngle;
 
     private Queue<PlayerMoves> movesOnStandBy;
+    
+    private bool _isMoving;
 
-    private bool _isOnPlatform;
-    private void LateUpdate()
+    private const int MAP_LAYER = 6;
+
+    private const float RAYCAST_1_DISTANCE = 15.0f;
+    private const float RAYCAST_2_DISTANCE = 25.0f;
+
+    private const float RAYCAST_2_PUSH_OFFSET = -0.25f;
+
+    private void FixedUpdate()
     {
-        if (!isMoving)
-            return;
+        //if (!this._isMoving) return;
 
         // only move in another direction if the player has collided with a wall
-        if (this._isOnPlatform)
+        if (!this._isMoving)
         {
             this.PrepareForNextMove();
         }
-
-        this.Move();
+        else
+        {
+            this.AttemptToMove();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,31 +68,7 @@ public class CPlayer : CBaseGameObject
         {
             CGameplayManager.Instance.OnPlayerReachExit(); return;
         }
-
-        Debug.Log("Is Triggered!");
     }
-
-    /// <summary>
-    /// Dời logic bắt collision vào các collider con
-    /// </summary>
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    Debug.Log("OnCollisionEnter2D!");
-
-    //    if (!this._isOnPlatform)
-    //    {
-    //        this.OnHittingWalls();
-    //    }
-    //}
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    Debug.Log("OnCollisionStay2D!");
-
-    //    if (!this._isOnPlatform)
-    //    {
-    //        this.OnHittingWalls();
-    //    }
-    //}
 
     protected override void Initialize()
     {
@@ -90,7 +77,30 @@ public class CPlayer : CBaseGameObject
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
-        this._isOnPlatform = true;
+        this._isMoving = false;
+
+        this._currentAngle = 0;
+    }
+
+    public void StartGame()
+    {
+        this.speed = 3.0f; // this will be configurate outside later on
+        StartCoroutine(this.PlayStartGameAnimation());
+    }
+
+    private IEnumerator PlayStartGameAnimation()
+    {
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_START_GAME_ANIM);
+
+        yield return new WaitForSeconds(2.0f);
+
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
+    }
+
+    public void RegisterNextMove(PlayerMoves nextMove)
+    {
+        this.movesOnStandBy.Enqueue(nextMove);
+        this.PrepareForNextMove();
     }
 
     private void PrepareForNextMove()
@@ -102,80 +112,122 @@ public class CPlayer : CBaseGameObject
             switch (nextMove)
             {
                 case PlayerMoves.Up:
-                    this.movingVector = Vector3.up; break;
+                    this.movingVector = Vector3.up;
+                    this.RotateZOnMoving(0);
+                    break;
                 case PlayerMoves.Left:
-                    this.movingVector = Vector3.left; break;
+                    this.movingVector = Vector3.left;
+                    this.RotateZOnMoving(90);
+                    break;
                 case PlayerMoves.Down:
-                    this.movingVector = Vector3.down; break;
+                    this.movingVector = Vector3.down;
+                    this.RotateZOnMoving(180);
+                    break;
                 case PlayerMoves.Right:
-                    this.movingVector = Vector3.right; break;
+                    this.movingVector = Vector3.right;
+                    this.RotateZOnMoving(270);
+                    break;
                 default: 
                     break;
             }
 
-            this._isOnPlatform = false;
-
-            ///Chỉ bật collider ở hướng user đang di chuyển, các collider khác tắt đi để không quẹt cạ vào tường
-            for (int i = 0; i < _colliders.Length; i++)
-            {
-                if (i == (int)nextMove)
-                    this._colliders[i].ReadyForCatchCollide();
-                else
-                    this._colliders[i].TurnCollider(false);
-            }
-
-            isMoving = true;
-
-            //Move();
+            this._isMoving = true;
         }
     }
 
-    private void Move()
+    private void AttemptToMove()
     {
-        this.transform.position += this.movingVector * this.speed * Time.deltaTime;
+        Vector3 movingDistance = Vector3.zero;
+        
+        bool isWallCollided = this.CheckWallCollision(out movingDistance);
+        
+        this.Move(movingDistance);
+
+        if (!isWallCollided)
+            this._visual.PlayAnimation(CPlayerVisual.PLAYER_JUMP_ANIM);
+        else
+            this.OnLanding();
     }
 
-    /// <summary>
-    /// Chạm tường:
-    /// Không di chuyển nửa
-    /// Snap lại vị trí của player item cho đúng vào cell
-    /// </summary>
-    private void OnHittingWalls()
+    private bool CheckWallCollision(out Vector3 movingDistance)
     {
-        this.movingVector = Vector3.zero;
-        this._isOnPlatform = true;
-        this.transform.position += this.movingVector * -0.037f;
-        isMoving = false;
-    }
-    /// <summary>
-    /// Collider invoke khi nó va chạm wall => tắt nó đi và xử lý chạm tường
-    /// </summary>
-    /// <param name="collider"></param>
-    private void OnColliderReceive(CPlayerCollider collider)
-    {
-        OnHittingWalls();
-        collider.TurnCollider(false);
-    }
+        Vector3 movingDistance1;
+        Vector3 movingDistance2;
 
-    public void StartGame()
-    {
-        this.speed = 6.0f; // this will be configurate outside later on
+        bool isHitOnRay1 = this.ShootRaycast2D(this._raycastPos1, out movingDistance1);
+        bool isHitOnRay2 = this.ShootRaycast2D(this._raycastPos2, out movingDistance2);
 
-
-        foreach (CPlayerCollider collider in this._colliders)
+        if (isHitOnRay2)
         {
-            collider.onCollider -= OnColliderReceive;
-            collider.onCollider += OnColliderReceive;
-
-            collider.TurnCollider( false);
+            movingDistance = movingDistance2 + this.movingVector * RAYCAST_2_PUSH_OFFSET;
+            return isHitOnRay2;
         }
-
+        else
+        {
+            movingDistance = movingDistance1;
+            return isHitOnRay1;
+        }
     }
 
-    public void RegisterNextMove(PlayerMoves nextMove)
+    private void Move(Vector3 movingDistance)
     {
-        this.movesOnStandBy.Enqueue(nextMove);
-        PrepareForNextMove();
-        Debug.Log(this.movesOnStandBy.Count);
+        this._isMoving = true;
+        this.transform.position += movingDistance;
+    }
+
+    private bool ShootRaycast2D(Transform raycastPos, out Vector3 movingDistance)
+    {
+        Vector2 rayOrigin = new Vector2(raycastPos.position.x, raycastPos.position.y);
+        Vector2 rayDirection = new Vector2(this.movingVector.x, this.movingVector.y);
+        float rayDistance = raycastPos == this._raycastPos1 ? 
+            RAYCAST_1_DISTANCE * Time.deltaTime : 
+            RAYCAST_2_DISTANCE * Time.deltaTime;
+        int detectLayerMask = 1 << MAP_LAYER;
+
+        RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance, detectLayerMask);
+        
+        if (raycastPos == this._raycastPos1)
+        {
+            Debug.DrawLine(rayOrigin, rayOrigin + rayDirection * rayDistance, Color.red);
+        }
+        else
+        {
+            Debug.DrawLine(rayOrigin, rayOrigin + rayDirection * rayDistance, Color.blue);
+        }
+
+
+        if (rayHit.collider != null)
+        {
+            Vector3 collidedPoint = new Vector3(rayHit.point.x, rayHit.point.y, 0.0f);
+            movingDistance = collidedPoint - new Vector3(rayOrigin.x, rayOrigin.y, 0.0f);
+            movingDistance = movingDistance.magnitude >= 0.05f ? movingDistance : Vector3.zero;
+            return true;
+        }
+
+        movingDistance = this.movingVector * this.speed * Time.deltaTime;
+        return false;
+    }
+
+    private void OnLanding()
+    {
+        this.RotateZOnLanding();
+
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
+
+        this.movingVector = Vector3.zero;
+
+        this._isMoving = false;
+    }
+
+    private void RotateZOnMoving(int angle)
+    {
+        this._currentAngle = angle;
+        this.transform.DORotate(Vector3.forward * angle, 0f);
+    }
+
+    private void RotateZOnLanding()
+    {
+        this._currentAngle = (this._currentAngle + 180) % 360;
+        this.transform.DORotate(Vector3.forward * this._currentAngle, 0f);
     }
 }

@@ -35,6 +35,9 @@ public class CMapConfig
 {
     public int _id;
 
+    public Vector3Int _playerStartPosition;
+    public Vector3Int _exitPosition;
+
     public List<CCollectableObjectPositionConfig> _collectableObjectPositionConfigs;
 }
 

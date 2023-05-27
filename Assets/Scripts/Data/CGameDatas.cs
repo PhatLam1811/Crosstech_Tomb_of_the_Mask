@@ -9,6 +9,7 @@ public class CGameDatas
     public static CGameDatas Instance => CGameDataManager.Instance._gameData;
 
     public CPlayerBoosterDatas _playerBoosterDatas;
+    public CPlayerLevelData _playerLevelData;
     public CGameMapDatas _gameMapDatas;
 
     public void OpenApp()
@@ -19,9 +20,11 @@ public class CGameDatas
     public void CreateNew()
     {
         this._playerBoosterDatas = new CPlayerBoosterDatas();
+        this._playerLevelData = new CPlayerLevelData();
         this._gameMapDatas = new CGameMapDatas();
 
         this._playerBoosterDatas.CreateNew();
+        this._playerLevelData.CreateNew();
         this._gameMapDatas.CreateNew();
     }
 
@@ -41,6 +44,18 @@ public class CGameDatas
             case BoosterUpdateType.SET_VALUE:
                 this._playerBoosterDatas.SetValueBooster(boosterType, value); break;
         }
+
+        CGameDataManager.Instance.SaveGameData();
+    }
+
+    public void UpdatePlayerLevel(int exp)
+    {
+        if (this._playerLevelData == null)
+        {
+            Debug.LogError($"DATA NULL OF TYPE: {typeof(CPlayerLevelData)}!"); return;
+        }
+
+        this._playerLevelData.AddEXPValue(exp);
 
         CGameDataManager.Instance.SaveGameData();
     }

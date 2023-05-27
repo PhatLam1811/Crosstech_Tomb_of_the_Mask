@@ -115,7 +115,7 @@ public class CMapClearedDialog : CBaseDialog
         const float duration = 1.0f;
         this.img_collected_dots_bonus_coins_progress_bar
             .DOFillAmount(this.coins_progress_bar_fill_amount, duration)
-            .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.SCORE_COUNT_FX_KEY))
+            .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.DOTS_COUNT_FX_KEY))
             .OnComplete(() =>
             {
                 CGameSoundManager.Instance.StopFx();
@@ -133,7 +133,7 @@ public class CMapClearedDialog : CBaseDialog
 
     private void PlayBonusAcquiredAnim()
     {
-        CGameSoundManager.Instance.PlayFx(GameDefine.POWER_UP_OFF_FX_KEY);
+        CGameSoundManager.Instance.PlayFx(GameDefine.BONUS_CLAIMED_FX_KEY);
         this.img_bonus_coin_animator.Play(GameDefine.NOTIFY_ANIM);
     }
 

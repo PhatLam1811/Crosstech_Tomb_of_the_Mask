@@ -5,10 +5,11 @@ using UnityEngine;
 public enum GameMapUpdateType
 {
     ADD_GAME_MAP = 0,
-    SET_IS_CLEARED = 1,
-    SET_IS_BONUS_COLLECTED = 2,
-    SET_IS_CHEST_CLAIMED = 3,
-    SET_GAME_MAP_STARS = 4,
+    UNLOCK_MAP = 1,
+    SET_IS_CLEARED = 2,
+    SET_IS_BONUS_COLLECTED = 3,
+    SET_IS_CHEST_CLAIMED = 4,
+    SET_GAME_MAP_STARS = 5,
 }
 
 [System.Serializable]
@@ -16,6 +17,7 @@ public class CMapDataCommodity
 {
     public int _id;
 
+    public bool isUnlocked;
     public bool isCleared;
     public bool isBonusCollected;
     public bool isChestClaimed;
@@ -28,6 +30,7 @@ public class CMapDataCommodity
     {
         this._id = id;
 
+        this.isUnlocked = false;
         this.isCleared = false;
         this.isBonusCollected = false;
         this.isChestClaimed = false;
@@ -38,6 +41,11 @@ public class CMapDataCommodity
     public void SetIsClearedTrue()
     {
         this.isCleared = true;
+    }
+
+    public void UnlockMap()
+    {
+        this.isUnlocked = true;
     }
 
     public void SetIsBonusCollectedTrue()
@@ -64,6 +72,8 @@ public class CGameMapDatas
     public List<CMapDataCommodity> _mapDatas;
     public Dictionary<int, CMapDataCommodity> _dictionaryMapDatas;
 
+    private int _currentMapId;
+
     public void OpenApp()
     {
         this.SetUpDictionary();
@@ -86,10 +96,13 @@ public class CGameMapDatas
     {
         this._mapDatas = new List<CMapDataCommodity>();
         
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= 10; i++)
         {
             this._mapDatas.Add(new CMapDataCommodity(id: i));
         }
+
+        this._mapDatas[0].isUnlocked = true;
+        this._currentMapId = this._mapDatas[0]._id;
     }
 
     public void AddNewGameMap(int id)
@@ -227,5 +240,10 @@ public class CGameMapDatas
             Debug.LogError($"NOT EXISTED MAP {id}");
             return null;
         }
+    }
+
+    public int GetCurrentUnlockedMapId()
+    {
+        return this._currentMapId;
     }
 }

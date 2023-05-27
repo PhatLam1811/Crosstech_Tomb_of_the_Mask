@@ -34,11 +34,12 @@ public class GameDefine
     public const string STAR_COLLECTED_1_FX_KEY = "1_star";
     public const string STAR_COLLECTED_2_FX_KEY = "2_star";
     public const string STAR_COLLECTED_3_FX_KEY = "3_star";
-    public const string SCORE_COUNT_FX_KEY = "Score_count";
-    public const string POWER_UP_OFF_FX_KEY = "Power_up_off";
+    public const string DOTS_COUNT_FX_KEY = "Score_count";
+    public const string BONUS_CLAIMED_FX_KEY = "Power_up_off";
     public const string BUTTON_CLICK_FX_KEY = "Button_2";
-    public const string FADE_ZOOM_FX_KEY = "Fade_zoom_1";
+    public const string TAP_TO_PLAY_FX_KEY = "Fade_zoom_1";
     public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
+    public const string HOME_SCENE_BGM_KEY = "Music_music";
 
     // DIALOGS
     public const string DIALOG_MAP_CLEARED_PATH = "Dialogs/map_cleared_dialog";

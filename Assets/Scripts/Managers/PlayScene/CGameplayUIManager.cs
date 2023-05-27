@@ -6,6 +6,8 @@ using TMPro;
 
 public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 {
+    public Transform _canvasTransform; 
+
     public TextMeshProUGUI _tmpPlayerCoins;
     public CGameplayStarsHolder _starsHolder;
     public Button _btnPause;
@@ -14,6 +16,11 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public void StartGame()
     {
         CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
+    }
+
+    public Transform GetCanvasPos()
+    {
+        return this._canvasTransform;
     }
 
     public void OnPlayerBoosterUpdated(BoosterType type)

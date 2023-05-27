@@ -6,11 +6,10 @@ using UnityEngine.Events;
 
 public enum BoosterType
 {
-    LEVEL = 0,
-    EXP = 1,
-    ENERGY = 2,
-    COIN = 3,
-    GAMEDOT = 4
+    ENERGY = 0,
+    COIN = 1,
+    GAMEDOT = 2,
+    STAR = 3
 }
 
 public enum BoosterUpdateType
@@ -58,11 +57,10 @@ public class CPlayerBoosterDatas
     public List<CBoosterDataCommodity> _playerBoosterDatas;
     public Dictionary<BoosterType, CBoosterDataCommodity> _dictionaryPlayerBooster;
 
-    private const int INITIAL_LEVEL = 1;
-    private const int INITIAL_EXP = 0;
     private const int INITIAL_ENERGY = 5;
     private const int INITIAL_COINS = 500;
     private const int INITIAL_GAMEDOTS = 0;
+    private const int INITIAL_STAR = 0;
 
     public UnityAction<BoosterType> _callbackOnBoosterUpdated; 
 
@@ -88,11 +86,10 @@ public class CPlayerBoosterDatas
     {
         this._playerBoosterDatas = new List<CBoosterDataCommodity>();
 
-        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.LEVEL, value: INITIAL_LEVEL));
-        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.EXP, value: INITIAL_EXP));
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.ENERGY, value: INITIAL_ENERGY));
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.COIN, value: INITIAL_COINS));
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.GAMEDOT, value: INITIAL_GAMEDOTS));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.STAR, value: INITIAL_STAR));
     }
 
     public void AddValueBooster(BoosterType type, long value)
