@@ -20,11 +20,6 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     private int collectedDots = 0;
     private int collectedStars = 0;
 
-    private void Update()
-    {
-        this.PseudoInputProcess();
-    }
-
     public void PlayMap(int id)
     {
         this._onPlayingMapId = id;
@@ -36,6 +31,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this._player = player;
         this._player.StartGame();
         CGameplayUIManager.Instance.StartGame();
+        CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
     }
 
     public int GetOnPlayingMapId()
@@ -61,6 +57,21 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         if (Input.GetKeyDown(KeyCode.D))
             this._player.RegisterNextMove(PlayerMoves.Right);
+    }
+
+    public void OnPlayerSwiped(SwipeDirection swipeDirection)
+    {
+        switch(swipeDirection)
+        {
+            case SwipeDirection.UP:
+                this._player.RegisterNextMove(PlayerMoves.Up); break;
+            case SwipeDirection.LEFT:
+                this._player.RegisterNextMove(PlayerMoves.Left); break;
+            case SwipeDirection.DOWN:
+                this._player.RegisterNextMove(PlayerMoves.Down); break;
+            case SwipeDirection.RIGHT:
+                this._player.RegisterNextMove(PlayerMoves.Right); break;
+        }
     }
 
     public void OnPlayerHitDotGame(CDotGame collectedDotGame)

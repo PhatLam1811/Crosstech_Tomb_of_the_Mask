@@ -6,16 +6,16 @@
             "id": "91304960-852e-437c-a81c-44fb55e95267",
             "actions": [
                 {
-                    "name": "MouseTouch",
-                    "type": "Value",
+                    "name": "ScreenTouch",
+                    "type": "PassThrough",
                     "id": "8b0653b7-82ec-497b-9d2a-86a0fb8f930a",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "test",
+                    "name": "ScreenHold",
                     "type": "PassThrough",
                     "id": "2ba231da-82e1-4d96-ad7b-b5a3649d81a9",
                     "expectedControlType": "Vector2",
@@ -28,68 +28,24 @@
                 {
                     "name": "",
                     "id": "b569abca-1f6e-48ea-a62a-bb450dbd2d56",
-                    "path": "<Touchscreen>/position",
-                    "interactions": "",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseTouch",
+                    "action": "ScreenTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "8e4e33d6-0aa3-4b1d-9403-fde92d29693e",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "90973b9c-7ace-417f-9c36-3781ed58ca1e",
+                    "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "test",
-                    "isComposite": true,
+                    "action": "ScreenHold",
+                    "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "1a1d7dae-f3ff-4a0e-9424-e38dbbc74658",
-                    "path": "<Touchscreen>/delta/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "9a959220-0ffa-4fea-a951-77b32bb7ce30",
-                    "path": "<Touchscreen>/primaryTouch/delta/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "66efceeb-157c-43ff-aca0-755a6bce96dd",
-                    "path": "<Touchscreen>/primaryTouch/delta/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "ff0545da-7d4e-46ee-a8e7-19e861d809e0",
-                    "path": "<Touchscreen>/primaryTouch/delta/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "test",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }
