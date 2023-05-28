@@ -12,29 +12,33 @@ public class CMapClearedDialog : CBaseDialog
     public Image panel_dialog;
     public TextMeshProUGUI tmp_stage_id;
     public Animator[] img_star_get_animators;
-    public Image img_collected_dots_bonus_coins_bar;
-    public Image img_collected_dots_bonus_shield_bar;
-    public Image img_collected_dots_bonus_coins_progress_bar;
-    public Image img_collected_dots_bonus_shield_progress_bar;
+    public Image img_bonus_coin_bar;
+    public Image img_bonus_shield_bar;
+    public Image img_bonus_coin_progress_bar;
+    public Image img_bonus_shield_progress_bar;
     public Animator img_bonus_coin_animator;
-    public GUI gui_bonus_coin;
+    public GameObject gui_bonus_coin;
     public Button btn_chest_claim;
+    public Image img_chest_unavailable;
     public Button btn_next_stage;
     public Button btn_close;
+
+    private bool _isBonusCoin;
 
     private int starsCollected = 0;
     private float percentDotsCollected = 0.0f;
 
-    private const int TWEEN_DIALOG_SHOW_ID = 0;
-    private const int TWEEN_DIALOG_CLOSE_ID = 1;
+    public override void OnShow(object data = null, UnityAction callback = null)
+    {
+        base.OnShow(data, callback);
+        this.ParseData();
+        this.LoadUIComponents();
+    }
 
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
-        DOTween.Kill(TWEEN_DIALOG_SHOW_ID);
-        this.ParseData();
         StartCoroutine(coroutinePLayStarCollectedAnim());
-        Debug.Log("On Complete Show");
     }
 
     public override void OnHide()
@@ -44,9 +48,21 @@ public class CMapClearedDialog : CBaseDialog
 
     public override void OnCompleteHide()
     {
-        DOTween.Kill(TWEEN_DIALOG_CLOSE_ID);
         CPlaySceneHandler.Instance.BackToHomeScene();
         Destroy(this.gameObject);
+    }
+
+    private void LoadUIComponents()
+    {
+        int mapId = CPlaySceneHandler.Instance.GetOnPlayingMapId();
+
+        bool isChestClaimed = CPlaySceneHandler.Instance.IsMapChestClaimed(mapId);
+        this.btn_chest_claim.gameObject.SetActive(!isChestClaimed);
+        this.img_chest_unavailable.gameObject.SetActive(isChestClaimed);
+
+        this._isBonusCoin = CPlaySceneHandler.Instance.IsMapBonusCoin(mapId);
+        this.img_bonus_coin_bar.gameObject.SetActive(this._isBonusCoin);
+        this.img_bonus_shield_bar.gameObject.SetActive(!this._isBonusCoin);
     }
 
     private void ParseData()
@@ -76,16 +92,14 @@ public class CMapClearedDialog : CBaseDialog
     {
         this.panel_dialog.transform
             .DOScaleY(1f, 0.3f)
-            .OnComplete(this.OnCompleteShow)
-            .SetId(TWEEN_DIALOG_SHOW_ID);
+            .OnComplete(this.OnCompleteShow);
     }
 
     private void PlayDialogBodyOnCloseAnim()
     {
         this.panel_dialog.transform
             .DOScaleY(0f, 0.2f)
-            .OnComplete(this.OnCompleteHide)
-            .SetId(TWEEN_DIALOG_CLOSE_ID);
+            .OnComplete(this.OnCompleteHide);
     }
 
     private IEnumerator coroutinePLayStarCollectedAnim()
@@ -115,16 +129,33 @@ public class CMapClearedDialog : CBaseDialog
     private void PlayCollectedDotsFillAmount()
     {
         const float duration = 1.0f;
-        this.img_collected_dots_bonus_coins_progress_bar
-            .DOFillAmount(this.percentDotsCollected, duration)
-            .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.DOTS_COUNT_FX_KEY))
-            .OnComplete(() =>
-            {
-                CGameSoundManager.Instance.StopFx();
-                this.btn_close.gameObject.SetActive(true);
-                this.btn_next_stage.gameObject.SetActive(true);
-                this.ClaimMapBonus();
-            });
+
+        if (this._isBonusCoin)
+        {
+            this.img_bonus_coin_progress_bar
+                .DOFillAmount(this.percentDotsCollected, duration)
+                .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.DOTS_COUNT_FX_KEY))
+                .OnComplete(() =>
+                {
+                    CGameSoundManager.Instance.StopFx();
+                    this.ClaimMapBonus();
+                    this.btn_close.gameObject.SetActive(true);
+                    this.btn_next_stage.gameObject.SetActive(true);
+                });
+        }
+        else
+        {
+            this.img_bonus_shield_progress_bar
+                .DOFillAmount(this.percentDotsCollected, duration)
+                .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.DOTS_COUNT_FX_KEY))
+                .OnComplete(() =>
+                {
+                    CGameSoundManager.Instance.StopFx();
+                    this.ClaimMapBonus();
+                    this.btn_close.gameObject.SetActive(true);
+                    this.btn_next_stage.gameObject.SetActive(true);
+                });
+        }
     }
 
     private void ClaimMapBonus()
@@ -134,18 +165,34 @@ public class CMapClearedDialog : CBaseDialog
         if (this.percentDotsCollected == 1.0f
          && !CPlaySceneHandler.Instance.IsMapBonusCollected(mapId))
         {
-            this.PlayBonusAcquiredAnim();
-            CPlaySceneHandler.Instance.ConfirmMapBonusCollected(mapId);
+            if (this._isBonusCoin)
+            {
+                StartCoroutine(this.PlayCoinBonusClaimAnim());
+                CPlaySceneHandler.Instance.ConfirmBonusCollected(mapId, BoosterType.COIN, 25);
+            }
+            else
+            {
+                CPlaySceneHandler.Instance.ConfirmBonusCollected(mapId, BoosterType.SHIELD, 1);
+            }
         }
-
-        this.btn_close.gameObject.SetActive(true);
-        this.btn_next_stage.gameObject.SetActive(true);
     }
 
-    private void PlayBonusAcquiredAnim()
+    public void OnCoinBonusClaimedComplete()
     {
+        this.img_bonus_coin_bar.gameObject.SetActive(false);
+        this.gui_bonus_coin.SetActive(true);
+    }
+
+    private IEnumerator PlayCoinBonusClaimAnim()
+    {
+        float delay = 1.0f;
+
         CGameSoundManager.Instance.PlayFx(GameDefine.BONUS_CLAIMED_FX_KEY);
         this.img_bonus_coin_animator.Play(GameDefine.NOTIFY_ANIM);
+
+        yield return new WaitForSeconds(delay);
+
+        this.OnCoinBonusClaimedComplete();
     }
 
     public void OnBtnClaimChestPressed()

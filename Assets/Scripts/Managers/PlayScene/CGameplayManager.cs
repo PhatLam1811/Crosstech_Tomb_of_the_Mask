@@ -118,6 +118,19 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this.ShowMapClearedDialog();
     }
 
+    public void OnPlayerShieldStateChanged(bool isActive)
+    {
+        if (isActive)
+            this._player.OnShieldStateChanged(isActive);
+        else
+            CGameplayUIManager.Instance.OnPlayerShieldDown();
+    }
+
+    public void OnPlayerShieldExpired()
+    {
+        this._player.OnShieldStateChanged(false);
+    }
+
     private void ShowMapClearedDialog()
     {
         int currentMapTotalDots = CGameplayMapManager.Instance.GetMapTotalDots();

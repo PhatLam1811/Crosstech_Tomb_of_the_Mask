@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,20 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
         return CGameDataManager.Instance.GetGameMapData(mapId).isBonusCollected;
     }
 
-    public void ConfirmMapBonusCollected(int mapId)
+    public bool IsMapChestClaimed(int mapId)
+    {
+        return CGameDataManager.Instance.GetGameMapData(mapId).isChestClaimed;
+    }
+
+    public bool IsMapBonusCoin(int mapId)
+    {
+        return CMapConfigs.Instance.GetMapConfig(mapId)._bonus == MapBonusType.COIN;
+    }
+
+    public void ConfirmBonusCollected(int mapId, BoosterType bonusType, long value)
     {
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_BONUS_COLLECTED, mapId);
+        CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, bonusType, value);
     }
 
     public int GetOnPlayingMapId()
@@ -24,8 +36,22 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
         CGameManager.Instance.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
     }
 
-    public long GetPlayerCoinData()
+    public long GetPlayerBoosterData(BoosterType boosterType)
     {
-        return CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.COIN).value;
+        return CGameDataManager.Instance.GetPlayerBoosterData(boosterType).value;
+    }
+
+    public bool TryActivatePlayerShield()
+    {
+        long shieldRemain = CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.SHIELD).value;
+
+        if (shieldRemain > 0)
+        {
+            CGameplayManager.Instance.OnPlayerShieldStateChanged(true);
+            CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.SUBTRACT_VALUE, BoosterType.SHIELD, 1);
+            return true;
+        }
+
+        return false;
     }
 }

@@ -18,8 +18,6 @@ public class CMapDataCommodity
 {
     public int _id;
 
-    public MapBonusType bonusType;
-
     public bool isUnlocked;
     public bool isCleared;
     public bool isBonusCollected;
@@ -110,7 +108,6 @@ public class CGameMapDatas
         foreach (CMapConfig config in CMapConfigs.Instance._mapConfigs)
         {
             CMapDataCommodity newMap = new CMapDataCommodity(id: config._id);
-            newMap.bonusType = config._bonus;
             this._mapDatas.Add(newMap);
         }
     }

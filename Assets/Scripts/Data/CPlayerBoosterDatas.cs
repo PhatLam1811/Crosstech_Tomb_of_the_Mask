@@ -9,7 +9,8 @@ public enum BoosterType
     ENERGY = 0,
     COIN = 1,
     GAMEDOT = 2,
-    STAR = 3
+    STAR = 3,
+    SHIELD = 4
 }
 
 public enum BoosterUpdateType
@@ -61,6 +62,7 @@ public class CPlayerBoosterDatas
     private const int INITIAL_COINS = 500;
     private const int INITIAL_GAMEDOTS = 0;
     private const int INITIAL_STAR = 0;
+    private const int INITIAL_SHIELD = 1;
 
     public UnityAction<BoosterType> _callbackOnBoosterUpdated; 
 
@@ -90,6 +92,7 @@ public class CPlayerBoosterDatas
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.COIN, value: INITIAL_COINS));
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.GAMEDOT, value: INITIAL_GAMEDOTS));
         this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.STAR, value: INITIAL_STAR));
+        this._playerBoosterDatas.Add(new CBoosterDataCommodity(type: BoosterType.SHIELD, value: INITIAL_SHIELD));
     }
 
     public void AddValueBooster(BoosterType type, long value)

@@ -24,8 +24,10 @@ public class CPlayer : CBaseGameObject
     private Queue<PlayerMoves> movesOnStandBy;
 
     private bool _isPlaying;
-
     private bool _isMoving;
+    private bool _isShieldActive;
+
+    private Vector3 lastSafePos;
 
     private const float RAYCAST_1_DISTANCE = 15.0f;
     private const float RAYCAST_2_DISTANCE = 25.0f;
@@ -58,7 +60,7 @@ public class CPlayer : CBaseGameObject
 
         if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER))
         {
-            this.OnDead();
+            this.OnTrapCollided();
         }
     }
 
@@ -71,13 +73,15 @@ public class CPlayer : CBaseGameObject
 
         this._isPlaying = false;
         this._isMoving = false;
+        this._isShieldActive = false;
+
+        this.lastSafePos = this.transform.position;
 
         this._currentAngle = 0;
     }
 
     public void StartGame()
     {
-        this.speed = 3.0f; // this will be configurate outside later on
         StartCoroutine(this.PlayStartGameAnimation());
     }
 
@@ -224,8 +228,46 @@ public class CPlayer : CBaseGameObject
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
 
         this.movingVector = Vector3.zero;
-
         this._isMoving = false;
+
+        this.lastSafePos = this.transform.position;
+    }
+
+    private void OnShieldProtected()
+    {
+        this.transform.position = this.lastSafePos;
+        this.movingVector = Vector3.zero;
+        this._isMoving = false;
+        
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
+        
+        this.OnShieldStateChanged(false);
+        CGameplayManager.Instance.OnPlayerShieldStateChanged(false);
+    }
+
+    public void OnShieldStateChanged(bool isActive)
+    {
+        if (isActive)
+            CGameSoundManager.Instance.PlayFx(GameDefine.SHIELD_ACTIVATE_FX_KEY);
+        else
+        {
+            CGameSoundManager.Instance.PlayFx(GameDefine.BONUS_CLAIMED_FX_KEY);
+        }
+
+        this._isShieldActive = isActive;
+        this._visual.OnPlayerShieldStateChanged(isActive);
+    }
+
+    private void OnTrapCollided()
+    {
+        if (this._isShieldActive)
+        {
+            this.OnShieldProtected();
+        }
+        else
+        {
+            this.OnDead();
+        }
     }
 
     public void OnDead()

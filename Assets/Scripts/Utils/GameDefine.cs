@@ -46,6 +46,7 @@ public class GameDefine
     public const string PLAYER_LANDING_FX_KEY = "Landing";
     public const string PLAYER_WIN_FX_KEY = "Win";
     public const string GAME_START_FX_KEY = "Start";
+    public const string SHIELD_ACTIVATE_FX_KEY = "Shield";
     public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
     public const string HOME_SCENE_BGM_KEY = "Music_music";
     public const string GAMEPLAY_BGM_KEY = "Story_music";

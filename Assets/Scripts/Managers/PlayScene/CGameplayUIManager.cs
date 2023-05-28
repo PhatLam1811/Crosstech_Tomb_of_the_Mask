@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
+using System;
 
 public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 {
@@ -12,11 +14,21 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public CGameplayStarsHolder _starsHolder;
     public Button _btnPause;
     public Button _btnShield;
+    public TextMeshProUGUI _tmpShieldNumber;
+    public Image _imgShieldRemainingBar;
+    public Image _imgShieldRemainingProgress;
 
     public void StartGame()
     {
         CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
-        this._tmpPlayerCoins.text = CPlaySceneHandler.Instance.GetPlayerCoinData().ToString();
+        this.LoadUIComponents();
+    }
+
+    private void LoadUIComponents()
+    {
+        this._tmpPlayerCoins.text = CPlaySceneHandler.Instance.GetPlayerBoosterData(BoosterType.COIN).ToString();
+        this._tmpShieldNumber.text = CPlaySceneHandler.Instance.GetPlayerBoosterData(BoosterType.SHIELD).ToString();
+        this._imgShieldRemainingProgress.fillAmount = 1.0f;
     }
 
     public Transform GetCanvasPos()
@@ -26,14 +38,19 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 
     public void OnPlayerBoosterUpdated(BoosterType type)
     {
-        if (type == BoosterType.COIN)
+        switch(type)
         {
-            long playerCoins = CGameDataManager.Instance.GetPlayerBoosterData(type).value;
-            
-            if (playerCoins != -1)
-            {
-                this._tmpPlayerCoins.text = playerCoins.ToString();
-            }
+            case BoosterType.COIN:
+                long playerCoins = CPlaySceneHandler.Instance.GetPlayerBoosterData(type);
+                if (playerCoins != -1)
+                {
+                    this._tmpPlayerCoins.text = playerCoins.ToString();
+                }
+                break;
+            case BoosterType.SHIELD:
+                long playerShields = CPlaySceneHandler.Instance.GetPlayerBoosterData(type);
+                this._tmpShieldNumber.text = playerShields.ToString();
+                break;
         }
     }
 
@@ -49,6 +66,28 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 
     public void OnShieldBtnClicked()
     {
-        Debug.Log("Shield On!");
+        this.OnPlayerShieldUp();
+    }
+
+    public void OnPlayerShieldUp()
+    {
+        if (!CPlaySceneHandler.Instance.TryActivatePlayerShield()) return;
+
+        this._imgShieldRemainingBar.gameObject.SetActive(true);
+
+        float shieldDuration = 30.0f;
+        this._imgShieldRemainingProgress
+            .DOFillAmount(0.0f, shieldDuration)
+            .OnComplete(() => {
+                this.OnPlayerShieldDown();
+                CGameplayManager.Instance.OnPlayerShieldExpired();
+            });
+    }
+
+    public void OnPlayerShieldDown()
+    {
+        Debug.Log("Shield Down");
+        this._imgShieldRemainingProgress.fillAmount = 1.0f;
+        this._imgShieldRemainingBar.gameObject.SetActive(false);
     }
 }

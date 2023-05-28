@@ -8,6 +8,7 @@ using DG.Tweening;
 public class CPlayerVisual : CBaseVisual
 {
     [SerializeField] private CPlayer _player;
+    [SerializeField] private GameObject _playerShield;
 
     private int rotationZ = 0;
 
@@ -18,7 +19,7 @@ public class CPlayerVisual : CBaseVisual
 
     public void PlayStartAnimation()
     {
-        this.spriteRenderer.DOFade(1.0f, 1.5f);
+        this.spriteRenderer.DOFade(1.0f, 2.0f);
         this.animator.Play(PLAYER_START_GAME_ANIM);
     }    
 
@@ -30,6 +31,11 @@ public class CPlayerVisual : CBaseVisual
     public void OnPlayerDieAnimCompleted()
     {
         this._player.gameObject.SetActive(false);
+    }
+
+    public void OnPlayerShieldStateChanged(bool isOn)
+    {
+        this._playerShield.SetActive(isOn);
     }
 
     public int GetRotationZ()
