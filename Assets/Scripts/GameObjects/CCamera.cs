@@ -15,7 +15,7 @@ public class CCamera : CBaseGameObject
     private void Update()
     {
         Vector3 newPos = this._playerTransform.position;
-        
+
         // only follow player on X & Y axes
         newPos.z = this.transform.position.z;
 

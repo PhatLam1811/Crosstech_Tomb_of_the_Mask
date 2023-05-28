@@ -88,7 +88,7 @@ public class CMapClearedDialog : CBaseDialog
 
     private IEnumerator coroutinePLayStarCollectedAnim()
     {
-        const float delayTime = 0.5f;
+        const float delayTime = 0.3f;
 
         for (int i = 0; i < this.starsCollected; i++)
         {

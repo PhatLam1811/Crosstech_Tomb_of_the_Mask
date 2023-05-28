@@ -22,10 +22,10 @@ public class CPlayer : CBaseGameObject
     private int _currentAngle;
 
     private Queue<PlayerMoves> movesOnStandBy;
-    
-    private bool _isMoving;
 
-    private const int MAP_LAYER = 6;
+    private bool _isPlaying;
+
+    private bool _isMoving;
 
     private const float RAYCAST_1_DISTANCE = 15.0f;
     private const float RAYCAST_2_DISTANCE = 25.0f;
@@ -34,33 +34,31 @@ public class CPlayer : CBaseGameObject
 
     private void FixedUpdate()
     {
-        // only move in another direction if the player has collided with a wall
-        if (!this._isMoving)
-            this.PrepareForNextMove();
-        else
-            this.AttemptToMove();
+        if (this._isPlaying)
+        {
+            // only move in another direction if the player has collided with a wall
+            if (!this._isMoving)
+                this.PrepareForNextMove();
+            else
+                this.AttemptToMove();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<CDotGame>(out CDotGame dotGame))
+        if (collision.TryGetComponent<CBaseCollectableObject>(out CBaseCollectableObject obj))
         {
-            CGameplayManager.Instance.OnPlayerHitDotGame(dotGame); return;
-        }
-
-        if (collision.TryGetComponent<CStar>(out CStar star))
-        {
-            CGameplayManager.Instance.OnPlayerHitStar(star); return;
-        }
-
-        if (collision.TryGetComponent<CCoin>(out CCoin coin))
-        {
-            CGameplayManager.Instance.OnPlayerHitCoin(coin); return;
+            CGameplayManager.Instance.OnPlayerHitCollectableObject(obj); return;
         }
 
         if (collision.TryGetComponent<CExit>(out CExit exit))
         {
             CGameplayManager.Instance.OnPlayerReachExit(); return;
+        }
+
+        if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER))
+        {
+            this.OnDead();
         }
     }
 
@@ -71,6 +69,7 @@ public class CPlayer : CBaseGameObject
 
         this.movesOnStandBy = new Queue<PlayerMoves>();
 
+        this._isPlaying = false;
         this._isMoving = false;
 
         this._currentAngle = 0;
@@ -88,11 +87,14 @@ public class CPlayer : CBaseGameObject
 
         yield return new WaitForSeconds(2.0f);
 
+        this._isPlaying = true;    
+
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
     }
 
     public void RegisterNextMove(PlayerMoves nextMove)
     {
+        if (!this._isPlaying) return;
         this.movesOnStandBy.Enqueue(nextMove);
     }
 
@@ -124,6 +126,8 @@ public class CPlayer : CBaseGameObject
                     break;
             }
 
+            CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_DEFAULT_MASK_FX_KEY);
+
             this._isMoving = true;
         }
     }
@@ -147,8 +151,8 @@ public class CPlayer : CBaseGameObject
         Vector3 movingDistance1;
         Vector3 movingDistance2;
 
-        bool isHitOnRay1 = this.ShootRaycast2D(this._raycastPos1, out movingDistance1);
-        bool isHitOnRay2 = this.ShootRaycast2D(this._raycastPos2, out movingDistance2);
+        bool isHitOnRay1 = this.ShootWallDetectRay(this._raycastPos1, out movingDistance1);
+        bool isHitOnRay2 = this.ShootWallDetectRay(this._raycastPos2, out movingDistance2);
 
         if (isHitOnRay2)
         {
@@ -164,18 +168,17 @@ public class CPlayer : CBaseGameObject
 
     private void Move(Vector3 movingDistance)
     {
-        this._isMoving = true;
         this.transform.position += movingDistance;
     }
 
-    private bool ShootRaycast2D(Transform raycastPos, out Vector3 movingDistance)
+    private bool ShootWallDetectRay(Transform raycastPos, out Vector3 movingDistance)
     {
         Vector2 rayOrigin = new Vector2(raycastPos.position.x, raycastPos.position.y);
         Vector2 rayDirection = new Vector2(this.movingVector.x, this.movingVector.y);
         float rayDistance = raycastPos == this._raycastPos1 ? 
             RAYCAST_1_DISTANCE * Time.deltaTime : 
             RAYCAST_2_DISTANCE * Time.deltaTime;
-        int detectLayerMask = 1 << MAP_LAYER;
+        int detectLayerMask = 1 << GameDefine.MAP_LAYER;
 
         RaycastHit2D rayHit = Physics2D.Raycast(rayOrigin, rayDirection, rayDistance, detectLayerMask);
         
@@ -201,17 +204,6 @@ public class CPlayer : CBaseGameObject
         return false;
     }
 
-    private void OnLanding()
-    {
-        this.RotateZOnLanding();
-
-        this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
-
-        this.movingVector = Vector3.zero;
-
-        this._isMoving = false;
-    }
-
     private void RotateZOnMoving(int angle)
     {
         this._currentAngle = angle;
@@ -222,5 +214,24 @@ public class CPlayer : CBaseGameObject
     {
         this._currentAngle = (this._currentAngle + 180) % 360;
         this.transform.DORotate(Vector3.forward * this._currentAngle, 0f);
+    }
+
+    private void OnLanding()
+    {
+        CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_LANDING_FX_KEY);
+
+        this.RotateZOnLanding();
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
+
+        this.movingVector = Vector3.zero;
+
+        this._isMoving = false;
+    }
+
+    public void OnDead()
+    {
+        this._isPlaying = false;
+        CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_DIE_FX_KEY);
+        this._visual.PlayAnimation(CPlayerVisual.PLAYER_DIE_ANIM);
     }
 }

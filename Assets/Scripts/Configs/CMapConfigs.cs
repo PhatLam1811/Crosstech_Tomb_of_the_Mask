@@ -38,14 +38,51 @@ public class CMapConfig
     public Vector3Int _playerStartPosition;
     public Vector3Int _exitPosition;
 
-    public List<CCollectableObjectPositionConfig> _collectableObjectPositionConfigs;
+    public MapBonusType _bonus;
+
+    public List<CCollectableObjectPositionConfig> _collectableObjectConfigs;
+    public List<CTrapObjectConfig> _trapObjectConfigs;
 }
 
 [System.Serializable]
 public class CCollectableObjectPositionConfig
 {
-    public int _id;
+    public MapCollectableType _id;
+    public Vector3Int position;
+}
 
-    public int x;
-    public int y;
+[System.Serializable]
+public class CTrapObjectConfig
+{
+    public MapTrapType _id;
+    public Vector3Int position;
+}
+
+[System.Serializable]
+public enum MapBonusType
+{
+    NONE = -1,
+    COIN = 0,
+    SHIELD = 1
+}
+
+[System.Serializable]
+public enum MapCollectableType
+{
+    GAME_DOTS = 0,
+    COIN = 1,
+    STAR = 2
+}
+
+[System.Serializable]
+public enum MapTrapType
+{
+    NONE = -1,
+   
+    CANNON_T = 0,
+    CANNON_L = 1,
+    CANNON_D = 2,
+    CANNON_R = 3,
+
+    BAT = 4,
 }

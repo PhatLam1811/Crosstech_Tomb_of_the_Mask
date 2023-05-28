@@ -35,8 +35,12 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     {
         this._player = player;
         this._player.StartGame();
+        
         CGameplayUIManager.Instance.StartGame();
         CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+
+        CGameSoundManager.Instance.PlayFx(GameDefine.GAME_START_FX_KEY);
+        CGameSoundManager.Instance.PlayLoopBGM(GameDefine.GAMEPLAY_BGM_KEY);
     }
 
     public int GetOnPlayingMapId()
@@ -79,27 +83,31 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         }
     }
 
-    public void OnPlayerHitDotGame(CDotGame collectedDotGame)
+    public void OnPlayerHitCollectableObject(CBaseCollectableObject obj)
     {
-        this.collectedDots++;
-        collectedDotGame.OnCollectedByPlayer();
+        obj.OnCollectedByPlayer();
     }
 
-    public void OnPlayerHitStar(CStar collectedStar) 
+    public void OnPlayerCollectGameDot()
+    {
+        this.collectedDots++;
+    }
+
+    public void OnPlayerCollectStar() 
     {
         this.collectedStars++;
-        collectedStar.OnCollectedByPlayer();
         CGameplayUIManager.Instance.OnPlayerCollectedStar(this.collectedStars);
     }
 
-    public void OnPlayerHitCoin(CCoin collectedCoin)
+    public void OnPlayerCollectCoin()
     {
-        collectedCoin.OnCollectedByPlayer();
         CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.COIN, 1);
     }
 
     public void OnPlayerReachExit()
     {
+        CGameSoundManager.Instance.PlayFx(GameDefine.PLAYER_WIN_FX_KEY);
+
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CLEARED, this._onPlayingMapId);
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_GAME_MAP_STARS, this._onPlayingMapId, this.collectedStars);
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.UNLOCK_MAP, this._onPlayingMapId + 1);
@@ -110,7 +118,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private void ShowMapClearedDialog()
     {
-        int currentMapTotalDots = CPlayMapManager.Instance.GetMapTotalDots();
+        int currentMapTotalDots = CGameplayMapManager.Instance.GetMapTotalDots();
         float percentDotsCollected = (this.collectedDots * 1.0f) / currentMapTotalDots;
 
         CMapClearedDialogData result = new CMapClearedDialogData()

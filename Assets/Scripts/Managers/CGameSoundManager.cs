@@ -7,27 +7,34 @@ using UnityEngine.Events;
 public class CGameSoundManager : MonoSingleton<CGameSoundManager>
 {
     public CSoundBase _fxSoundBase;
+    public CSoundBase _playerFxSoundBase;
     public CSoundBase _bgmSoundBase;
 
     private UnityAction<bool> callbackOnFxIsPlayingChange;
+    private UnityAction<bool> callbackOnPlayerFxIsPlayingChange;
     private UnityAction<bool> callbackOnBGMIsPlayingChange;
 
     private bool isFxPlaying = false;
+    private bool isPlayerFxPlaying = false;
     private bool isBGMPlaying = false;
 
     private bool isFxLoop = false;
+    private bool isPlayerFxLoop = false;
     private bool isBGMLoop = false;
 
     private float fxClipLength = 0.0f;
+    private float playerFxClipLength = 0.0f;
     private float bgmClipLength = 0.0f;
 
     private float fxPlayedTime = 0.0f;
+    private float playerFxPlayedTime = 0.0f;
     private float bgmPlayedTime = 0.0f;
 
     private void Update()
     {
         this.IsFxEnd();
         this.IsBGMEnd();
+        this.IsPlayerFxEnd();
     }
 
     #region Fx
@@ -89,6 +96,68 @@ public class CGameSoundManager : MonoSingleton<CGameSoundManager>
     {
         this.isFxPlaying = isPlaying;
         this.callbackOnFxIsPlayingChange?.Invoke(this.isFxPlaying);
+    }
+    #endregion
+
+    #region PlayerFx
+    public void PlayPlayerFx(string key)
+    {
+        this.isPlayerFxLoop = false;
+        this.playerFxPlayedTime = 0.0f;
+        this.playerFxPlayedTime = this.Play(key, _playerFxSoundBase);
+        this.InvokeCallbackOnPlayerFxIsPlayingChange(true);
+    }
+
+    public void PlayLoopPlayerFx(string key)
+    {
+        this.isPlayerFxLoop = true;
+        this.PlayLoop(key, _playerFxSoundBase);
+        this.InvokeCallbackOnPlayerFxIsPlayingChange(true);
+    }
+
+    public void MutePlayerFx()
+    {
+        this.Mute(_playerFxSoundBase);
+        this.InvokeCallbackOnPlayerFxIsPlayingChange(false);
+    }
+
+    public void StopPlayerFx()
+    {
+        this.Stop(_playerFxSoundBase);
+        this.InvokeCallbackOnPlayerFxIsPlayingChange(false);
+    }
+
+    public void IsPlayerFxEnd()
+    {
+        if (!this.isPlayerFxLoop && this.playerFxClipLength > 0.0f)
+        {
+            this.playerFxPlayedTime += Time.deltaTime;
+
+            if (this.playerFxPlayedTime >= this.playerFxClipLength)
+            {
+                this.isPlayerFxLoop = false;
+                this.playerFxClipLength = 0.0f;
+                this.playerFxPlayedTime = 0.0f;
+                this.InvokeCallbackOnPlayerFxIsPlayingChange(false);
+            }
+        }
+    }
+
+    public void AssignCallbackOnPlayerFxIsPlayingChange(UnityAction<bool> callback)
+    {
+        this.callbackOnPlayerFxIsPlayingChange -= callback;
+        this.callbackOnPlayerFxIsPlayingChange += callback;
+    }
+
+    public void UnAssignCallbackOnPlayerFxIsPlayingChange(UnityAction<bool> callback)
+    {
+        this.callbackOnPlayerFxIsPlayingChange -= callback;
+    }
+
+    public void InvokeCallbackOnPlayerFxIsPlayingChange(bool isPlaying)
+    {
+        this.isPlayerFxPlaying = isPlaying;
+        this.callbackOnPlayerFxIsPlayingChange?.Invoke(this.isPlayerFxPlaying);
     }
     #endregion
 

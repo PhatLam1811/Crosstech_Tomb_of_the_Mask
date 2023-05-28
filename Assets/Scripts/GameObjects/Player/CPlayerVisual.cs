@@ -5,11 +5,8 @@ using UnityEngine;
 using DG.Tweening;
 
 [RequireComponent(typeof(Animator))]
-public class CPlayerVisual : MonoBehaviour
+public class CPlayerVisual : CBaseVisual
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-
     [SerializeField] private CPlayer _player;
 
     private int rotationZ = 0;
@@ -17,13 +14,7 @@ public class CPlayerVisual : MonoBehaviour
     public const string PLAYER_START_GAME_ANIM = "player_start_game";
     public const string PLAYER_IDLE_ANIM = "player_idle";
     public const string PLAYER_JUMP_ANIM = "player_jump";
-
-#if UNITY_EDITOR
-    protected virtual void OnValidate()
-    {
-        this.animator = this.GetComponent<Animator>();
-    }
-#endif
+    public const string PLAYER_DIE_ANIM = "player_die";
 
     public void PlayStartAnimation()
     {
@@ -34,6 +25,11 @@ public class CPlayerVisual : MonoBehaviour
     public void PlayAnimation(string key)
     {
         this.animator.Play(key);
+    }
+
+    public void OnPlayerDieAnimCompleted()
+    {
+        this._player.gameObject.SetActive(false);
     }
 
     public int GetRotationZ()
