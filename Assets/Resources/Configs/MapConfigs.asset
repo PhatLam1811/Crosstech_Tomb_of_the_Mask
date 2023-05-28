@@ -16,7 +16,7 @@ MonoBehaviour:
   - _id: 1
     _playerStartPosition: {x: 0, y: -4, z: 0}
     _exitPosition: {x: -4, y: 50, z: 0}
-    _bonus: 1
+    _bonus: 0
     _collectableObjectConfigs:
     - _id: 0
       position: {x: 6, y: -4, z: 0}

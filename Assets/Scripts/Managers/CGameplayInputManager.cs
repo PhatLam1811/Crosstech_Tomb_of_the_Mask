@@ -47,6 +47,11 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
         this.UnAssignInputEventListeners();
     }
 
+    public void DisableSelf()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     private void InitInputActions()
     {
         this.screenTouchAction = this.playerInput.actions[SCREEN_TOUCH_ACTION];

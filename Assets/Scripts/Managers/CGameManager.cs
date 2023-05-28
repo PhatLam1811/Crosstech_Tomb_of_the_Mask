@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -33,7 +34,6 @@ public class CGameManager : MonoSingleton<CGameManager>
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();
-        CGameDialogManager.Instance.OpenApp();
 
         this.PlayLoadingScene();
     }
@@ -102,6 +102,21 @@ public class CGameManager : MonoSingleton<CGameManager>
     public void LoadScene(int key)
     {
         SceneManager.LoadScene(key);
+    }
+
+    public void ShowDialog<T>(string path, Transform canvasPos, object data = null, UnityAction callbackCompleteShow = null) where T : CBaseDialog
+    {
+        GameObject dialogPrefab = CGameManager.Instance.GetResourceFile<GameObject>(path);
+
+        if (dialogPrefab != null)
+        {
+            T dialogComponent = (Instantiate(dialogPrefab, canvasPos)).GetComponent<T>();
+
+            if (dialogComponent != null)
+            {
+                dialogComponent.OnShow(data, callbackCompleteShow);
+            }
+        }
     }
 
     public T GetResourceFile<T>(string path) where T : UnityEngine.Object

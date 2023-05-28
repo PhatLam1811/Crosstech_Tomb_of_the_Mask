@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class CMapClearedDialogData
 {
-    public int _mapId;
-
-    public bool isCleared;
     public float percentDotsCollected;
     public int starsCollected;
 }
@@ -17,8 +14,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private int _onPlayingMapId = 1;
 
-    private int collectedDots = 0;
-    private int collectedStars = 0;
+    private int collectedDots;
+    private int collectedStars;
 
     private void Update()
     {
@@ -33,9 +30,12 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     public void StartGame(CPlayer player)
     {
+        this.collectedDots = 0;
+        this.collectedStars = 0;
+
         this._player = player;
         this._player.StartGame();
-        
+
         CGameplayUIManager.Instance.StartGame();
         CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
 
@@ -107,6 +107,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerReachExit()
     {
         CGameSoundManager.Instance.PlayFx(GameDefine.PLAYER_WIN_FX_KEY);
+        CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+        CGameplayInputManager.Instance.DisableSelf();
 
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CLEARED, this._onPlayingMapId);
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_GAME_MAP_STARS, this._onPlayingMapId, this.collectedStars);
@@ -121,15 +123,11 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         int currentMapTotalDots = CGameplayMapManager.Instance.GetMapTotalDots();
         float percentDotsCollected = (this.collectedDots * 1.0f) / currentMapTotalDots;
 
-        CMapClearedDialogData result = new CMapClearedDialogData()
-        {
-            _mapId = this._onPlayingMapId,
-            isCleared = true,
-            percentDotsCollected = percentDotsCollected,
-            starsCollected = this.collectedStars
-        };
+        CMapClearedDialogData result = new CMapClearedDialogData();
+        result.percentDotsCollected = percentDotsCollected;
+        result.starsCollected = this.collectedStars;
 
-        CGameDialogManager.Instance.ShowDialog<CMapClearedDialog>(
+        CGameManager.Instance.ShowDialog<CMapClearedDialog>(
             path: GameDefine.DIALOG_MAP_CLEARED_PATH,
             canvasPos: CGameplayUIManager.Instance.GetCanvasPos(),
             data: result);

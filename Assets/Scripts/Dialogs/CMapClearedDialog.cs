@@ -22,36 +22,42 @@ public class CMapClearedDialog : CBaseDialog
     public Button btn_next_stage;
     public Button btn_close;
 
-    private int _mapId;
-
     private int starsCollected = 0;
+    private float percentDotsCollected = 0.0f;
 
-    private float coins_progress_bar_fill_amount = 0.0f;
-    private float shield_progress_bar_fill_amount = 0.0f;
-
-    public override void OnShow(object data = null, UnityAction callback = null)
-    {
-        base.OnShow(data, callback);
-    }
+    private const int TWEEN_DIALOG_SHOW_ID = 0;
+    private const int TWEEN_DIALOG_CLOSE_ID = 1;
 
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
+        DOTween.Kill(TWEEN_DIALOG_SHOW_ID);
+        this.ParseData();
+        StartCoroutine(coroutinePLayStarCollectedAnim());
+        Debug.Log("On Complete Show");
+    }
 
+    public override void OnHide()
+    {
+        this.PlayDialogBodyOnCloseAnim();
+    }
+
+    public override void OnCompleteHide()
+    {
+        DOTween.Kill(TWEEN_DIALOG_CLOSE_ID);
+        CPlaySceneHandler.Instance.BackToHomeScene();
+        Destroy(this.gameObject);
+    }
+
+    private void ParseData()
+    {
         if (this.data != null)
         {
             if (this.data.GetType() == typeof(CMapClearedDialogData))
             {
                 CMapClearedDialogData result = data as CMapClearedDialogData;
-
-                this._mapId = result._mapId;
-
                 this.starsCollected = result.starsCollected;
-
-                this.coins_progress_bar_fill_amount = result.percentDotsCollected;
-                this.shield_progress_bar_fill_amount = result.percentDotsCollected;
-
-                StartCoroutine(coroutinePLayStarCollectedAnim());
+                this.percentDotsCollected = result.percentDotsCollected;
             }
             else
             {
@@ -66,24 +72,20 @@ public class CMapClearedDialog : CBaseDialog
         }
     }
 
-    public override void OnHide()
-    {
-        // this._animator.Play(ANIMATOR_HIDE);
-    }
-
-    public override void OnCompleteHide()
-    {
-        Destroy(this.gameObject);
-    }
-
     public void PlayDialogBodyOnShowAnim()
     {
-        Sequence seq = DOTween.Sequence();
+        this.panel_dialog.transform
+            .DOScaleY(1f, 0.3f)
+            .OnComplete(this.OnCompleteShow)
+            .SetId(TWEEN_DIALOG_SHOW_ID);
+    }
 
-        seq.Append(this.panel_dialog.transform.DOScaleY(1f, 0.3f));
-        seq.AppendCallback(this.OnCompleteShow);
-
-        seq.Play();
+    private void PlayDialogBodyOnCloseAnim()
+    {
+        this.panel_dialog.transform
+            .DOScaleY(0f, 0.2f)
+            .OnComplete(this.OnCompleteHide)
+            .SetId(TWEEN_DIALOG_CLOSE_ID);
     }
 
     private IEnumerator coroutinePLayStarCollectedAnim()
@@ -114,21 +116,30 @@ public class CMapClearedDialog : CBaseDialog
     {
         const float duration = 1.0f;
         this.img_collected_dots_bonus_coins_progress_bar
-            .DOFillAmount(this.coins_progress_bar_fill_amount, duration)
+            .DOFillAmount(this.percentDotsCollected, duration)
             .OnStart(() => CGameSoundManager.Instance.PlayLoopFx(GameDefine.DOTS_COUNT_FX_KEY))
             .OnComplete(() =>
             {
                 CGameSoundManager.Instance.StopFx();
-
-                if (this.coins_progress_bar_fill_amount == 1.0f)
-                {
-                    if (!CGameDataManager.Instance.GetGameMapData(this._mapId).isBonusCollected)
-                    {
-                        this.PlayBonusAcquiredAnim();
-                        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_BONUS_COLLECTED, this._mapId);
-                    }
-                }
+                this.btn_close.gameObject.SetActive(true);
+                this.btn_next_stage.gameObject.SetActive(true);
+                this.ClaimMapBonus();
             });
+    }
+
+    private void ClaimMapBonus()
+    {
+        int mapId = CPlaySceneHandler.Instance.GetOnPlayingMapId();
+
+        if (this.percentDotsCollected == 1.0f
+         && !CPlaySceneHandler.Instance.IsMapBonusCollected(mapId))
+        {
+            this.PlayBonusAcquiredAnim();
+            CPlaySceneHandler.Instance.ConfirmMapBonusCollected(mapId);
+        }
+
+        this.btn_close.gameObject.SetActive(true);
+        this.btn_next_stage.gameObject.SetActive(true);
     }
 
     private void PlayBonusAcquiredAnim()
@@ -139,19 +150,16 @@ public class CMapClearedDialog : CBaseDialog
 
     public void OnBtnClaimChestPressed()
     {
-        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
-        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CHEST_CLAIMED, this._mapId);
         Debug.Log("Show Wheel Bonus");
     }
 
     public void OnBtnNextStagePressed()
     {
-        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
         Debug.Log("Load next map");
     }
 
     public void OnBtnClosePressed()
     {
-        Debug.Log("Close dialog and Go back to home scene");
+        this.OnHide();
     }
 }
