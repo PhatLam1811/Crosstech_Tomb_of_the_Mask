@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ public enum GameMapUpdateType
 public class CMapDataCommodity
 {
     public int _id;
+
+    public MapBonusType bonusType;
 
     public bool isUnlocked;
     public bool isCleared;
@@ -95,14 +98,21 @@ public class CGameMapDatas
     public void CreateNew()
     {
         this._mapDatas = new List<CMapDataCommodity>();
-        
-        for (int i = 1; i <= 10; i++)
-        {
-            this._mapDatas.Add(new CMapDataCommodity(id: i));
-        }
+
+        this.LoadMapConfigs();
 
         this._mapDatas[0].isUnlocked = true;
         this._currentMapId = this._mapDatas[0]._id;
+    }
+
+    private void LoadMapConfigs()
+    {
+        foreach (CMapConfig config in CMapConfigs.Instance._mapConfigs)
+        {
+            CMapDataCommodity newMap = new CMapDataCommodity(id: config._id);
+            newMap.bonusType = config._bonus;
+            this._mapDatas.Add(newMap);
+        }
     }
 
     public void AddNewGameMap(int id)
@@ -125,6 +135,28 @@ public class CGameMapDatas
         else
         {
             Debug.LogError($"EXISTED MAP {id}");
+        }
+    }
+
+    public void UnlockGameMap(int id)
+    {
+        if (this._mapDatas == null)
+        {
+            this.CreateNew();
+        }
+
+        if (this._dictionaryMapDatas == null)
+        {
+            this.SetUpDictionary();
+        }
+
+        if (this._dictionaryMapDatas.TryGetValue(id, out CMapDataCommodity map))
+        {
+            map.UnlockMap();
+        }
+        else
+        {
+            Debug.LogError($"NOT EXISTED MAP {id}");
         }
     }
 
@@ -237,7 +269,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
             return null;
         }
     }

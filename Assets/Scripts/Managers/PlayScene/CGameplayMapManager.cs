@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 {
     public Grid _grid;
+
+    public List<Tilemap> _playMaps;
+    private Dictionary<int, Tilemap> _dictionaryPlayMaps;
 
     public GameObject prefab_player;
     
@@ -22,12 +26,38 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     private void Start()
     {
+        this.SetUpDictionary();
         this.LoadMap(CGameplayManager.Instance.GetOnPlayingMapId());
+    }
+
+    private void SetUpDictionary()
+    {
+        this._dictionaryPlayMaps = new Dictionary<int, Tilemap>();
+
+        if (this._playMaps != null)
+        {
+            for (int i = 0; i < this._playMaps.Count; i++)
+            {
+                this._dictionaryPlayMaps.Add(i + 1, this._playMaps[i]);
+            }
+        }
+        else
+        {
+            Debug.LogError("No play map found!");
+        }
     }
 
     private void LoadMap(int mapId)
     {
-        CMapConfig mapConfig = CMapConfigs.Instance._mapConfigs[1];
+        if (!this._dictionaryPlayMaps.ContainsKey(mapId))
+        {
+            Debug.LogError("Not found map id " + mapId);
+            return;
+        }
+
+        this._dictionaryPlayMaps[mapId].gameObject.SetActive(true);
+
+        CMapConfig mapConfig = CMapConfigs.Instance.GetMapConfig(mapId);
 
         this.LoadCollectableObjects(mapConfig);
         this.LoadTrapObjects(mapConfig);

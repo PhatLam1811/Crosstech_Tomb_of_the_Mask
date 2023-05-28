@@ -71,6 +71,8 @@ public class CGameDatas
         {
             case GameMapUpdateType.ADD_GAME_MAP:
                 this._gameMapDatas.AddNewGameMap(id); break;
+            case GameMapUpdateType.UNLOCK_MAP:
+                this._gameMapDatas.UnlockGameMap(id); break;
             case GameMapUpdateType.SET_IS_CLEARED:
                 this._gameMapDatas.SetGameMapCleared(id); break;
             case GameMapUpdateType.SET_IS_BONUS_COLLECTED:

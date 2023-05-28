@@ -36,7 +36,14 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
 
     public bool IsMapUnlocked(int mapId)
     {
-        return CGameDataManager.Instance.GetGameMapData(mapId).isUnlocked;
+        CMapDataCommodity mapData = CGameDataManager.Instance.GetGameMapData(mapId);
+        
+        if (mapData == null || !mapData.isUnlocked)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void PlayMap(int mapId)
