@@ -16,6 +16,7 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public void StartGame()
     {
         CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
+        this._tmpPlayerCoins.text = CPlaySceneHandler.Instance.GetPlayerCoinData().ToString();
     }
 
     public Transform GetCanvasPos()

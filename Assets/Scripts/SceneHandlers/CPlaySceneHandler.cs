@@ -23,4 +23,9 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
     {
         CGameManager.Instance.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
     }
+
+    public long GetPlayerCoinData()
+    {
+        return CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.COIN).value;
+    }
 }

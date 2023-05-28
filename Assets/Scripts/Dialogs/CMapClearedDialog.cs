@@ -155,7 +155,8 @@ public class CMapClearedDialog : CBaseDialog
 
     public void OnBtnNextStagePressed()
     {
-        Debug.Log("Load next map");
+        int currentMapId = CPlaySceneHandler.Instance.GetOnPlayingMapId();
+        CGameplayManager.Instance.PlayMap(currentMapId + 1);
     }
 
     public void OnBtnClosePressed()

@@ -134,7 +134,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"EXISTED MAP {id}");
+            Debug.Log($"EXISTED MAP {id}");
         }
     }
 
@@ -156,7 +156,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
         }
     }
 
@@ -178,7 +178,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
         }
     }
 
@@ -200,7 +200,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
         }
     }
 
@@ -222,7 +222,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
         }
     }
 
@@ -247,7 +247,7 @@ public class CGameMapDatas
         }
         else
         {
-            Debug.LogError($"NOT EXISTED MAP {id}");
+            Debug.Log($"NOT EXISTED MAP {id}");
         }
     }
 
