@@ -9,14 +9,22 @@ using DG.Tweening;
 public class CReviveDialog : CBaseDialog
 {
     public Image panel_dialog;
+    public Image img_count_down;
     public TextMeshProUGUI tmp_revive_turn;
     public Animator img_revive_animator;
     public Button btn_purchase;
     public Animator tmp_revive_cost_animator;
 
     private const int REVIVE_COST = 200;
+    private const float REVIVE_DURATION = 5.0f;
 
     private const string REVIVE_SUCCESS = "revived";
+
+    public override void OnCompleteShow()
+    {
+        base.OnCompleteShow();
+        this.LoadUIComponents();
+    }
 
     public override void OnHide()
     {
@@ -27,6 +35,14 @@ public class CReviveDialog : CBaseDialog
     {
         CPlaySceneHandler.Instance.BackToHomeScene();
         Destroy(this.gameObject);
+    }
+
+    private void LoadUIComponents()
+    {
+        this.img_count_down.gameObject.SetActive(true);
+        this.img_count_down
+            .DOFillAmount(0.0f, REVIVE_DURATION)
+            .OnComplete(this.OnHide);
     }
 
     public void PlayDialogBodyOnShowAnim()
