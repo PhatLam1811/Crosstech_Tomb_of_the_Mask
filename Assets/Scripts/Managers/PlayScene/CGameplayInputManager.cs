@@ -18,7 +18,7 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
     public PlayerInput playerInput;
 
     [SerializeField] private float maxSwipeTime = 1.0f;
-    [SerializeField] private float minSwipeDistance = 2.0f;
+    [SerializeField] private float minSwipeDistance = 1.0f;
     [SerializeField, Range(0.0f, 1.0f)] private float swipeAngleThreshold = 0.75f;
 
     private InputAction screenTouchAction;
