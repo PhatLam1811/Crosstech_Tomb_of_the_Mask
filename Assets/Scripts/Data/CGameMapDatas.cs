@@ -80,7 +80,7 @@ public class CGameMapDatas
         this.SetUpDictionary();
     }
 
-    private void SetUpDictionary()
+    private void SetUpDictionary()  
     {
         this._dictionaryMapDatas = new Dictionary<int, CMapDataCommodity>();
 

@@ -22,6 +22,8 @@ public class GameDefine
     public const string NOTIFY_ANIM = "notify";
     public const string STAR_GETS_ANIM = "star_get";
     public const string PURCHASE_FAILED_ANIM = "purchase_failed";
+    public const string FADE_ON_ANIM = "fade_on";
+    public const string FADE_OFF_ANIM = "fade_off";
 
     // TILES
     public const int DOT_TILE_ID = 0;
@@ -47,7 +49,7 @@ public class GameDefine
     public const string PLAYER_WIN_FX_KEY = "Win";
     public const string GAME_START_FX_KEY = "Start";
     public const string SHIELD_ACTIVATE_FX_KEY = "Shield";
-    public const string START_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
+    public const string LOADING_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
     public const string HOME_SCENE_BGM_KEY = "Music_music";
     public const string GAMEPLAY_BGM_KEY = "Story_music";
 

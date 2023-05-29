@@ -27,12 +27,25 @@ public class CPlayer : CBaseGameObject
     private bool _isMoving;
     private bool _isShieldActive;
 
+    private List<string> _tweenIds;
+
     private Vector3 lastSafePos;
 
     private const float RAYCAST_1_DISTANCE = 15.0f;
     private const float RAYCAST_2_DISTANCE = 25.0f;
 
     private const float RAYCAST_2_PUSH_OFFSET = -0.25f;
+
+    private const string TWEEN = "_RotateTween_";
+
+    private void OnDisable()
+    {
+        foreach(string tweenId in this._tweenIds)
+        {
+            string completeId = this.GetInstanceID() + TWEEN + tweenId;
+            DOTween.Kill(completeId);
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -74,6 +87,8 @@ public class CPlayer : CBaseGameObject
         this._isPlaying = false;
         this._isMoving = false;
         this._isShieldActive = false;
+
+        this._tweenIds = new List<string>();
 
         this.lastSafePos = this.transform.position;
 
@@ -211,13 +226,17 @@ public class CPlayer : CBaseGameObject
     private void RotateZOnMoving(int angle)
     {
         this._currentAngle = angle;
-        this.transform.DORotate(Vector3.forward * angle, 0f);
+        string tweenId = this.GetInstanceID().ToString() + TWEEN + _tweenIds.Count.ToString();
+        this.transform.DORotate(Vector3.forward * angle, 0f).SetId(tweenId);
+        this._tweenIds.Add(tweenId);
     }
 
     private void RotateZOnLanding()
     {
         this._currentAngle = (this._currentAngle + 180) % 360;
-        this.transform.DORotate(Vector3.forward * this._currentAngle, 0f);
+        string tweenId = this.GetInstanceID().ToString() + TWEEN + _tweenIds.Count.ToString();
+        this.transform.DORotate(Vector3.forward * this._currentAngle, 0f).SetId(tweenId);
+        this._tweenIds.Add(tweenId);
     }
 
     private void OnLanding()

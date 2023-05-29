@@ -33,4 +33,10 @@ public class Utils
     {
         return camera.ScreenToViewportPoint(screenPos);
     }
+
+    public static bool IsAnimationPlaying(Animator controller, int layer = 0, string name = null)
+    {
+        return controller.GetCurrentAnimatorStateInfo(layer).IsName(name) && 
+            controller.GetCurrentAnimatorStateInfo(layer).normalizedTime < 1;
+    }
 }

@@ -8,16 +8,6 @@ using TMPro;
 
 public class CGameManager : MonoSingleton<CGameManager>
 {
-    public GameObject _playgendaryLogo;
-    public GameObject _myLogo;
-    public GameObject _shelzyLogo;
-
-    public GameObject[] _sceneryObjects;
-
-    public Animator _titleAnimator;
-
-    public TextMeshProUGUI _tapToPlayButton;
-
     private void Start()
     {
         this.OpenApp();
@@ -34,56 +24,7 @@ public class CGameManager : MonoSingleton<CGameManager>
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();
-
-        this.PlayLoadingScene();
-    }
-
-    public void PlayLoadingScene()
-    {
-        Sequence seq = DOTween.Sequence();
-
-        seq.Append(_playgendaryLogo.GetComponent<SpriteRenderer>().DOFade(1f, 2f));
-        seq.Join(_myLogo.GetComponent<SpriteRenderer>().DOFade(1f, 2f));
-        seq.Join(_shelzyLogo.GetComponent<SpriteRenderer>().DOFade(1f, 2f));
-        seq.AppendInterval(3f);
-        seq.Append(_playgendaryLogo.GetComponent<SpriteRenderer>().DOFade(0f, 2f));
-        seq.Join(_myLogo.GetComponent<SpriteRenderer>().DOFade(0f, 2f));
-        seq.Join(_shelzyLogo.GetComponent<SpriteRenderer>().DOFade(0f, 2f));
-        seq.AppendCallback(() =>
-        {
-            CGameSoundManager.Instance.PlayFx(GameDefine.TITLE_REVEAL_FX_KEY);
-            _titleAnimator.Play(GameDefine.TITLE_REVEAL_ANIM);
-        });
-        seq.AppendInterval(2f);
-        seq.AppendCallback(() =>
-        {
-            CGameSoundManager.Instance.PlayLoopBGM(GameDefine.START_SCENE_WATER_BGM_KEY);
-        });
-
-        foreach (GameObject sceneryObject in _sceneryObjects)
-        {
-            seq.Join(sceneryObject.GetComponent<SpriteRenderer>().DOFade(1f, 2f));
-        }
-
-        seq.Join(_tapToPlayButton.DOFade(1f, 2f));
-
-        seq.Play();
-    }
-
-    public void OnTapToPlayClicked()
-    {
-        CGameSoundManager.Instance.StopBGM();
-        CGameSoundManager.Instance.AssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
-        CGameSoundManager.Instance.PlayFx(GameDefine.TAP_TO_PLAY_FX_KEY);
-    }
-
-    public void OnLoadingSceneChangeFxEnd(bool isPlaying)
-    {
-        if (!isPlaying)
-        {
-            CGameSoundManager.Instance.UnAssignCallbackOnFxIsPlayingChange(this.OnLoadingSceneChangeFxEnd);
-            this.LoadSceneAsync(GameDefine.HOME_SCENE_ID);
-        }
+        CLoadingSceneManager.Instance.OpenApp();
     }
 
     public void OnGameManageKeyInputProcess()
