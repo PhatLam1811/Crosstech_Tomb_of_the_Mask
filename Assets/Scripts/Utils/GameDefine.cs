@@ -13,7 +13,6 @@ public class GameDefine
     public const string GAME_DATA = "GAME_DATA";
 
     // CONFIGS
-    public const string DIALOG_CONFIGS_FILE_PATH = "Configs/DialogConfigs";
     public const string PLAYER_CONFIGS_FILE_PATH = "Configs/PlayerConfigs";
     public const string MAP_CONFIGS_FILE_PATH = "Configs/MapConfigs";
     public const string SOUND_CONFIGS_FILE_PATH = "Configs/SoundConfigs";
@@ -22,6 +21,7 @@ public class GameDefine
     public const string TITLE_REVEAL_ANIM = "title_reveal";
     public const string NOTIFY_ANIM = "notify";
     public const string STAR_GETS_ANIM = "star_get";
+    public const string PURCHASE_FAILED_ANIM = "purchase_failed";
 
     // TILES
     public const int DOT_TILE_ID = 0;
@@ -53,6 +53,7 @@ public class GameDefine
 
     // DIALOGS
     public const string DIALOG_MAP_CLEARED_PATH = "Dialogs/map_cleared_dialog";
+    public const string DIALOG_REVIVE_PATH = "Dialogs/revive_dialog";
 
     // LAYERS
     public const int MAP_LAYER = 6;

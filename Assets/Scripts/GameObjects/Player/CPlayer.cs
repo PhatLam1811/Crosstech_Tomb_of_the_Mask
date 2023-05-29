@@ -235,14 +235,18 @@ public class CPlayer : CBaseGameObject
 
     private void OnShieldProtected()
     {
+        this.RewindLastSafePos();
+        this.OnShieldStateChanged(false);
+        CGameplayManager.Instance.OnPlayerShieldStateChanged(false);
+    }
+
+    private void RewindLastSafePos()
+    {
         this.transform.position = this.lastSafePos;
         this.movingVector = Vector3.zero;
         this._isMoving = false;
-        
+
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
-        
-        this.OnShieldStateChanged(false);
-        CGameplayManager.Instance.OnPlayerShieldStateChanged(false);
     }
 
     public void OnShieldStateChanged(bool isActive)
@@ -273,7 +277,16 @@ public class CPlayer : CBaseGameObject
     public void OnDead()
     {
         this._isPlaying = false;
+        
         CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_DIE_FX_KEY);
+        CGameplayManager.Instance.OnPlayerDead();
+
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_DIE_ANIM);
+    }
+
+    public void OnRevive()
+    {
+        this._isPlaying = true;
+        this.RewindLastSafePos();
     }
 }

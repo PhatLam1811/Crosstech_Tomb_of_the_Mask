@@ -7,12 +7,20 @@ public class CCamera : CBaseGameObject
 {
     private Transform _playerTransform;
 
-    private void Start()
+    private void Update()
+    {
+        if (this._playerTransform != null)
+        {
+            this.FollowPlayer();
+        }
+    }
+
+    public void GetPlayerPos()
     {
         this._playerTransform = CGameplayManager.Instance.GetPlayer().transform;
     }
 
-    private void Update()
+    private void FollowPlayer()
     {
         Vector3 newPos = this._playerTransform.position;
 

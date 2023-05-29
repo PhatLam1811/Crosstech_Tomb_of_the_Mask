@@ -186,6 +186,7 @@ MonoBehaviour:
   _playMaps:
   - {fileID: 892530085}
   - {fileID: 1207661888}
+  _camera: {fileID: 892570900}
   prefab_player: {fileID: 6211400873284541333, guid: 5ccc5690ec6f39d40a33723960b11e59, type: 3}
   prefab_gate: {fileID: 2449710878173750820, guid: c05cfd0a496eeb04c9018fe36a769c67, type: 3}
   prefab_exit: {fileID: 1797995865943744569, guid: b1a19ec741d9ea04cb6ce649af5adea2, type: 3}

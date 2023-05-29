@@ -10,6 +10,8 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
     public List<Tilemap> _playMaps;
     private Dictionary<int, Tilemap> _dictionaryPlayMaps;
 
+    public CCamera _camera;
+
     public GameObject prefab_player;
     
     public GameObject prefab_gate;
@@ -24,10 +26,29 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
     private int mapTotalDots = 0;
     private int mapTotalCoins = 0;
 
+    private float countdown = 0.0f;
+
+    private bool _isMapLoaded = false;
+
+    private const float DELAY = 0.35f;
+
     private void Start()
     {
         this.SetUpDictionary();
-        this.LoadMap(CGameplayManager.Instance.GetOnPlayingMapId());
+    }
+
+    private void Update()
+    {
+        if (!this._isMapLoaded && this.countdown >= DELAY)
+        {
+            this._isMapLoaded = true;
+            this.LoadMap(CGameplayManager.Instance.GetOnPlayingMapId());
+        }
+        
+        if (!this._isMapLoaded)
+        {
+            this.countdown += Time.deltaTime;
+        }
     }
 
     private void SetUpDictionary()
@@ -67,6 +88,8 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
         CPlayer player = this.LoadPlayer(mapConfig);
 
         CGameplayManager.Instance.StartGame(player);
+
+        this._camera.GetPlayerPos();
     }
 
     private void LoadGate(CMapConfig mapConfig)

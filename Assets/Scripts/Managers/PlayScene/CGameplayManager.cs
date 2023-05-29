@@ -14,6 +14,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private int _onPlayingMapId = 1;
 
+    private bool _isRevived;
+
     private int collectedDots;
     private int collectedStars;
 
@@ -35,6 +37,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         this._player = player;
         this._player.StartGame();
+
+        this._isRevived = false;
 
         CGameplayUIManager.Instance.StartGame();
         CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
@@ -107,8 +111,9 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerReachExit()
     {
         CGameSoundManager.Instance.PlayFx(GameDefine.PLAYER_WIN_FX_KEY);
+
         CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
-        CGameplayInputManager.Instance.DisableSelf();
+        CGameplayInputManager.Instance.SetActive(false);
 
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CLEARED, this._onPlayingMapId);
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_GAME_MAP_STARS, this._onPlayingMapId, this.collectedStars);
@@ -131,6 +136,32 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this._player.OnShieldStateChanged(false);
     }
 
+    public void OnPlayerDead()
+    {
+        CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+        CGameplayInputManager.Instance.SetActive(false);
+
+        if (!this._isRevived)
+        {
+            this.ShowReviveDialog();
+        }
+        else
+        {
+            CPlaySceneHandler.Instance.BackToHomeScene();
+        }
+    }
+
+    public void OnPlayerRevive()
+    {
+        CGameplayInputManager.Instance.SetActive(true);
+        CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+
+        this._isRevived = true;
+
+        this._player.gameObject.SetActive(true);
+        this._player.OnRevive();
+    }
+
     private void ShowMapClearedDialog()
     {
         int currentMapTotalDots = CGameplayMapManager.Instance.GetMapTotalDots();
@@ -144,5 +175,12 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             path: GameDefine.DIALOG_MAP_CLEARED_PATH,
             canvasPos: CGameplayUIManager.Instance.GetCanvasPos(),
             data: result);
+    }
+
+    private void ShowReviveDialog()
+    {
+        CGameManager.Instance.ShowDialog<CMapClearedDialog>(
+            path: GameDefine.DIALOG_REVIVE_PATH,
+            canvasPos: CGameplayUIManager.Instance.GetCanvasPos());
     }
 }

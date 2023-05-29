@@ -47,9 +47,9 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
         this.UnAssignInputEventListeners();
     }
 
-    public void DisableSelf()
+    public void SetActive(bool isActive)
     {
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(isActive);
     }
 
     private void InitInputActions()

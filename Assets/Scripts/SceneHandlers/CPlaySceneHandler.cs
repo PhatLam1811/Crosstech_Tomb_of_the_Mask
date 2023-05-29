@@ -26,6 +26,19 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
         CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, bonusType, value);
     }
 
+    public bool PurchaseRevive(int cost)
+    {
+        long playerCoin = CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.COIN).value;
+        
+        if (playerCoin >= cost)
+        {
+            CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.SUBTRACT_VALUE, BoosterType.COIN, cost);
+            return true;
+        }
+
+        return false;
+    }
+
     public int GetOnPlayingMapId()
     {
         return CGameplayManager.Instance.GetOnPlayingMapId();

@@ -98,7 +98,7 @@ public class CMapClearedDialog : CBaseDialog
     private void PlayDialogBodyOnCloseAnim()
     {
         this.panel_dialog.transform
-            .DOScaleY(0f, 0.2f)
+            .DOScaleY(0f, 0.3f)
             .OnComplete(this.OnCompleteHide);
     }
 
