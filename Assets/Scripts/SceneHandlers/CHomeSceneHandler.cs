@@ -31,7 +31,7 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
 
     public bool IsLastUnlockedMap(int mapId)
     {
-        return mapId == CGameDataManager.Instance._gameData._gameMapDatas.GetCurrentUnlockedMapId();
+        return CGameDataManager.Instance._gameData._gameMapDatas.IsLastMap(mapId);
     }
 
     public bool IsMapUnlocked(int mapId)

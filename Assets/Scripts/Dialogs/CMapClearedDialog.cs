@@ -21,12 +21,15 @@ public class CMapClearedDialog : CBaseDialog
     public Button btn_chest_claim;
     public Image img_chest_unavailable;
     public Button btn_next_stage;
+    public TextMeshProUGUI tmp_next_stage;
     public Button btn_close;
 
     private bool _isBonusCoin;
 
     private int starsCollected = 0;
     private float percentDotsCollected = 0.0f;
+
+    private const float COMING_SOON_FONT_SIZE = 30.0f;
 
     public override void OnShow(object data = null, UnityAction callback = null)
     {
@@ -63,6 +66,19 @@ public class CMapClearedDialog : CBaseDialog
         this._isBonusCoin = CPlaySceneHandler.Instance.IsMapBonusCoin(mapId);
         this.img_bonus_coin_bar.gameObject.SetActive(this._isBonusCoin);
         this.img_bonus_shield_bar.gameObject.SetActive(!this._isBonusCoin);
+
+        bool isLastMap = CPlaySceneHandler.Instance.IsLastMap(mapId);
+        if (isLastMap)
+        {
+            this.btn_next_stage.onClick.RemoveListener(this.OnBtnNextStagePressed);
+            this.btn_next_stage.onClick.AddListener(this.OnBtnClosePressed);
+            this.tmp_next_stage.fontSize = COMING_SOON_FONT_SIZE;
+            this.tmp_next_stage.text = "COMING SOON";
+        }
+        else
+        {
+            this.btn_next_stage.onClick.AddListener(this.OnBtnNextStagePressed);
+        }
     }
 
     private void ParseData()

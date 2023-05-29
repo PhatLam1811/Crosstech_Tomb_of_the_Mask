@@ -73,7 +73,7 @@ public class CGameMapDatas
     public List<CMapDataCommodity> _mapDatas;
     public Dictionary<int, CMapDataCommodity> _dictionaryMapDatas;
 
-    private int _currentMapId;
+    private int _lastMapId;
 
     public void OpenApp()
     {
@@ -91,6 +91,9 @@ public class CGameMapDatas
                 this._dictionaryMapDatas.Add(mapData._id, mapData);
             }
         }
+
+        int lastMapIndex = this._dictionaryMapDatas.Count - 1;
+        this._lastMapId = this._mapDatas[lastMapIndex]._id;
     }
 
     public void CreateNew()
@@ -100,7 +103,6 @@ public class CGameMapDatas
         this.LoadMapConfigs();
 
         this._mapDatas[0].isUnlocked = true;
-        this._currentMapId = this._mapDatas[0]._id;
     }
 
     private void LoadMapConfigs()
@@ -271,8 +273,8 @@ public class CGameMapDatas
         }
     }
 
-    public int GetCurrentUnlockedMapId()
+    public bool IsLastMap(int id)
     {
-        return this._currentMapId;
+        return id == this._lastMapId;
     }
 }

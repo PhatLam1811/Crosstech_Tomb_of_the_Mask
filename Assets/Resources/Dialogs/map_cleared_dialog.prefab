@@ -462,19 +462,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2982350954508365169}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3062861213484912199}
-        m_TargetAssemblyTypeName: CMapClearedDialog, Assembly-CSharp
-        m_MethodName: OnBtnNextStagePressed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &4253451467168009521
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,6 +2469,7 @@ MonoBehaviour:
   btn_chest_claim: {fileID: 7543490499526305080}
   img_chest_unavailable: {fileID: 8649997732188879420}
   btn_next_stage: {fileID: 3701362298227317395}
+  tmp_next_stage: {fileID: 8724154570239401127}
   btn_close: {fileID: 6777186840779241714}
 --- !u!114 &7953334704354584965
 MonoBehaviour:

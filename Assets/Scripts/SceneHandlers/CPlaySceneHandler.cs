@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
 {
+    public bool IsLastMap(int mapId)
+    {
+        return CGameMapDatas.Instance.IsLastMap(mapId);
+    }
+
     public bool IsMapBonusCollected(int mapId)
     {
         return CGameDataManager.Instance.GetGameMapData(mapId).isBonusCollected;
