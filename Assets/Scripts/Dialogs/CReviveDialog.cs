@@ -28,6 +28,8 @@ public class CReviveDialog : CBaseDialog
 
     public override void OnHide()
     {
+        this.img_count_down.fillAmount = 1.0f;
+        this.img_count_down.gameObject.SetActive(false);
         this.PlayDialogBodyOnCloseAnim(this.OnCompleteHide);
     }
 
