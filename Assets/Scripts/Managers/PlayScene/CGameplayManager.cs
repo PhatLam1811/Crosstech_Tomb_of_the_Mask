@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CMapClearedDialogData
 {
@@ -18,6 +19,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private int collectedDots;
     private int collectedStars;
+
+    private UnityAction _onGameOverCallback;
 
     private void Update()
     {
@@ -45,6 +48,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         CGameSoundManager.Instance.PlayFx(GameDefine.GAME_START_FX_KEY);
         CGameSoundManager.Instance.PlayLoopBGM(GameDefine.GAMEPLAY_BGM_KEY);
+
+        this.InvokeOnGameOverCallback();
     }
 
     public int GetOnPlayingMapId()
@@ -110,6 +115,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     public void OnPlayerReachExit()
     {
+        this._player.gameObject.SetActive(false);
+
         CGameSoundManager.Instance.PlayFx(GameDefine.PLAYER_WIN_FX_KEY);
 
         CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
@@ -182,5 +189,21 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameManager.Instance.ShowDialog<CMapClearedDialog>(
             path: GameDefine.DIALOG_REVIVE_PATH,
             canvasPos: CGameplayUIManager.Instance.GetCanvasPos());
+    }
+
+    public void AssignOnGameOverCallback(UnityAction callback)
+    {
+        this._onGameOverCallback -= callback;
+        this._onGameOverCallback += callback;
+    }
+
+    public void UnAssignOnGameOverCallback(UnityAction callback)
+    {
+        this._onGameOverCallback -= callback;
+    }
+
+    public void InvokeOnGameOverCallback()
+    {
+        this._onGameOverCallback?.Invoke();
     }
 }

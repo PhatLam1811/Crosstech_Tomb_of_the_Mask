@@ -38,15 +38,6 @@ public class CPlayer : CBaseGameObject
 
     private const string TWEEN = "_RotateTween_";
 
-    private void OnDisable()
-    {
-        foreach(string tweenId in this._tweenIds)
-        {
-            string completeId = this.GetInstanceID() + TWEEN + tweenId;
-            DOTween.Kill(completeId);
-        }
-    }
-
     private void FixedUpdate()
     {
         if (this._isPlaying)
@@ -71,7 +62,8 @@ public class CPlayer : CBaseGameObject
             CGameplayManager.Instance.OnPlayerReachExit(); return;
         }
 
-        if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER))
+        if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER) ||
+            collision.TryGetComponent<CBaseTrap>(out CBaseTrap trap))
         {
             this.OnTrapCollided();
         }

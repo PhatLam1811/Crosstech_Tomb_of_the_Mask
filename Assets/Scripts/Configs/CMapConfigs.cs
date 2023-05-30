@@ -127,5 +127,6 @@ public enum MapTrapType
     CANNON_D = 2,
     CANNON_R = 3,
 
-    BAT = 4,
+    RISING_SEA = 4,
+    BAT = 5,
 }
