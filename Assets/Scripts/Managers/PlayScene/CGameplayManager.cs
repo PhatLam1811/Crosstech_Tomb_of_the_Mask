@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public enum PlayerState
+{
+    IS_PLAYING = 0,
+    GAME_OVER = 1,
+    REVIVED = 2,
+}
+
 public class CMapClearedDialogData
 {
     public float percentDotsCollected;
@@ -20,7 +27,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     private int collectedDots;
     private int collectedStars;
 
-    private UnityAction _onGameOverCallback;
+    private UnityAction<PlayerState> _onPlayerStateChangedCallback;
 
     private void Update()
     {
@@ -49,7 +56,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameSoundManager.Instance.PlayFx(GameDefine.GAME_START_FX_KEY);
         CGameSoundManager.Instance.PlayLoopBGM(GameDefine.GAMEPLAY_BGM_KEY);
 
-        this.InvokeOnGameOverCallback();
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.IS_PLAYING);
     }
 
     public int GetOnPlayingMapId()
@@ -126,7 +133,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_GAME_MAP_STARS, this._onPlayingMapId, this.collectedStars);
         CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.UNLOCK_MAP, this._onPlayingMapId + 1);
         CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.GAMEDOT, this.collectedDots);
-        
+
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);
         this.ShowMapClearedDialog();
     }
 
@@ -148,6 +156,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
         CGameplayInputManager.Instance.SetActive(false);
 
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);
+
         if (!this._isRevived)
         {
             this.ShowReviveDialog();
@@ -167,6 +177,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         this._player.gameObject.SetActive(true);
         this._player.OnRevive();
+
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.REVIVED);
     }
 
     private void ShowMapClearedDialog()
@@ -191,19 +203,19 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
             canvasPos: CGameplayUIManager.Instance.GetCanvasPos());
     }
 
-    public void AssignOnGameOverCallback(UnityAction callback)
+    public void AssignOnPlayerStateChangedCallback(UnityAction<PlayerState> callback)
     {
-        this._onGameOverCallback -= callback;
-        this._onGameOverCallback += callback;
+        this._onPlayerStateChangedCallback -= callback;
+        this._onPlayerStateChangedCallback += callback;
     }
 
-    public void UnAssignOnGameOverCallback(UnityAction callback)
+    public void UnAssignOnPlayerStateChangedCallback(UnityAction<PlayerState> callback)
     {
-        this._onGameOverCallback -= callback;
+        this._onPlayerStateChangedCallback -= callback;
     }
 
-    public void InvokeOnGameOverCallback()
+    private void InvokeOnPlayerStateChangedCallback(PlayerState playerState)
     {
-        this._onGameOverCallback?.Invoke();
+        this._onPlayerStateChangedCallback?.Invoke(playerState);
     }
 }

@@ -8,14 +8,16 @@ public class CRisingSea : CBaseTrap
 
     private bool _isPlaying;
 
+    private const float ON_PLAYER_REVIVED_SCALE_DOWN = 2.0f;
+
     private void OnEnable()
     {
-        CGameplayManager.Instance.AssignOnGameOverCallback(this.OnGameOver);
+        CGameplayManager.Instance.AssignOnPlayerStateChangedCallback(this.OnPlayerStateChanged);
     }
 
     private void OnDisable()
     {
-        CGameplayManager.Instance.UnAssignOnGameOverCallback(this.OnGameOver);
+        CGameplayManager.Instance.UnAssignOnPlayerStateChangedCallback(this.OnPlayerStateChanged);
     }
 
     private void Start()
@@ -34,8 +36,27 @@ public class CRisingSea : CBaseTrap
         this.transform.localScale += Vector3.up * this.speed * Time.deltaTime;
     }
 
-    private void OnGameOver()
+    private void OnPlayerStateChanged(PlayerState playerState)
     {
-        this._isPlaying = false;
+        switch(playerState)
+        {
+            case PlayerState.IS_PLAYING:
+                this.SetIsPlaying(true); break;
+            case PlayerState.GAME_OVER:
+                this.SetIsPlaying(false); break;
+            case PlayerState.REVIVED:
+                this.OnPlayerRevived(); break;
+        }
+    }
+
+    private void SetIsPlaying(bool isPlaying)
+    {
+        this._isPlaying = isPlaying;
+    }
+
+    private void OnPlayerRevived()
+    {
+        this.transform.localScale += Vector3.down * ON_PLAYER_REVIVED_SCALE_DOWN;
+        this.SetIsPlaying(true);
     }
 }
