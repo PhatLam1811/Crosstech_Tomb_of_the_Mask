@@ -92,6 +92,8 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
         Vector2 holdPos = context.ReadValue<Vector2>();
         // Debug.Log("On hold = " + holdPos);
 
+        if (holdPos.y >= 1290) return;
+
         if (this._startTouchPos.Equals(Vector3.negativeInfinity))
         {
             this._startTouchPos = new Vector3(holdPos.x, holdPos.y);

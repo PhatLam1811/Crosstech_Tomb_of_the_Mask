@@ -17,6 +17,8 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
 
     public List<GameObject> scenery_objects;
 
+    public CCameraViewPortHandler viewPortHandler;
+
     public void OpenApp()
     {
         this.PlayLoadingScenePhase1();
@@ -94,7 +96,7 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
         CGameSoundManager.Instance.PlayFx(GameDefine.TAP_TO_PLAY_FX_KEY);
         CGameSoundManager.Instance.StopBGM();
 
-        Camera.main.transform.DOLocalMoveZ(6f, cameraZoomInDuration).OnComplete(this.LoadHomeScene);
+        Camera.main.transform.DOMoveZ(6f, cameraZoomInDuration).OnComplete(this.LoadHomeScene);
 
         this.btn_tap_to_play.gameObject.SetActive(false);
     }

@@ -22,6 +22,19 @@ public class CPlayerVisual : CBaseVisual
         DOTween.Kill(this.GetInstanceID() + TWEEN);    
     }
 
+    private void Update()
+    {
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("player_idle"))
+        {
+            CDeviceDebugger.Instance.Log(this.GetType() + " is playing idle");
+        }
+
+        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("player_jump"))
+        {
+            CDeviceDebugger.Instance.Log(this.GetType() + " is playing jump");
+        }
+    }
+
     public void PlayStartAnimation()
     {
         this.spriteRenderer.DOFade(1.0f, 2.0f).SetId(this.GetInstanceID() + TWEEN);
@@ -30,6 +43,7 @@ public class CPlayerVisual : CBaseVisual
 
     public void PlayAnimation(string key)
     {
+        CDeviceDebugger.Instance.Log(this.GetType() + " is playing anim = " + key);
         this.animator.Play(key);
     }
 

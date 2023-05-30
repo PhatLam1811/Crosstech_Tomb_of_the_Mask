@@ -225,6 +225,8 @@ public class CPlayer : CBaseGameObject
     {
         CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_LANDING_FX_KEY);
 
+        CDeviceDebugger.Instance.Log(this.GetType() + " on landing");
+
         this.RotateZOnLanding();
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
 
