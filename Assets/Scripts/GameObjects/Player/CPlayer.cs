@@ -225,7 +225,7 @@ public class CPlayer : CBaseGameObject
     {
         CGameSoundManager.Instance.PlayPlayerFx(GameDefine.PLAYER_LANDING_FX_KEY);
 
-        CDeviceDebugger.Instance.Log(this.GetType() + " on landing");
+        // CDeviceDebugger.Instance.Log(this.GetType() + " on landing");
 
         this.RotateZOnLanding();
         this._visual.PlayAnimation(CPlayerVisual.PLAYER_IDLE_ANIM);
@@ -291,5 +291,10 @@ public class CPlayer : CBaseGameObject
     {
         this._isPlaying = true;
         this.RewindLastSafePos();
+    }
+
+    public bool IsMoving()
+    {
+        return this._isMoving;
     }
 }

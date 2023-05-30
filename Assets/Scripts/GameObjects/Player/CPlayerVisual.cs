@@ -24,14 +24,22 @@ public class CPlayerVisual : CBaseVisual
 
     private void Update()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("player_idle"))
+        this.ReCheckPlayerMovingAnimation();        
+    }
+
+    private void ReCheckPlayerMovingAnimation()
+    {
+        if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_JUMP_ANIM) &&
+            !this.animator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_IDLE_ANIM)) return;
+
+        if (this._player.IsMoving() && !this.animator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_JUMP_ANIM))
         {
-            CDeviceDebugger.Instance.Log(this.GetType() + " is playing idle");
+            this.animator.Play(PLAYER_JUMP_ANIM);
         }
 
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("player_jump"))
+        if (!this._player.IsMoving() && !this.animator.GetCurrentAnimatorStateInfo(0).IsName(PLAYER_IDLE_ANIM))
         {
-            CDeviceDebugger.Instance.Log(this.GetType() + " is playing jump");
+            this.animator.Play(PLAYER_IDLE_ANIM);
         }
     }
 
@@ -43,7 +51,7 @@ public class CPlayerVisual : CBaseVisual
 
     public void PlayAnimation(string key)
     {
-        CDeviceDebugger.Instance.Log(this.GetType() + " is playing anim = " + key);
+        // CDeviceDebugger.Instance.Log(this.GetType() + " is playing anim = " + key);
         this.animator.Play(key);
     }
 
