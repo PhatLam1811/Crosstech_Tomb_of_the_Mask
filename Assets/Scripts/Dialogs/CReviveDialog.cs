@@ -18,12 +18,13 @@ public class CReviveDialog : CBaseDialog
     private const int REVIVE_COST = 200;
     private const float REVIVE_DURATION = 5.0f;
 
-    private const string REVIVE_SUCCESS = "revived";
+    private const string REVIVE_SUCCESS_ANIM = "revived";
+    private const string REVIVE_COUNTDOWN_TWEEN = "revive_countdown";
 
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
-        this.LoadUIComponents();
+        this.PlayDialogBodyOnShowAnim();
     }
 
     public override void OnHide()
@@ -44,6 +45,7 @@ public class CReviveDialog : CBaseDialog
         this.img_count_down.gameObject.SetActive(true);
         this.img_count_down
             .DOFillAmount(0.0f, REVIVE_DURATION)
+            .SetId(this.GetInstanceID() + REVIVE_COUNTDOWN_TWEEN)
             .OnComplete(this.OnHide);
     }
 
@@ -51,7 +53,7 @@ public class CReviveDialog : CBaseDialog
     {
         this.panel_dialog.transform
             .DOScaleY(1f, 0.3f)
-            .OnComplete(this.OnCompleteShow);
+            .OnComplete(this.LoadUIComponents);
     }
 
     private void PlayDialogBodyOnCloseAnim(TweenCallback callback)
@@ -72,6 +74,9 @@ public class CReviveDialog : CBaseDialog
 
         if (isSuccess)
         {
+            this.img_count_down.fillAmount = 1.0f;
+            this.img_count_down.gameObject.SetActive(false);
+            DOTween.Kill(this.GetInstanceID() + REVIVE_COUNTDOWN_TWEEN);
             StartCoroutine(this.OnPlayerReviveSuccess());
         }
         else
@@ -85,7 +90,7 @@ public class CReviveDialog : CBaseDialog
         float delay = 1.0f;
 
         this.tmp_revive_turn.text = "0";
-        this.img_revive_animator.Play(REVIVE_SUCCESS);
+        this.img_revive_animator.Play(REVIVE_SUCCESS_ANIM);
 
         yield return new WaitForSeconds(delay);
 

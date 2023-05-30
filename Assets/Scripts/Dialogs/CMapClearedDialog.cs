@@ -41,7 +41,7 @@ public class CMapClearedDialog : CBaseDialog
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
-        StartCoroutine(coroutinePLayStarCollectedAnim());
+        this.PlayDialogBodyOnShowAnim();
     }
 
     public override void OnHide()
@@ -108,7 +108,9 @@ public class CMapClearedDialog : CBaseDialog
     {
         this.panel_dialog.transform
             .DOScaleY(1f, 0.3f)
-            .OnComplete(this.OnCompleteShow);
+            .OnComplete(() => {
+                StartCoroutine(coroutinePLayStarCollectedAnim());
+            });
     }
 
     private void PlayDialogBodyOnCloseAnim()

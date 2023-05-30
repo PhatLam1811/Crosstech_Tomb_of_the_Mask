@@ -836,7 +836,7 @@ MonoBehaviour:
       position: {x: -10, y: 66, z: 0}
     _trapObjectConfigs:
     - _id: 4
-      position: {x: -8, y: -26, z: 0}
+      position: {x: -8, y: -52, z: 0}
   - _id: 5
     _playerStartPosition: {x: -2, y: 10, z: 0}
     _exitPosition: {x: -22, y: -22, z: 0}
