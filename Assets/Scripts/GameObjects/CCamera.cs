@@ -7,6 +7,11 @@ public class CCamera : CBaseGameObject
 {
     private Transform _playerTransform;
 
+    private void OnDisable()
+    {
+        DOTween.Kill(this.GetInstanceID());
+    }
+
     private void Update()
     {
         if (this._playerTransform != null)
@@ -28,6 +33,6 @@ public class CCamera : CBaseGameObject
         newPos.z = this.transform.position.z;
 
         // camera follow player
-        this.transform.DOMove(newPos, 0.5f);
+        this.transform.DOMove(newPos, 0.5f).SetId(this.GetInstanceID());
     }
 }
