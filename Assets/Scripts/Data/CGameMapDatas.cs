@@ -158,8 +158,11 @@ public class CGameMapDatas
 
         if (this._dictionaryMapDatas.TryGetValue(id, out CMapDataCommodity map))
         {
-            this._lastUnlockedMapId = id;
-            map.UnlockMap();
+            if (!map.isUnlocked)
+            {
+                this._lastUnlockedMapId = id;
+                map.UnlockMap();
+            }
         }
         else
         {

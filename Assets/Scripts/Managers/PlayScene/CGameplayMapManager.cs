@@ -34,6 +34,7 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     private void Start()
     {
+        Camera.main.fieldOfView = 200f;
         this.SetUpDictionary();
     }
 
