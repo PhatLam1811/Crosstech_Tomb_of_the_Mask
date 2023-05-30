@@ -20,7 +20,6 @@ public class CGameManager : MonoSingleton<CGameManager>
 
     private void OpenApp()
     {
-        // load Game Configs        
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();

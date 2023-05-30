@@ -8,7 +8,7 @@ public class CRisingSea : CBaseTrap
 
     private bool _isPlaying;
 
-    private const float ON_PLAYER_REVIVED_SCALE_DOWN = 2.0f;
+    private const float ON_PLAYER_REVIVED_SCALE_DOWN = 1.5f;
 
     private void OnEnable()
     {
@@ -44,6 +44,7 @@ public class CRisingSea : CBaseTrap
                 this.SetIsPlaying(true); break;
             case PlayerState.GAME_OVER:
                 this.SetIsPlaying(false); break;
+            case PlayerState.PROTECTED_BY_SHIELD:
             case PlayerState.REVIVED:
                 this.OnPlayerRevived(); break;
         }

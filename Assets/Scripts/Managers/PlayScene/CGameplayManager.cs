@@ -8,6 +8,7 @@ public enum PlayerState
     IS_PLAYING = 0,
     GAME_OVER = 1,
     REVIVED = 2,
+    PROTECTED_BY_SHIELD = 3
 }
 
 public class CMapClearedDialogData
@@ -143,7 +144,10 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         if (isActive)
             this._player.OnShieldStateChanged(isActive);
         else
+        {
             CGameplayUIManager.Instance.OnPlayerShieldDown();
+            this.InvokeOnPlayerStateChangedCallback(PlayerState.PROTECTED_BY_SHIELD);
+        }
     }
 
     public void OnPlayerShieldExpired()

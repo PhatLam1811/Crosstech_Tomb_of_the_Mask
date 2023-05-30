@@ -21,6 +21,11 @@ public class CReviveDialog : CBaseDialog
     private const string REVIVE_SUCCESS_ANIM = "revived";
     private const string REVIVE_COUNTDOWN_TWEEN = "revive_countdown";
 
+    private void OnDisable()
+    {
+        DOTween.Kill(this.GetInstanceID() + REVIVE_COUNTDOWN_TWEEN);
+    }
+
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
