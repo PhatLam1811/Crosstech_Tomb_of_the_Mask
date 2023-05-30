@@ -70,6 +70,8 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     private void LoadMap(int mapId)
     {
+        //mapId = 3;
+
         if (!this._dictionaryPlayMaps.ContainsKey(mapId))
         {
             Debug.LogError("Not found map id " + mapId);

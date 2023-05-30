@@ -29,9 +29,14 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
         return CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.ENERGY).value;
     }
 
-    public bool IsLastUnlockedMap(int mapId)
+    public int GetLastUnlockedMap()
     {
-        return CGameDataManager.Instance._gameData._gameMapDatas.IsLastMap(mapId);
+        return CGameDataManager.Instance._gameData._gameMapDatas.GetLastUnlockedMap();
+    }
+
+    public long GetMapStars(int mapId)
+    {
+        return CGameDataManager.Instance.GetGameMapData(mapId).stars;
     }
 
     public bool IsMapUnlocked(int mapId)
@@ -44,6 +49,16 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
         }
 
         return true;
+    }
+
+    public bool IsLastMap(int mapId)
+    {
+        return CGameMapDatas.Instance.IsLastMap(mapId);
+    }
+
+    public int GetMapsCount()
+    {
+        return CGameMapDatas.Instance.GetMapsCount();
     }
 
     public void PlayMap(int mapId)

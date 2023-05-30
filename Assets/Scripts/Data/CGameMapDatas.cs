@@ -73,6 +73,7 @@ public class CGameMapDatas
     public List<CMapDataCommodity> _mapDatas;
     public Dictionary<int, CMapDataCommodity> _dictionaryMapDatas;
 
+    private int _lastUnlockedMapId;
     private int _lastMapId;
 
     public void OpenApp()
@@ -83,12 +84,18 @@ public class CGameMapDatas
     private void SetUpDictionary()  
     {
         this._dictionaryMapDatas = new Dictionary<int, CMapDataCommodity>();
+        this._lastUnlockedMapId = 1;
 
         foreach (CMapDataCommodity mapData in this._mapDatas)
         {
             if (!this._dictionaryMapDatas.ContainsKey(mapData._id))
             {
                 this._dictionaryMapDatas.Add(mapData._id, mapData);
+                
+                if (mapData.isUnlocked && mapData._id > this._lastUnlockedMapId)
+                {
+                    this._lastUnlockedMapId = mapData._id;
+                }
             }
         }
 
@@ -151,6 +158,7 @@ public class CGameMapDatas
 
         if (this._dictionaryMapDatas.TryGetValue(id, out CMapDataCommodity map))
         {
+            this._lastUnlockedMapId = id;
             map.UnlockMap();
         }
         else
@@ -271,6 +279,26 @@ public class CGameMapDatas
             Debug.Log($"NOT EXISTED MAP {id}");
             return null;
         }
+    }
+
+    public int GetLastUnlockedMap()
+    {
+        return this._lastUnlockedMapId;
+    }
+
+    public int GetMapsCount()
+    {
+        if (this._mapDatas == null)
+        {
+            this.CreateNew();
+        }
+
+        if (this._dictionaryMapDatas == null)
+        {
+            this.SetUpDictionary();
+        }
+
+        return this._dictionaryMapDatas.Count;
     }
 
     public bool IsLastMap(int id)

@@ -4,19 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CMapSelectorDialog : CBaseDialog
+public class CStoryModeDialog : CBaseDialog
 {
     public GameObject prefab_concrete_map_selector;
 
     public Transform panel_container_transform_row_1;
     public Transform panel_container_transform_row_2;
 
-    private bool isDownConnectorNext = true;
-
-    private new void OnEnable() 
-    {
-        this.OnShow();
-    }
+    private new void OnEnable() { }
 
     public override void OnShow(object data = null, UnityAction callback = null)
     {
@@ -27,17 +22,19 @@ public class CMapSelectorDialog : CBaseDialog
     private void LoadMapSelectorsList()
     {
         int counter = 2;
+        int mapsCount = CHomeSceneHandler.Instance.GetMapsCount();
         Transform currentRow = this.panel_container_transform_row_1;
 
-        for (int i = 1; i <= 10; i++)
+        bool isDownConnectorNext = true;
+
+        for (int i = 1; i <= mapsCount; i++)
         {
             if (i % 2 == 0)
             {
-                this.isDownConnectorNext = !this.isDownConnectorNext;
+                isDownConnectorNext = !isDownConnectorNext;
             }
 
-            bool isLastUnlockedMap = CHomeSceneHandler.Instance.IsLastUnlockedMap(i);
-            this.InstantiateNewMapSelector(i, currentRow, isLastUnlockedMap);
+            this.InstantiateNewMapSelector(i, currentRow, isDownConnectorNext);
 
             if (counter == 2)
             {
@@ -51,13 +48,13 @@ public class CMapSelectorDialog : CBaseDialog
         }
     }
 
-    private void InstantiateNewMapSelector(int mapId, Transform pos, bool isLastUnlockedMap)
+    private void InstantiateNewMapSelector(int mapId, Transform pos, bool isDownConnectorNext)
     {
         GameObject newConcreteMapSelector = Instantiate(this.prefab_concrete_map_selector, pos);
 
         if (newConcreteMapSelector.TryGetComponent(out CConcreteMapSelector script))
         {
-            script.SetUpMapSelector(mapId, this.isDownConnectorNext, isLastUnlockedMap);
+            script.SetUpMapSelector(mapId, isDownConnectorNext);
         }
     }
 
