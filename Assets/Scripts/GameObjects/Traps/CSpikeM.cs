@@ -14,7 +14,7 @@ public class CSpikeM : CBaseTrap
 
     private const float RAY_DISTANCE = 0.3f;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (this.ShootPlayerDetectRay())
         {
