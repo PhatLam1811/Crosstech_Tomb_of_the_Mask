@@ -50,10 +50,10 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
 
     private void PlayLoadingScenePhase2()
     {
-        StartCoroutine(this.couroutineLoadingScenePhase2());
+        StartCoroutine(this.coroutineLoadingScenePhase2());
     }
 
-    private IEnumerator couroutineLoadingScenePhase2()
+    private IEnumerator coroutineLoadingScenePhase2()
     {
         float titleDelay = 1.5f;
         this.ShowGameTitle();
@@ -91,14 +91,26 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
 
     public void OnBtnTapToPlayClicked()
     {
-        float cameraZoomInDuration = 1.5f;
-
         CGameSoundManager.Instance.PlayFx(GameDefine.TAP_TO_PLAY_FX_KEY);
         CGameSoundManager.Instance.StopBGM();
 
-        Camera.main.transform.DOMoveZ(6f, cameraZoomInDuration).OnComplete(this.LoadHomeScene);
+        StartCoroutine(this.coroutineZoomCamera());
 
         this.btn_tap_to_play.gameObject.SetActive(false);
+    }
+
+    private IEnumerator coroutineZoomCamera()
+    {
+        float cameraZoomvalue = 0.01f;
+        float cameraZoomSpeed = 0.05f;
+
+        while (this.viewPortHandler.UnitsSize > cameraZoomvalue)
+        {
+            this.viewPortHandler.UnitsSize -= cameraZoomSpeed;
+            yield return new WaitForEndOfFrame();
+        }
+
+        this.LoadHomeScene();
     }
 
     public void LoadHomeScene()
