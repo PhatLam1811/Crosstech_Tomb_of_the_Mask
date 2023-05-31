@@ -57,8 +57,6 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         CGameSoundManager.Instance.PlayFx(GameDefine.GAME_START_FX_KEY);
         CGameSoundManager.Instance.PlayLoopBGM(GameDefine.GAMEPLAY_BGM_KEY);
-
-        this.InvokeOnPlayerStateChangedCallback(PlayerState.IS_PLAYING);
     }
 
     public int GetOnPlayingMapId()
@@ -104,16 +102,6 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerHitCollectableObject(CBaseCollectableObject obj)
     {
         obj.OnCollectedByPlayer();
-    }
-
-    public void OnPlayerHitSpikeMOn()
-    {
-        this._player.OnTrapCollided();
-    }
-
-    public void OnPlayerHitSpikeM(CSpikeM spikeM)
-    {
-        spikeM.OnPlayerCollided();
     }
 
     public void OnPlayerCollectGameDot()

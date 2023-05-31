@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 public enum PlayerMoves
 {
@@ -56,11 +55,6 @@ public class CPlayer : CBaseGameObject
         if (collision.TryGetComponent<CExit>(out CExit exit))
         {
             CGameplayManager.Instance.OnPlayerReachExit(); return;
-        }
-
-        if (collision.TryGetComponent<CSpikeM>(out CSpikeM spikeM))
-        {
-            CGameplayManager.Instance.OnPlayerHitSpikeM(spikeM); return;
         }
 
         if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER) ||
