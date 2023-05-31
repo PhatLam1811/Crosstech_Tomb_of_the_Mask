@@ -19,6 +19,11 @@ public class CStoryModeDialog : CBaseDialog
         this.LoadMapSelectorsList();
     }
 
+    public override void OnHide()
+    {
+        this.OnCompleteHide();
+    }
+
     private void LoadMapSelectorsList()
     {
         int counter = 2;

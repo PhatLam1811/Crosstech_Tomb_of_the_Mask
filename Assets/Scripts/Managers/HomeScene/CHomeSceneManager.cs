@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CHomeSceneManager : MonoSingleton<CHomeSceneManager>
 {
-    public CStoryModeDialog dialog_story_mode;
-
     private float bgm_countdown = 0.0f;
     private bool _isPlayBGM = false;
 
@@ -35,8 +33,13 @@ public class CHomeSceneManager : MonoSingleton<CHomeSceneManager>
         CHomeSceneUIManager.Instance.LoadScene();
     }
 
-    public void LoadNavigateDialog()
+    public void LoadNavigateDialog(CBaseDialog dialog)
     {
-        this.dialog_story_mode.OnShow();
+        dialog.OnShow();
+    }
+
+    public void UnLoadNavigateDialog(CBaseDialog dialog)
+    {
+        dialog.OnHide();
     }
 }

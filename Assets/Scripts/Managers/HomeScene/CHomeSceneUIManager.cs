@@ -14,6 +14,9 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public Button btn_story_mode_navigate;
 
+    public CStoryModeDialog dialog_story_mode;
+    public CArcadeModeDialog dialog_arcade_mode;
+
     public void LoadScene()
     {
         this.LoadPlayerEXP();
@@ -40,8 +43,7 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     private void LoadStoryModeDialog()
     {
-        CHomeSceneManager.Instance.LoadNavigateDialog();
-        this.btn_story_mode_navigate.Select();
+        CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_story_mode);
     }
 
     public void OnBtnBuyCoinClicked()
@@ -76,11 +78,13 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public void OnBtnNavigateToStoryModeClicked()
     {
-
+        CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_story_mode);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_arcade_mode);
     }
 
     public void OnBtnNavigateToArcadeModeClicked()
     {
-
+        CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_arcade_mode);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_story_mode);
     }
 }
