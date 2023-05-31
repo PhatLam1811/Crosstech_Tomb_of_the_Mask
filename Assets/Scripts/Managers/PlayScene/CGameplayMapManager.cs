@@ -22,6 +22,7 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
     public GameObject prefab_coin;
 
     public GameObject prefab_rising_sea;
+    public GameObject prefab_spike_m;
 
     private int mapTotalDots = 0;
     private int mapTotalCoins = 0;
@@ -71,6 +72,8 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     private void LoadMap(int mapId)
     {
+        // mapId = 5;
+
         if (!this._dictionaryPlayMaps.ContainsKey(mapId))
         {
             Debug.LogError("Not found map id " + mapId);
@@ -145,12 +148,19 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
     {
         foreach (CTrapObjectConfig config in mapConfig._trapObjectConfigs)
         {
+            Vector3Int cellPos = config.position;
+            Vector3 worldPos = this._grid.CellToWorld(cellPos);
+
             switch (config._id)
             {
                 case MapTrapType.RISING_SEA:
-                    Vector3Int cellPos = config.position;
-                    Vector3 worldPos = this._grid.CellToWorld(cellPos);
-                    Instantiate(this.prefab_rising_sea, worldPos, Quaternion.identity);
+                    Instantiate(this.prefab_rising_sea, worldPos, Quaternion.identity); break;
+                case MapTrapType.SPIKE_M_U:
+                case MapTrapType.SPIKE_M_L:
+                case MapTrapType.SPIKE_M_D:
+                case MapTrapType.SPIKE_M_R:
+                    CSpikeM spikeM = Instantiate(this.prefab_spike_m, worldPos, Quaternion.identity).GetComponent<CSpikeM>();
+                    spikeM.SetUpSpikeDirection(config._id);
                     break;
             }
         }

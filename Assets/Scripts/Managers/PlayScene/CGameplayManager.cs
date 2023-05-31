@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,6 +104,16 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerHitCollectableObject(CBaseCollectableObject obj)
     {
         obj.OnCollectedByPlayer();
+    }
+
+    public void OnPlayerHitSpikeMOn()
+    {
+        this._player.OnTrapCollided();
+    }
+
+    public void OnPlayerHitSpikeM(CSpikeM spikeM)
+    {
+        spikeM.OnPlayerCollided();
     }
 
     public void OnPlayerCollectGameDot()

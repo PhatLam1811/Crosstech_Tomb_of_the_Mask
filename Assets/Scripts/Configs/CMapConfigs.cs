@@ -121,12 +121,17 @@ public enum MapCollectableType
 public enum MapTrapType
 {
     NONE = -1,
-   
-    CANNON_T = 0,
+  
+    CANNON_U = 0,
     CANNON_L = 1,
     CANNON_D = 2,
     CANNON_R = 3,
 
     RISING_SEA = 4,
     BAT = 5,
+
+    SPIKE_M_U = 6,
+    SPIKE_M_L = 7,
+    SPIKE_M_D = 8,
+    SPIKE_M_R = 9,
 }

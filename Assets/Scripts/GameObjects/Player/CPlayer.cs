@@ -58,10 +58,15 @@ public class CPlayer : CBaseGameObject
             CGameplayManager.Instance.OnPlayerReachExit(); return;
         }
 
+        if (collision.TryGetComponent<CSpikeM>(out CSpikeM spikeM))
+        {
+            CGameplayManager.Instance.OnPlayerHitSpikeM(spikeM); return;
+        }
+
         if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER) ||
             collision.TryGetComponent<CBaseTrap>(out CBaseTrap trap))
         {
-            this.OnTrapCollided();
+            this.OnTrapCollided(); return;
         }
     }
 
@@ -265,7 +270,7 @@ public class CPlayer : CBaseGameObject
         this._visual.OnPlayerShieldStateChanged(isActive);
     }
 
-    private void OnTrapCollided()
+    public void OnTrapCollided()
     {
         if (this._isShieldActive)
         {
