@@ -18,6 +18,8 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public Image _imgShieldRemainingBar;
     public Image _imgShieldRemainingProgress;
 
+    private const string TWEEN_SHIELD_PROGRESS = "TWEEN_SHIELD_PROGRESS";
+
     public void StartGame()
     {
         CPlayerBoosterDatas.Instance.AssignCallbackOnBoosterUpdated(this.OnPlayerBoosterUpdated);
@@ -28,7 +30,6 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     {
         this._tmpPlayerCoins.text = CPlaySceneHandler.Instance.GetPlayerBoosterData(BoosterType.COIN).ToString();
         this._tmpShieldNumber.text = CPlaySceneHandler.Instance.GetPlayerBoosterData(BoosterType.SHIELD).ToString();
-        this._imgShieldRemainingProgress.fillAmount = 1.0f;
     }
 
     public Transform GetCanvasPos()
@@ -74,10 +75,12 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
         if (!CPlaySceneHandler.Instance.TryActivatePlayerShield()) return;
 
         this._imgShieldRemainingBar.gameObject.SetActive(true);
+        this._imgShieldRemainingProgress.fillAmount = 1.0f;
 
         float shieldDuration = 30.0f;
         this._imgShieldRemainingProgress
             .DOFillAmount(0.0f, shieldDuration)
+            .SetId(this.GetInstanceID() + TWEEN_SHIELD_PROGRESS)
             .OnComplete(() => {
                 this.OnPlayerShieldDown();
                 CGameplayManager.Instance.OnPlayerShieldExpired();
@@ -86,8 +89,7 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 
     public void OnPlayerShieldDown()
     {
-        Debug.Log("Shield Down");
-        this._imgShieldRemainingProgress.fillAmount = 1.0f;
+        DOTween.Kill(this.GetInstanceID() + TWEEN_SHIELD_PROGRESS);
         this._imgShieldRemainingBar.gameObject.SetActive(false);
     }
 }
