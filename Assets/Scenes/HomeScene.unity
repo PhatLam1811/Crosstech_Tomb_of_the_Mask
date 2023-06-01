@@ -2030,6 +2030,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b76d73ae789fa4aa34881e38395c83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvasPos: {fileID: 1137434680}
   tmp_player_level: {fileID: 402629616}
   tmp_player_coins: {fileID: 1949312245}
   tmp_player_energy: {fileID: 1423288036}

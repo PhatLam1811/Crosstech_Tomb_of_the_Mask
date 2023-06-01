@@ -42,7 +42,7 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
     public bool IsMapUnlocked(int mapId)
     {
         CMapDataCommodity mapData = CGameDataManager.Instance.GetGameMapData(mapId);
-        
+
         if (mapData == null || !mapData.isUnlocked)
         {
             return false;
@@ -65,5 +65,27 @@ public class CHomeSceneHandler : MonoSingleton<CHomeSceneHandler>
     {
         CGameManager.Instance.LoadScene(GameDefine.PLAY_SCENE_ID);
         CGameplayManager.Instance.PlayMap(mapId);
+    }
+
+    public bool GetFxSettings()
+    {
+        return CGameDataManager.Instance.GetGameSettingsData().isFxOn;
+    }
+
+    public bool GetBGMSettings()
+    {
+        return CGameDataManager.Instance.GetGameSettingsData().isBGMOn;
+    }
+
+    public void ChangeFxSettings()
+    {
+        bool currentSetting = GetFxSettings();
+        CGameDataManager.Instance.UpdateGameSetting(SettingsType.FX_SETTINGS, !currentSetting);
+    }
+
+    public void ChangeBGMSettings()
+    {
+        bool currentSetting = GetBGMSettings();
+        CGameDataManager.Instance.UpdateGameSetting(SettingsType.BGM_SETTINGS, !currentSetting);
     }
 }

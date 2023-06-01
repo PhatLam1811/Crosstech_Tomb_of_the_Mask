@@ -6,6 +6,8 @@ using TMPro;
 
 public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 {
+    public Transform canvasPos;
+
     public TextMeshProUGUI tmp_player_level;
     public TextMeshProUGUI tmp_player_coins;
     public TextMeshProUGUI tmp_player_energy;
@@ -63,7 +65,8 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public void OnBtnSettingsClicked()
     {
-
+        CGameManager.Instance.ShowDialog<CSettingsDialog>(
+            GameDefine.DIALOG_SETTINGS_PATH, canvasPos);
     }
 
     public void OnBtnChestClaimClicked()
