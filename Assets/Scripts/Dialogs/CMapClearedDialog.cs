@@ -7,6 +7,12 @@ using TMPro;
 using DG.Tweening;
 using System;
 
+public class CMapClearedDialogData
+{
+    public float percentDotsCollected;
+    public int starsCollected;
+}
+
 public class CMapClearedDialog : CBaseDialog
 {
     public Image panel_dialog;
@@ -220,8 +226,8 @@ public class CMapClearedDialog : CBaseDialog
 
     public void OnBtnNextStagePressed()
     {
-        int currentMapId = CPlaySceneHandler.Instance.GetOnPlayingMapId();
-        CGameplayManager.Instance.PlayMap(currentMapId + 1);
+        int nextMapId = CPlaySceneHandler.Instance.GetOnPlayingMapId() + 1;
+        CPlaySceneHandler.Instance.LoadMap(nextMapId);
     }
 
     public void OnBtnClosePressed()

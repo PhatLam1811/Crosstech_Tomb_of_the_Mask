@@ -34,7 +34,7 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
     public bool PurchaseRevive(int cost)
     {
         long playerCoin = CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.COIN).value;
-        
+
         if (playerCoin >= cost)
         {
             CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.SUBTRACT_VALUE, BoosterType.COIN, cost);
@@ -71,5 +71,10 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
         }
 
         return false;
+    }
+
+    public void LoadMap(int mapId)
+    {
+        CGameplayManager.Instance.PlayMap(mapId);
     }
 }

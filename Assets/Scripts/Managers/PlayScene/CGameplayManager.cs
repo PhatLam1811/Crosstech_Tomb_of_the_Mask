@@ -12,12 +12,6 @@ public enum PlayerState
     PROTECTED_BY_SHIELD = 3
 }
 
-public class CMapClearedDialogData
-{
-    public float percentDotsCollected;
-    public int starsCollected;
-}
-
 public class CGameplayManager : MonoSingleton<CGameplayManager>
 {
     private CPlayer _player;
@@ -159,16 +153,9 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
         CGameplayInputManager.Instance.SetActive(false);
 
-        this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);
+        this.ShowReviveDialog();
 
-        if (!this._isRevived)
-        {
-            this.ShowReviveDialog();
-        }
-        else
-        {
-            CPlaySceneHandler.Instance.BackToHomeScene();
-        }
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);    
     }
 
     public void OnPlayerRevive()
@@ -201,9 +188,10 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private void ShowReviveDialog()
     {
-        CGameManager.Instance.ShowDialog<CMapClearedDialog>(
+        CGameManager.Instance.ShowDialog<CReviveDialog>(
             path: GameDefine.DIALOG_REVIVE_PATH,
-            canvasPos: CGameplayUIManager.Instance.GetCanvasPos());
+            canvasPos: CGameplayUIManager.Instance.GetCanvasPos(),
+            data: this._isRevived);
     }
 
     public void AssignOnPlayerStateChangedCallback(UnityAction<PlayerState> callback)

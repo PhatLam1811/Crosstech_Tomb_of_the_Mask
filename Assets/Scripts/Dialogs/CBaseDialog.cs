@@ -30,9 +30,10 @@ public class CBaseDialog : MonoBehaviour
 
     public virtual void OnShow(object data = null, UnityAction callback = null)
     {
-        this.gameObject.SetActive(true);
+        // if (data != null) Debug.Log(data.GetType());
         this.data = data;
         this.callbackShow = callback;
+        this.gameObject.SetActive(true);
     }
 
     public virtual void OnCompleteShow()
