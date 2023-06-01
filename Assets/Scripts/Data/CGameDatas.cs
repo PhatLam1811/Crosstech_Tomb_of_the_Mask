@@ -11,6 +11,7 @@ public class CGameDatas
     public CPlayerBoosterDatas _playerBoosterDatas;
     public CPlayerLevelData _playerLevelData;
     public CGameMapDatas _gameMapDatas;
+    public CGameSettingsData _gameSettings;
 
     public void OpenApp()
     {
@@ -22,10 +23,12 @@ public class CGameDatas
         this._playerBoosterDatas = new CPlayerBoosterDatas();
         this._playerLevelData = new CPlayerLevelData();
         this._gameMapDatas = new CGameMapDatas();
+        this._gameSettings = new CGameSettingsData();
 
         this._playerBoosterDatas.CreateNew();
         this._playerLevelData.CreateNew();
         this._gameMapDatas.CreateNew();
+        this._gameSettings.CreateNew();
     }
 
     public void UpdatePlayerBooster(BoosterUpdateType updateType, BoosterType boosterType, long value)
@@ -64,7 +67,7 @@ public class CGameDatas
     {
         if (this._gameMapDatas == null)
         {
-            Debug.LogError($"DATA NULL OF TYPE: {typeof(CMapDataCommodity)}!"); return;
+            Debug.LogError($"DATA NULL OF TYPE: {typeof(CGameMapDatas)}!"); return;
         }
 
         switch (updateType)
@@ -81,6 +84,24 @@ public class CGameDatas
                 this._gameMapDatas.SetGameMapChestClaimed(id); break;
             case GameMapUpdateType.SET_GAME_MAP_STARS:
                 this._gameMapDatas.SetGameMapStars(id, stars); break;
+        }
+
+        CGameDataManager.Instance.SaveGameData();
+    }
+
+    public void UpdateGameSettings(SettingsType type, bool isOn)
+    {
+        if (this._gameSettings == null)
+        {
+            Debug.LogError($"DATA NULL OF TYPE: {typeof(CGameSettingsData)}!"); return;
+        }
+
+        switch (type)
+        {
+            case SettingsType.BGM_SETTINGS:
+                this._gameSettings.ChangeBGMSetting(isOn); break;
+            case SettingsType.FX_SETTINGS:
+                this._gameSettings.ChangeFxSetting(isOn); break;
         }
 
         CGameDataManager.Instance.SaveGameData();

@@ -6,7 +6,7 @@ public class CSoundBase : MonoBehaviour
 {
     public AudioSource _audioSource;
 
-    public float Play(string key)
+    public float Play(string key, bool isMute)
     {
         if (string.IsNullOrEmpty(key))
         {
@@ -18,7 +18,7 @@ public class CSoundBase : MonoBehaviour
         {
             this._audioSource.clip = CSoundConfigs.Instance.GetAudioByName(key);
             this._audioSource.loop = false;
-            this._audioSource.mute = false;
+            this._audioSource.mute = isMute;
 
             this._audioSource.Play();
 
@@ -28,19 +28,19 @@ public class CSoundBase : MonoBehaviour
         return 0.0f;
     }
 
-    public void PlayLoop(string key)
+    public void PlayLoop(string key, bool isMute)
     {
-        this.Play(key);
+        this.Play(key, isMute);
         this._audioSource.loop = true;
     }
 
-    public void Mute()
+    public void Mute(bool isMute)
     {
         if (this._audioSource == null)
         {
             return;
         }
-        this._audioSource.mute = true;
+        this._audioSource.mute = isMute;
     }
 
     public void Stop()

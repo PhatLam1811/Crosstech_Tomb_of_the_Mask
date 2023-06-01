@@ -95,6 +95,11 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
         this._gameData.UpdateGameMap(updateType, id, stars);
     }
 
+    public void UpdateGameSetting(SettingsType type, bool isOn)
+    {
+        this._gameData.UpdateGameSettings(type, isOn);
+    }
+
     public CBoosterDataCommodity GetPlayerBoosterData(BoosterType type)
     {
         return CPlayerBoosterDatas.Instance.GetBoosterData(type);
@@ -108,5 +113,10 @@ public class CGameDataManager : MonoSingleton<CGameDataManager>
     public CMapDataCommodity GetGameMapData(int id)
     {
         return CGameMapDatas.Instance.GetGameMapData(id);
+    }
+
+    public CGameSettingsData GetGameSettingsData()
+    {
+        return CGameSettingsData.Instance;
     }
 }

@@ -82,4 +82,26 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
     {
         CGameplayManager.Instance.PlayMap(mapId);
     }
+
+    public bool GetFxSettings()
+    {
+        return CGameDataManager.Instance.GetGameSettingsData().isFxOn;
+    }
+
+    public bool GetBGMSettings()
+    {
+        return CGameDataManager.Instance.GetGameSettingsData().isBGMOn;
+    }
+
+    public void ChangeFxSettings()
+    {
+        bool currentSetting = GetFxSettings();
+        CGameDataManager.Instance.UpdateGameSetting(SettingsType.FX_SETTINGS, !currentSetting);
+    }
+
+    public void ChangeBGMSettings()
+    {
+        bool currentSetting = GetBGMSettings();
+        CGameDataManager.Instance.UpdateGameSetting(SettingsType.BGM_SETTINGS, !currentSetting);
+    }
 }

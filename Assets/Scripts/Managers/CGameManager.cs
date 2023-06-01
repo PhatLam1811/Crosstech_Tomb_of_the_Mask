@@ -23,6 +23,7 @@ public class CGameManager : MonoSingleton<CGameManager>
         DontDestroyOnLoad(this.gameObject);
 
         CGameDataManager.Instance.OpenApp();
+        CGameSoundManager.Instance.OpenApp();
         CLoadingSceneManager.Instance.OpenApp();
     }
 

@@ -60,6 +60,7 @@ public class CBaseDialog : MonoBehaviour
 
     public virtual void OnBtnCloseClicked()
     {
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
         this.OnHide();
     }
 }

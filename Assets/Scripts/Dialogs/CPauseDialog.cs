@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using System;
 
 public class CPauseDialog : CBaseDialog
 {
@@ -36,6 +37,12 @@ public class CPauseDialog : CBaseDialog
         DOTween.Kill(this.GetInstanceID() + SHOW_PANEL_TWEEN);  
     }
 
+    public override void OnShow(object data = null, UnityAction callback = null)
+    {
+        base.OnShow(data, callback);
+        this.LoadUIComponents();
+    }
+
     public override void OnCompleteShow()
     {
         base.OnCompleteShow();
@@ -51,6 +58,30 @@ public class CPauseDialog : CBaseDialog
     {
         base.OnCompleteHide();
         Destroy(this.gameObject);
+    }
+
+    private void LoadUIComponents()
+    {
+        this.LoadBtnBGMSettingIcon();
+        this.LoadBtnFxSettingIcon();
+    }
+
+    private void LoadBtnBGMSettingIcon()
+    {
+        bool isBGMOn = CPlaySceneHandler.Instance.GetBGMSettings();
+        if (isBGMOn)
+            this.img_bgm_setting_icon.sprite = sprite_bgm_unmuted_icon;
+        else
+            this.img_bgm_setting_icon.sprite = sprite_bgm_muted_icon;
+    }
+
+    private void LoadBtnFxSettingIcon()
+    {
+        bool isFxOn = CPlaySceneHandler.Instance.GetFxSettings();
+        if (isFxOn)
+            this.img_fx_setting_icon.sprite = sprite_fx_unmuted_icon;
+        else
+            this.img_fx_setting_icon.sprite = sprite_fx_muted_icon;
     }
 
     public void PlayDialogBodyOnShowAnim()
@@ -88,14 +119,32 @@ public class CPauseDialog : CBaseDialog
         this.OnCompleteHide();
     }
 
+    public void OnBtnSettingBGMClicked()
+    {
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CPlaySceneHandler.Instance.ChangeBGMSettings();
+
+        this.LoadBtnBGMSettingIcon();
+    }
+
+    public void OnBtnSettingFxClicked()
+    {
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CPlaySceneHandler.Instance.ChangeFxSettings();
+
+        this.LoadBtnFxSettingIcon();
+    }
+
     public void OnQuitBtnClicked()
     {
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
         this._isQuit = true;
         this.OnHide();
     }
 
     public void OnReplayBtnClicked()
     {
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
         this._isReplay = true;
         this.OnHide();
     }

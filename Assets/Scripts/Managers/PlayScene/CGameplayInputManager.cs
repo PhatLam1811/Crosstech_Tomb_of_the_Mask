@@ -18,7 +18,7 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
     public PlayerInput playerInput;
 
     [SerializeField] private float maxSwipeTime = 1.0f;
-    [SerializeField] private float minSwipeDistance = 0.5f;
+    [SerializeField] private float minSwipeDistance = 0.6f;
     [SerializeField, Range(0.0f, 1.0f)] private float swipeAngleThreshold = 0.8f;
 
     private InputAction screenTouchAction;
@@ -110,11 +110,15 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
 
     private void DetectChangeSwipeDirectionOnHold(Vector3 holdPos)
     {
+        if (Vector3.Distance(this._startTouchPos, holdPos) < this.minSwipeDistance) return;
+
+        if (this._endTouchPos.Equals(Vector3.negativeInfinity)) return;
+
         Vector3 lastSwipeDirection = (this._endTouchPos - this._startTouchPos).normalized;
         Vector3 currentSwipeDirection = (holdPos - this._endTouchPos).normalized;
         float angleBetween = Vector3.Angle(lastSwipeDirection, currentSwipeDirection);
 
-        if ((angleBetween >= 30f && angleBetween <= 90f) ||
+        if ((angleBetween >= 20f && angleBetween <= 90f) ||
             (angleBetween >= 175f && angleBetween <= 180f))
         {
             this.OnPlayerSwiped();

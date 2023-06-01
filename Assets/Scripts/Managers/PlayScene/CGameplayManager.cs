@@ -174,7 +174,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);    
     }
-
+            
     public void OnPlayerRevive()
     {
         CGameplayInputManager.Instance.SetActive(true);
