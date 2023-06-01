@@ -10,14 +10,13 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
     public Image img_playgendary_logo;
     public Image img_my_logo;
     public Image img_shelzy_1_logo;
-    public Image img_screen_mask;
+    public Image img_loading_bar;
+    public Image img_loading_progress;
     public Button btn_tap_to_play;
 
     public GameObject game_title;
 
     public List<GameObject> scenery_objects;
-
-    public CCameraViewPortHandler viewPortHandler;
 
     public void OpenApp()
     {
@@ -94,23 +93,12 @@ public class CLoadingSceneManager : MonoSingleton<CLoadingSceneManager>
         CGameSoundManager.Instance.PlayFx(GameDefine.TAP_TO_PLAY_FX_KEY);
         CGameSoundManager.Instance.StopBGM();
 
-        StartCoroutine(this.coroutineZoomCamera());
-
         this.btn_tap_to_play.gameObject.SetActive(false);
-    }
+        this.img_loading_bar.gameObject.SetActive(true);
 
-    private IEnumerator coroutineZoomCamera()
-    {
-        float cameraZoomvalue = 0.01f;
-        float cameraZoomSpeed = 0.05f;
-
-        while (this.viewPortHandler.UnitsSize > cameraZoomvalue)
-        {
-            this.viewPortHandler.UnitsSize -= cameraZoomSpeed;
-            yield return new WaitForEndOfFrame();
-        }
-
-        this.LoadHomeScene();
+        this.img_loading_progress
+            .DOFillAmount(1.0f, 1.5f)
+            .OnComplete(this.LoadHomeScene);
     }
 
     public void LoadHomeScene()
