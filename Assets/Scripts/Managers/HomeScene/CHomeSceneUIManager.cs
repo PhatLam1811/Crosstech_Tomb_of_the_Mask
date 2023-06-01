@@ -18,6 +18,7 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public CStoryModeDialog dialog_story_mode;
     public CArcadeModeDialog dialog_arcade_mode;
+    public CShopDialog dialog_shop;
 
     public void LoadScene()
     {
@@ -50,17 +51,20 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public void OnBtnBuyCoinClicked()
     {
-
+        CGameManager.Instance.ShowDialog<CComingSoonDialog>(
+            GameDefine.DIALOG_COMING_SOON_PATH, canvasPos, "BUY COINS");
     }
 
     public void OnBtnRefillEnergyClicked()
     {
-
+        CGameManager.Instance.ShowDialog<CComingSoonDialog>(
+            GameDefine.DIALOG_COMING_SOON_PATH, canvasPos, "REFILL ENERGY");
     }
 
     public void OnBtnMissionClicked()
     {
-
+        CGameManager.Instance.ShowDialog<CComingSoonDialog>(
+            GameDefine.DIALOG_COMING_SOON_PATH, canvasPos, "MISSIONS");
     }
 
     public void OnBtnSettingsClicked()
@@ -71,23 +75,28 @@ public class CHomeSceneUIManager : MonoSingleton<CHomeSceneUIManager>
 
     public void OnBtnChestClaimClicked()
     {
-
+        CGameManager.Instance.ShowDialog<CComingSoonDialog>(
+            GameDefine.DIALOG_COMING_SOON_PATH, canvasPos, "LUCKY WHEEL");       
     }
 
     public void OnBtnNavigateToShopClicked()
     {
-
+        CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_shop);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_story_mode);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_arcade_mode);
     }
 
     public void OnBtnNavigateToStoryModeClicked()
     {
         CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_story_mode);
         CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_arcade_mode);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_shop);
     }
 
     public void OnBtnNavigateToArcadeModeClicked()
     {
         CHomeSceneManager.Instance.LoadNavigateDialog(this.dialog_arcade_mode);
         CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_story_mode);
+        CHomeSceneManager.Instance.UnLoadNavigateDialog(this.dialog_shop);
     }
 }
