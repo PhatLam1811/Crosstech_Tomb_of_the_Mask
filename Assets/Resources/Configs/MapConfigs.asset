@@ -1614,8 +1614,192 @@ MonoBehaviour:
     - _id: 9
       position: {x: -32, y: 24, z: 0}
   - _id: 8
-    _playerStartPosition: {x: -2, y: 10, z: 0}
-    _exitPosition: {x: -22, y: -22, z: 0}
+    _playerStartPosition: {x: -6, y: -18, z: 0}
+    _exitPosition: {x: 2, y: -14, z: 0}
     _bonus: 1
-    _collectableObjectConfigs: []
-    _trapObjectConfigs: []
+    _collectableObjectConfigs:
+    - _id: 0
+      position: {x: -10, y: -14, z: 0}
+    - _id: 0
+      position: {x: -8, y: -14, z: 0}
+    - _id: 0
+      position: {x: -6, y: -14, z: 0}
+    - _id: 0
+      position: {x: -4, y: -14, z: 0}
+    - _id: 0
+      position: {x: -2, y: -14, z: 0}
+    - _id: 0
+      position: {x: -2, y: -14, z: 0}
+    - _id: 0
+      position: {x: -2, y: 10, z: 0}
+    - _id: 0
+      position: {x: 0, y: 10, z: 0}
+    - _id: 0
+      position: {x: 0, y: 12, z: 0}
+    - _id: 0
+      position: {x: 0, y: 14, z: 0}
+    - _id: 0
+      position: {x: 0, y: 16, z: 0}
+    - _id: 0
+      position: {x: -2, y: 16, z: 0}
+    - _id: 0
+      position: {x: -4, y: 16, z: 0}
+    - _id: 0
+      position: {x: -6, y: 16, z: 0}
+    - _id: 0
+      position: {x: -6, y: 48, z: 0}
+    - _id: 0
+      position: {x: -8, y: 48, z: 0}
+    - _id: 2
+      position: {x: -10, y: 48, z: 0}
+    - _id: 0
+      position: {x: -4, y: 48, z: 0}
+    - _id: 0
+      position: {x: -2, y: 48, z: 0}
+    - _id: 0
+      position: {x: 0, y: 48, z: 0}
+    - _id: 0
+      position: {x: 2, y: 48, z: 0}
+    - _id: 0
+      position: {x: 2, y: 46, z: 0}
+    - _id: 0
+      position: {x: 2, y: 44, z: 0}
+    - _id: 0
+      position: {x: 2, y: 42, z: 0}
+    - _id: 0
+      position: {x: 2, y: 40, z: 0}
+    - _id: 0
+      position: {x: 2, y: 38, z: 0}
+    - _id: 0
+      position: {x: 2, y: 36, z: 0}
+    - _id: 0
+      position: {x: 2, y: 34, z: 0}
+    - _id: 0
+      position: {x: 2, y: 32, z: 0}
+    - _id: 0
+      position: {x: 2, y: 30, z: 0}
+    - _id: 0
+      position: {x: 2, y: 28, z: 0}
+    - _id: 0
+      position: {x: 2, y: 26, z: 0}
+    - _id: 0
+      position: {x: 2, y: 24, z: 0}
+    - _id: 0
+      position: {x: 2, y: 22, z: 0}
+    - _id: 0
+      position: {x: 4, y: 22, z: 0}
+    - _id: 0
+      position: {x: 6, y: 22, z: 0}
+    - _id: 0
+      position: {x: 8, y: 22, z: 0}
+    - _id: 0
+      position: {x: 10, y: 22, z: 0}
+    - _id: 0
+      position: {x: 12, y: 22, z: 0}
+    - _id: 0
+      position: {x: 12, y: 24, z: 0}
+    - _id: 0
+      position: {x: 12, y: 26, z: 0}
+    - _id: 0
+      position: {x: 10, y: 26, z: 0}
+    - _id: 0
+      position: {x: 8, y: 26, z: 0}
+    - _id: 2
+      position: {x: 6, y: 32, z: 0}
+    - _id: 0
+      position: {x: 6, y: 30, z: 0}
+    - _id: 0
+      position: {x: 6, y: 28, z: 0}
+    - _id: 0
+      position: {x: 6, y: 26, z: 0}
+    - _id: 0
+      position: {x: 6, y: 24, z: 0}
+    - _id: 2
+      position: {x: 4, y: -12, z: 0}
+    - _id: 0
+      position: {x: 4, y: -14, z: 0}
+    - _id: 0
+      position: {x: 4, y: -16, z: 0}
+    - _id: 0
+      position: {x: 4, y: -18, z: 0}
+    - _id: 0
+      position: {x: 6, y: -18, z: 0}
+    - _id: 0
+      position: {x: 6, y: -16, z: 0}
+    - _id: 0
+      position: {x: 6, y: -14, z: 0}
+    - _id: 0
+      position: {x: 6, y: -12, z: 0}
+    - _id: 0
+      position: {x: 8, y: -14, z: 0}
+    - _id: 0
+      position: {x: 8, y: -18, z: 0}
+    - _id: 0
+      position: {x: 10, y: -18, z: 0}
+    - _id: 0
+      position: {x: 10, y: -16, z: 0}
+    - _id: 0
+      position: {x: 10, y: -14, z: 0}
+    _trapObjectConfigs:
+    - _id: 8
+      position: {x: -4, y: -14, z: 0}
+    - _id: 9
+      position: {x: -2, y: -12, z: 0}
+    - _id: 9
+      position: {x: -2, y: -10, z: 0}
+    - _id: 9
+      position: {x: -2, y: -8, z: 0}
+    - _id: 9
+      position: {x: -2, y: -6, z: 0}
+    - _id: 9
+      position: {x: -2, y: -4, z: 0}
+    - _id: 9
+      position: {x: -2, y: -2, z: 0}
+    - _id: 9
+      position: {x: -2, y: 0, z: 0}
+    - _id: 9
+      position: {x: -2, y: 2, z: 0}
+    - _id: 9
+      position: {x: -2, y: 4, z: 0}
+    - _id: 9
+      position: {x: -2, y: 6, z: 0}
+    - _id: 9
+      position: {x: -2, y: 8, z: 0}
+    - _id: 8
+      position: {x: -4, y: 16, z: 0}
+    - _id: 7
+      position: {x: -6, y: 18, z: 0}
+    - _id: 7
+      position: {x: -6, y: 20, z: 0}
+    - _id: 7
+      position: {x: -6, y: 22, z: 0}
+    - _id: 7
+      position: {x: -6, y: 24, z: 0}
+    - _id: 7
+      position: {x: -6, y: 26, z: 0}
+    - _id: 7
+      position: {x: -6, y: 28, z: 0}
+    - _id: 7
+      position: {x: -6, y: 30, z: 0}
+    - _id: 7
+      position: {x: -6, y: 32, z: 0}
+    - _id: 7
+      position: {x: -6, y: 34, z: 0}
+    - _id: 7
+      position: {x: -6, y: 36, z: 0}
+    - _id: 7
+      position: {x: -6, y: 38, z: 0}
+    - _id: 7
+      position: {x: -6, y: 40, z: 0}
+    - _id: 7
+      position: {x: -6, y: 42, z: 0}
+    - _id: 7
+      position: {x: -6, y: 44, z: 0}
+    - _id: 7
+      position: {x: -6, y: 46, z: 0}
+    - _id: 9
+      position: {x: -10, y: 48, z: 0}
+    - _id: 8
+      position: {x: 6, y: 32, z: 0}
+    - _id: 9
+      position: {x: 4, y: -12, z: 0}
