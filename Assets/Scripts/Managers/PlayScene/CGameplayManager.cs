@@ -115,6 +115,12 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.COIN, 1);
     }
 
+    public void OnPlayerBreakIce(CIce ice)
+    {
+        CGameplayUIManager.Instance.ShakeCamera();
+        ice.OnCollidedWithPlayer();
+    }
+
     public void OnPlayerReachExit()
     {
         this._player.gameObject.SetActive(false);

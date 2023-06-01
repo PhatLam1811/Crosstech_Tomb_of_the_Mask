@@ -207,6 +207,7 @@ MonoBehaviour:
   prefab_coin: {fileID: 1523691421883222318, guid: b2e102306b019b54bb6310d59293d15e, type: 3}
   prefab_rising_sea: {fileID: 4328385502262033628, guid: 96a2a0fbac051964d8fc9b0865785da7, type: 3}
   prefab_spike_m: {fileID: 844353468535953292, guid: 85b237d4d54ad9141855dfd60952a482, type: 3}
+  prefab_ice: {fileID: 7950262850102551875, guid: 0ee61f5644febc547b0fa0904f98a5c1, type: 3}
 --- !u!1 &96931274
 GameObject:
   m_ObjectHideFlags: 0
@@ -9359,6 +9360,7 @@ MonoBehaviour:
   _tmpShieldNumber: {fileID: 1984200432}
   _imgShieldRemainingBar: {fileID: 385562740}
   _imgShieldRemainingProgress: {fileID: 1215591988}
+  _cameraShaker: {fileID: 892570902}
 --- !u!1 &892530082
 GameObject:
   m_ObjectHideFlags: 0
@@ -12529,6 +12531,7 @@ GameObject:
   - component: {fileID: 892570899}
   - component: {fileID: 892570901}
   - component: {fileID: 892570900}
+  - component: {fileID: 892570902}
   - component: {fileID: 892570898}
   m_Layer: 0
   m_Name: Main Camera
@@ -12623,6 +12626,18 @@ MonoBehaviour:
   UnitsSize: 13
   constraint: 1
   camera: {fileID: 892570898}
+--- !u!114 &892570902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892570896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7c84d3ada066a4d8489ccb729babf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1032644941
 GameObject:
   m_ObjectHideFlags: 0

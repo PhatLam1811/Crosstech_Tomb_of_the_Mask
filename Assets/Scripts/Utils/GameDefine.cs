@@ -53,6 +53,7 @@ public class GameDefine
     public const string SPIKE_M_OFF_FX_KEY = "Spikesinwalls_on_off";
     public const string RESCUE_NO_FX_KEY = "Rescue_no";
     public const string RESCUE_YES_FX_KEY = "Rescue_yes";
+    public const string ICE_BREAK_FX_KEY = "Ice";
     public const string LOADING_SCENE_WATER_BGM_KEY = "FromCore_StartScreen_water";
     public const string HOME_SCENE_BGM_KEY = "Music_music";
     public const string GAMEPLAY_BGM_KEY = "Story_music";

@@ -18,6 +18,11 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public Image _imgShieldRemainingBar;
     public Image _imgShieldRemainingProgress;
 
+    public CCameraShaker _cameraShaker;
+
+    private const float CAMERA_SHAKE_DURATION = 0.1f;
+    private const float CAMERA_SHAKE_MAGNITUDE = 0.05f;
+
     private const string TWEEN_SHIELD_PROGRESS = "TWEEN_SHIELD_PROGRESS";
 
     public void StartGame()
@@ -35,6 +40,11 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
     public Transform GetCanvasPos()
     {
         return this._canvasTransform;
+    }
+
+    public void ShakeCamera()
+    {
+        StartCoroutine(this._cameraShaker.Shake(CAMERA_SHAKE_DURATION, CAMERA_SHAKE_MAGNITUDE));
     }
 
     public void OnPlayerBoosterUpdated(BoosterType type)

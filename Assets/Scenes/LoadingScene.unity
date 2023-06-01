@@ -1833,6 +1833,9 @@ MonoBehaviour:
       exp: 0
     _gameMapDatas:
       _mapDatas: []
+    _gameSettings:
+      isBGMOn: 0
+      isFxOn: 0
 --- !u!1 &670345640
 GameObject:
   m_ObjectHideFlags: 0

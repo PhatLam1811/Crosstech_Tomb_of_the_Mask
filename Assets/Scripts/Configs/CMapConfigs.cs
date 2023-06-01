@@ -85,6 +85,7 @@ public class CMapConfig
 
     public List<CCollectableObjectPositionConfig> _collectableObjectConfigs;
     public List<CTrapObjectConfig> _trapObjectConfigs;
+    public List<COtherObjectConfig> _OtherObjectConfigs;
 }
 
 [System.Serializable]
@@ -98,6 +99,13 @@ public class CCollectableObjectPositionConfig
 public class CTrapObjectConfig
 {
     public MapTrapType _id;
+    public Vector3Int position;
+}
+
+[System.Serializable]
+public class COtherObjectConfig
+{
+    public OtherTypes _id;
     public Vector3Int position;
 }
 
@@ -134,4 +142,10 @@ public enum MapTrapType
     SPIKE_M_L = 7,
     SPIKE_M_D = 8,
     SPIKE_M_R = 9,
+}
+
+[System.Serializable]
+public enum OtherTypes
+{
+    ICE = 0,
 }

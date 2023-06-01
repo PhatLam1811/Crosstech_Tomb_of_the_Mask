@@ -23,6 +23,7 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     public GameObject prefab_rising_sea;
     public GameObject prefab_spike_m;
+    public GameObject prefab_ice;
 
     private int mapTotalDots = 0;
     private int mapTotalCoins = 0;
@@ -84,6 +85,7 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
         this.LoadCollectableObjects(mapConfig);
         this.LoadTrapObjects(mapConfig);
+        this.LoadOtherObjects(mapConfig);
         this.LoadGate(mapConfig);
         this.LoadExit(mapConfig);
 
@@ -160,6 +162,21 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
                     CSpikeM spikeM = Instantiate(this.prefab_spike_m, worldPos, Quaternion.identity).GetComponent<CSpikeM>();
                     spikeM.SetUpSpikeDirection(config._id);
                     break;
+            }
+        }
+    }
+
+    private void LoadOtherObjects(CMapConfig mapConfig)
+    {
+        foreach (COtherObjectConfig config in mapConfig._OtherObjectConfigs)
+        {
+            Vector3Int cellPos = config.position;
+            Vector3 worldPos = this._grid.CellToWorld(cellPos);
+
+            switch(config._id)
+            {
+                case OtherTypes.ICE:
+                    Instantiate(this.prefab_ice, worldPos, Quaternion.identity); break;
             }
         }
     }

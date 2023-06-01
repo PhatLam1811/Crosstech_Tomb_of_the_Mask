@@ -57,6 +57,11 @@ public class CPlayer : CBaseGameObject
             CGameplayManager.Instance.OnPlayerReachExit(); return;
         }
 
+        if (collision.TryGetComponent<CIce>(out CIce ice))
+        {
+            CGameplayManager.Instance.OnPlayerBreakIce(ice); return;
+        }
+
         if (collision.IsTouchingLayers(GameDefine.SPIKE_LAYER) ||
             collision.TryGetComponent<CBaseTrap>(out CBaseTrap trap))
         {
