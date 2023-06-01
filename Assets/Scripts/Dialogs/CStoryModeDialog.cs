@@ -11,6 +11,8 @@ public class CStoryModeDialog : CBaseDialog
     public Transform panel_container_transform_row_1;
     public Transform panel_container_transform_row_2;
 
+    private bool _isMapLoaded = false;
+
     private new void OnEnable() { }
 
     public override void OnShow(object data = null, UnityAction callback = null)
@@ -26,6 +28,10 @@ public class CStoryModeDialog : CBaseDialog
 
     private void LoadMapSelectorsList()
     {
+        if (this._isMapLoaded) return;
+
+        this._isMapLoaded = true;
+
         int counter = 2;
         int mapsCount = CHomeSceneHandler.Instance.GetMapsCount();
         Transform currentRow = this.panel_container_transform_row_1;

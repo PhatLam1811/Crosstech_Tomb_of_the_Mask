@@ -110,15 +110,15 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
 
     private void DetectChangeSwipeDirectionOnHold(Vector3 holdPos)
     {
-        if (Vector3.Distance(this._startTouchPos, holdPos) < this.minSwipeDistance) return;
-
         if (this._endTouchPos.Equals(Vector3.negativeInfinity)) return;
+
+        if (Vector3.Distance(this._startTouchPos, this._endTouchPos) < this.minSwipeDistance * 1.5f) return;
 
         Vector3 lastSwipeDirection = (this._endTouchPos - this._startTouchPos).normalized;
         Vector3 currentSwipeDirection = (holdPos - this._endTouchPos).normalized;
         float angleBetween = Vector3.Angle(lastSwipeDirection, currentSwipeDirection);
 
-        if ((angleBetween >= 20f && angleBetween <= 90f) ||
+        if ((angleBetween >= 25f && angleBetween <= 90f) ||
             (angleBetween >= 175f && angleBetween <= 180f))
         {
             this.OnPlayerSwiped();

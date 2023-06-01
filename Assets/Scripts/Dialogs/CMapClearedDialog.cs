@@ -65,6 +65,8 @@ public class CMapClearedDialog : CBaseDialog
     {
         int mapId = CPlaySceneHandler.Instance.GetOnPlayingMapId();
 
+        this.tmp_stage_id.text = "STAGE " + mapId.ToString(); 
+
         bool isChestClaimed = CPlaySceneHandler.Instance.IsMapChestClaimed(mapId);
         this.btn_chest_claim.gameObject.SetActive(!isChestClaimed);
         this.img_chest_unavailable.gameObject.SetActive(isChestClaimed);
