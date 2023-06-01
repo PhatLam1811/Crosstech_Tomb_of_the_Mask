@@ -72,7 +72,7 @@ public class CGameplayMapManager : MonoSingleton<CGameplayMapManager>
 
     private void LoadMap(int mapId)
     {
-        // mapId = 6;
+        // mapId = 7;
 
         if (!this._dictionaryPlayMaps.ContainsKey(mapId))
         {

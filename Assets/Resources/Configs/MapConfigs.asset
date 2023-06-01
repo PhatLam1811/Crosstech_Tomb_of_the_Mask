@@ -1312,770 +1312,310 @@ MonoBehaviour:
     - _id: 6
       position: {x: -16, y: 20, z: 0}
   - _id: 7
-    _playerStartPosition: {x: -2, y: 10, z: 0}
-    _exitPosition: {x: -22, y: -22, z: 0}
+    _playerStartPosition: {x: 6, y: -18, z: 0}
+    _exitPosition: {x: -30, y: 6, z: 0}
     _bonus: 1
     _collectableObjectConfigs:
     - _id: 0
-      position: {x: -6, y: 16, z: 0}
+      position: {x: 2, y: -12, z: 0}
     - _id: 0
-      position: {x: -4, y: 16, z: 0}
-    - _id: 0
-      position: {x: -2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 0, y: 16, z: 0}
-    - _id: 0
-      position: {x: 2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 4, y: 16, z: 0}
-    - _id: 0
-      position: {x: 6, y: 16, z: 0}
-    - _id: 0
-      position: {x: 8, y: 16, z: 0}
-    - _id: 0
-      position: {x: 10, y: 16, z: 0}
-    - _id: 0
-      position: {x: 12, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 14, z: 0}
-    - _id: 0
-      position: {x: 14, y: 12, z: 0}
-    - _id: 0
-      position: {x: 14, y: 10, z: 0}
-    - _id: 0
-      position: {x: 14, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 6, z: 0}
-    - _id: 0
-      position: {x: 12, y: 4, z: 0}
-    - _id: 0
-      position: {x: 12, y: 2, z: 0}
-    - _id: 0
-      position: {x: 12, y: 0, z: 0}
-    - _id: 0
-      position: {x: 10, y: 0, z: 0}
-    - _id: 0
-      position: {x: 8, y: 0, z: 0}
-    - _id: 2
-      position: {x: 6, y: 0, z: 0}
-    - _id: 0
-      position: {x: 6, y: -2, z: 0}
-    - _id: 0
-      position: {x: 6, y: -4, z: 0}
-    - _id: 0
-      position: {x: 6, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -8, z: 0}
+      position: {x: 2, y: -10, z: 0}
     - _id: 0
       position: {x: 4, y: -10, z: 0}
     - _id: 0
       position: {x: 6, y: -10, z: 0}
     - _id: 0
-      position: {x: 8, y: -10, z: 0}
+      position: {x: 6, y: -8, z: 0}
     - _id: 0
-      position: {x: 10, y: -10, z: 0}
+      position: {x: 6, y: -6, z: 0}
     - _id: 0
-      position: {x: 12, y: -10, z: 0}
+      position: {x: 8, y: -6, z: 0}
     - _id: 0
-      position: {x: 12, y: -12, z: 0}
+      position: {x: 10, y: -6, z: 0}
     - _id: 0
-      position: {x: 12, y: -14, z: 0}
+      position: {x: 10, y: -4, z: 0}
     - _id: 0
-      position: {x: 12, y: -16, z: 0}
-    - _id: 2
-      position: {x: 12, y: -18, z: 0}
+      position: {x: 10, y: -2, z: 0}
     - _id: 0
-      position: {x: 10, y: -18, z: 0}
+      position: {x: 8, y: -2, z: 0}
     - _id: 0
-      position: {x: 8, y: -18, z: 0}
+      position: {x: 6, y: -2, z: 0}
     - _id: 0
-      position: {x: 6, y: -18, z: 0}
+      position: {x: 4, y: -2, z: 0}
     - _id: 0
-      position: {x: 6, y: -16, z: 0}
+      position: {x: 2, y: -2, z: 0}
     - _id: 0
-      position: {x: 6, y: -14, z: 0}
+      position: {x: 2, y: -4, z: 0}
     - _id: 0
-      position: {x: 6, y: -12, z: 0}
+      position: {x: 2, y: -6, z: 0}
     - _id: 0
-      position: {x: 4, y: -12, z: 0}
+      position: {x: 0, y: -6, z: 0}
     - _id: 0
-      position: {x: 2, y: -12, z: 0}
+      position: {x: -2, y: -6, z: 0}
     - _id: 0
-      position: {x: 0, y: -12, z: 0}
+      position: {x: 4, y: -6, z: 0}
     - _id: 0
-      position: {x: -2, y: -12, z: 0}
+      position: {x: -2, y: -4, z: 0}
     - _id: 0
-      position: {x: -2, y: -10, z: 0}
+      position: {x: -2, y: -2, z: 0}
     - _id: 0
-      position: {x: -2, y: -8, z: 0}
+      position: {x: -2, y: 0, z: 0}
     - _id: 0
-      position: {x: -4, y: -8, z: 0}
+      position: {x: -2, y: 2, z: 0}
     - _id: 0
-      position: {x: -6, y: -8, z: 0}
+      position: {x: -2, y: 4, z: 0}
     - _id: 0
-      position: {x: -6, y: -10, z: 0}
+      position: {x: 0, y: 4, z: 0}
     - _id: 0
-      position: {x: -6, y: -12, z: 0}
+      position: {x: 2, y: 4, z: 0}
     - _id: 0
-      position: {x: -8, y: -12, z: 0}
+      position: {x: 4, y: 4, z: 0}
     - _id: 0
-      position: {x: -10, y: -12, z: 0}
+      position: {x: 6, y: 4, z: 0}
     - _id: 0
-      position: {x: -12, y: -12, z: 0}
+      position: {x: 2, y: 2, z: 0}
     - _id: 0
-      position: {x: -12, y: -10, z: 0}
+      position: {x: 4, y: 2, z: 0}
     - _id: 0
-      position: {x: -12, y: -8, z: 0}
+      position: {x: 6, y: 2, z: 0}
     - _id: 0
-      position: {x: -14, y: -8, z: 0}
+      position: {x: 6, y: 6, z: 0}
     - _id: 0
-      position: {x: -16, y: -8, z: 0}
+      position: {x: 6, y: 8, z: 0}
     - _id: 0
-      position: {x: -18, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -10, z: 0}
-    - _id: 0
-      position: {x: -18, y: -12, z: 0}
-    - _id: 2
-      position: {x: -16, y: -12, z: 0}
-    - _id: 0
-      position: {x: -20, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -14, z: 0}
-    - _id: 0
-      position: {x: -22, y: -16, z: 0}
-    - _id: 0
-      position: {x: -22, y: -18, z: 0}
-    - _id: 0
-      position: {x: -22, y: -20, z: 0}
-    _trapObjectConfigs:
-    - _id: 1
-      position: {x: 3, y: 11, z: 0}
-    - _id: 4
-      position: {x: 3, y: 12, z: 0}
-    - _id: 0
-      position: {x: 4, y: 12, z: 0}
-    - _id: 0
-      position: {x: 5, y: 12, z: 0}
+      position: {x: 6, y: 10, z: 0}
     - _id: 0
       position: {x: 6, y: 12, z: 0}
     - _id: 0
-      position: {x: 7, y: 12, z: 0}
+      position: {x: 2, y: 0, z: 0}
     - _id: 0
-      position: {x: 8, y: 12, z: 0}
+      position: {x: 4, y: 10, z: 0}
     - _id: 0
-      position: {x: 9, y: 12, z: 0}
+      position: {x: 2, y: 10, z: 0}
     - _id: 0
-      position: {x: 10, y: 12, z: 0}
+      position: {x: 0, y: 10, z: 0}
     - _id: 0
-      position: {x: 11, y: 12, z: 0}
-    - _id: 5
-      position: {x: 12, y: 12, z: 0}
-    - _id: 3
-      position: {x: 12, y: 11, z: 0}
-    - _id: 3
-      position: {x: 10, y: 4, z: 0}
+      position: {x: -2, y: 10, z: 0}
+    - _id: 0
+      position: {x: 4, y: 12, z: 0}
+    - _id: 0
+      position: {x: 2, y: 12, z: 0}
+    - _id: 0
+      position: {x: 0, y: 12, z: 0}
+    - _id: 0
+      position: {x: -2, y: 12, z: 0}
+    - _id: 0
+      position: {x: -2, y: 14, z: 0}
+    - _id: 0
+      position: {x: -2, y: 16, z: 0}
+    - _id: 0
+      position: {x: -2, y: 18, z: 0}
+    - _id: 0
+      position: {x: -4, y: 18, z: 0}
+    - _id: 0
+      position: {x: -6, y: 18, z: 0}
+    - _id: 0
+      position: {x: -8, y: 18, z: 0}
+    - _id: 0
+      position: {x: -8, y: 16, z: 0}
+    - _id: 0
+      position: {x: -8, y: 14, z: 0}
+    - _id: 0
+      position: {x: -8, y: 12, z: 0}
+    - _id: 0
+      position: {x: -8, y: 10, z: 0}
+    - _id: 2
+      position: {x: -6, y: 16, z: 0}
+    - _id: 0
+      position: {x: -6, y: 14, z: 0}
+    - _id: 0
+      position: {x: -6, y: 12, z: 0}
+    - _id: 0
+      position: {x: -6, y: 10, z: 0}
+    - _id: 0
+      position: {x: -6, y: 8, z: 0}
+    - _id: 0
+      position: {x: -6, y: 6, z: 0}
+    - _id: 0
+      position: {x: -6, y: 4, z: 0}
+    - _id: 0
+      position: {x: -6, y: 2, z: 0}
+    - _id: 0
+      position: {x: -8, y: 2, z: 0}
+    - _id: 0
+      position: {x: -8, y: 0, z: 0}
+    - _id: 0
+      position: {x: -8, y: -2, z: 0}
+    - _id: 0
+      position: {x: -8, y: -4, z: 0}
+    - _id: 2
+      position: {x: -6, y: -2, z: 0}
+    - _id: 0
+      position: {x: -6, y: -4, z: 0}
+    - _id: 0
+      position: {x: -10, y: -4, z: 0}
+    - _id: 0
+      position: {x: -12, y: -4, z: 0}
+    - _id: 0
+      position: {x: -14, y: -4, z: 0}
+    - _id: 0
+      position: {x: -16, y: -4, z: 0}
+    - _id: 0
+      position: {x: -10, y: -2, z: 0}
+    - _id: 0
+      position: {x: -12, y: -2, z: 0}
+    - _id: 0
+      position: {x: -14, y: -2, z: 0}
+    - _id: 0
+      position: {x: -16, y: -2, z: 0}
+    - _id: 0
+      position: {x: -16, y: 0, z: 0}
+    - _id: 0
+      position: {x: -16, y: 2, z: 0}
+    - _id: 0
+      position: {x: -16, y: 4, z: 0}
+    - _id: 0
+      position: {x: -16, y: 6, z: 0}
+    - _id: 0
+      position: {x: -14, y: 6, z: 0}
+    - _id: 0
+      position: {x: -14, y: 4, z: 0}
+    - _id: 2
+      position: {x: -14, y: 2, z: 0}
+    - _id: 0
+      position: {x: -18, y: 6, z: 0}
+    - _id: 0
+      position: {x: -18, y: 4, z: 0}
+    - _id: 0
+      position: {x: -20, y: 4, z: 0}
+    - _id: 0
+      position: {x: -22, y: 4, z: 0}
+    - _id: 0
+      position: {x: -22, y: 6, z: 0}
+    - _id: 0
+      position: {x: -22, y: 8, z: 0}
+    - _id: 0
+      position: {x: -22, y: 10, z: 0}
+    - _id: 0
+      position: {x: -24, y: 10, z: 0}
+    - _id: 0
+      position: {x: -26, y: 10, z: 0}
+    - _id: 0
+      position: {x: -28, y: 10, z: 0}
+    - _id: 0
+      position: {x: -30, y: 10, z: 0}
+    - _id: 0
+      position: {x: -32, y: 10, z: 0}
+    - _id: 0
+      position: {x: -32, y: 12, z: 0}
+    - _id: 0
+      position: {x: -32, y: 14, z: 0}
+    - _id: 0
+      position: {x: -32, y: 16, z: 0}
+    - _id: 0
+      position: {x: -30, y: 16, z: 0}
+    - _id: 0
+      position: {x: -28, y: 16, z: 0}
+    - _id: 0
+      position: {x: -26, y: 16, z: 0}
+    - _id: 0
+      position: {x: -24, y: 16, z: 0}
+    - _id: 0
+      position: {x: -22, y: 16, z: 0}
+    - _id: 0
+      position: {x: -20, y: 16, z: 0}
+    - _id: 0
+      position: {x: -20, y: 18, z: 0}
+    - _id: 0
+      position: {x: -20, y: 20, z: 0}
+    - _id: 0
+      position: {x: -20, y: 22, z: 0}
+    - _id: 0
+      position: {x: -22, y: 22, z: 0}
+    - _id: 0
+      position: {x: -24, y: 22, z: 0}
+    - _id: 0
+      position: {x: -26, y: 22, z: 0}
+    - _id: 0
+      position: {x: -28, y: 22, z: 0}
+    - _id: 0
+      position: {x: -30, y: 22, z: 0}
+    - _id: 0
+      position: {x: -32, y: 22, z: 0}
+    - _id: 0
+      position: {x: -32, y: 24, z: 0}
+    - _id: 0
+      position: {x: -32, y: 26, z: 0}
+    - _id: 0
+      position: {x: -32, y: 28, z: 0}
+    - _id: 0
+      position: {x: -30, y: 28, z: 0}
+    - _id: 0
+      position: {x: -28, y: 28, z: 0}
+    - _id: 0
+      position: {x: -26, y: 28, z: 0}
+    - _id: 0
+      position: {x: -26, y: 26, z: 0}
+    - _id: 0
+      position: {x: -26, y: 24, z: 0}
+    - _id: 0
+      position: {x: -26, y: 20, z: 0}
+    - _id: 0
+      position: {x: -26, y: 18, z: 0}
+    - _id: 0
+      position: {x: -26, y: 14, z: 0}
+    - _id: 0
+      position: {x: -26, y: 12, z: 0}
+    - _id: 0
+      position: {x: -26, y: 8, z: 0}
+    - _id: 0
+      position: {x: -26, y: 6, z: 0}
+    - _id: 0
+      position: {x: -28, y: 6, z: 0}
+    _trapObjectConfigs:
+    - _id: 6
+      position: {x: 6, y: -2, z: 0}
+    - _id: 9
+      position: {x: 8, y: -4, z: 0}
+    - _id: 8
+      position: {x: 6, y: -6, z: 0}
     - _id: 7
-      position: {x: 10, y: 3, z: 0}
-    - _id: 2
-      position: {x: 9, y: 3, z: 0}
-    - _id: 2
-      position: {x: 8, y: 3, z: 0}
-    - _id: 2
-      position: {x: 7, y: 3, z: 0}
-    - _id: 2
-      position: {x: 6, y: 3, z: 0}
-    - _id: 2
-      position: {x: 5, y: 3, z: 0}
-    - _id: 3
-      position: {x: 4, y: -16, z: 0}
-    - _id: 3
-      position: {x: 4, y: -17, z: 0}
-    - _id: 3
-      position: {x: 4, y: -18, z: 0}
-    - _id: 3
-      position: {x: 4, y: -19, z: 0}
+      position: {x: 4, y: -4, z: 0}
+    - _id: 6
+      position: {x: -2, y: -6, z: 0}
+    - _id: 6
+      position: {x: -2, y: 10, z: 0}
+    - _id: 9
+      position: {x: -8, y: 16, z: 0}
+    - _id: 9
+      position: {x: -8, y: 14, z: 0}
+    - _id: 9
+      position: {x: -8, y: 12, z: 0}
+    - _id: 6
+      position: {x: -6, y: 2, z: 0}
+    - _id: 7
+      position: {x: -8, y: 0, z: 0}
+    - _id: 8
+      position: {x: -6, y: -2, z: 0}
+    - _id: 7
+      position: {x: -14, y: 6, z: 0}
+    - _id: 7
+      position: {x: -14, y: 4, z: 0}
+    - _id: 9
+      position: {x: -32, y: 14, z: 0}
+    - _id: 9
+      position: {x: -32, y: 12, z: 0}
+    - _id: 7
+      position: {x: -20, y: 20, z: 0}
+    - _id: 7
+      position: {x: -20, y: 18, z: 0}
+    - _id: 9
+      position: {x: -32, y: 26, z: 0}
+    - _id: 9
+      position: {x: -32, y: 24, z: 0}
   - _id: 8
     _playerStartPosition: {x: -2, y: 10, z: 0}
     _exitPosition: {x: -22, y: -22, z: 0}
     _bonus: 1
-    _collectableObjectConfigs:
-    - _id: 0
-      position: {x: -6, y: 16, z: 0}
-    - _id: 0
-      position: {x: -4, y: 16, z: 0}
-    - _id: 0
-      position: {x: -2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 0, y: 16, z: 0}
-    - _id: 0
-      position: {x: 2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 4, y: 16, z: 0}
-    - _id: 0
-      position: {x: 6, y: 16, z: 0}
-    - _id: 0
-      position: {x: 8, y: 16, z: 0}
-    - _id: 0
-      position: {x: 10, y: 16, z: 0}
-    - _id: 0
-      position: {x: 12, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 14, z: 0}
-    - _id: 0
-      position: {x: 14, y: 12, z: 0}
-    - _id: 0
-      position: {x: 14, y: 10, z: 0}
-    - _id: 0
-      position: {x: 14, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 6, z: 0}
-    - _id: 0
-      position: {x: 12, y: 4, z: 0}
-    - _id: 0
-      position: {x: 12, y: 2, z: 0}
-    - _id: 0
-      position: {x: 12, y: 0, z: 0}
-    - _id: 0
-      position: {x: 10, y: 0, z: 0}
-    - _id: 0
-      position: {x: 8, y: 0, z: 0}
-    - _id: 2
-      position: {x: 6, y: 0, z: 0}
-    - _id: 0
-      position: {x: 6, y: -2, z: 0}
-    - _id: 0
-      position: {x: 6, y: -4, z: 0}
-    - _id: 0
-      position: {x: 6, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -8, z: 0}
-    - _id: 0
-      position: {x: 4, y: -10, z: 0}
-    - _id: 0
-      position: {x: 6, y: -10, z: 0}
-    - _id: 0
-      position: {x: 8, y: -10, z: 0}
-    - _id: 0
-      position: {x: 10, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -12, z: 0}
-    - _id: 0
-      position: {x: 12, y: -14, z: 0}
-    - _id: 0
-      position: {x: 12, y: -16, z: 0}
-    - _id: 2
-      position: {x: 12, y: -18, z: 0}
-    - _id: 0
-      position: {x: 10, y: -18, z: 0}
-    - _id: 0
-      position: {x: 8, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -16, z: 0}
-    - _id: 0
-      position: {x: 6, y: -14, z: 0}
-    - _id: 0
-      position: {x: 6, y: -12, z: 0}
-    - _id: 0
-      position: {x: 4, y: -12, z: 0}
-    - _id: 0
-      position: {x: 2, y: -12, z: 0}
-    - _id: 0
-      position: {x: 0, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -10, z: 0}
-    - _id: 0
-      position: {x: -2, y: -8, z: 0}
-    - _id: 0
-      position: {x: -4, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -10, z: 0}
-    - _id: 0
-      position: {x: -6, y: -12, z: 0}
-    - _id: 0
-      position: {x: -8, y: -12, z: 0}
-    - _id: 0
-      position: {x: -10, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -10, z: 0}
-    - _id: 0
-      position: {x: -12, y: -8, z: 0}
-    - _id: 0
-      position: {x: -14, y: -8, z: 0}
-    - _id: 0
-      position: {x: -16, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -10, z: 0}
-    - _id: 0
-      position: {x: -18, y: -12, z: 0}
-    - _id: 2
-      position: {x: -16, y: -12, z: 0}
-    - _id: 0
-      position: {x: -20, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -14, z: 0}
-    - _id: 0
-      position: {x: -22, y: -16, z: 0}
-    - _id: 0
-      position: {x: -22, y: -18, z: 0}
-    - _id: 0
-      position: {x: -22, y: -20, z: 0}
-    _trapObjectConfigs:
-    - _id: 1
-      position: {x: 3, y: 11, z: 0}
-    - _id: 4
-      position: {x: 3, y: 12, z: 0}
-    - _id: 0
-      position: {x: 4, y: 12, z: 0}
-    - _id: 0
-      position: {x: 5, y: 12, z: 0}
-    - _id: 0
-      position: {x: 6, y: 12, z: 0}
-    - _id: 0
-      position: {x: 7, y: 12, z: 0}
-    - _id: 0
-      position: {x: 8, y: 12, z: 0}
-    - _id: 0
-      position: {x: 9, y: 12, z: 0}
-    - _id: 0
-      position: {x: 10, y: 12, z: 0}
-    - _id: 0
-      position: {x: 11, y: 12, z: 0}
-    - _id: 5
-      position: {x: 12, y: 12, z: 0}
-    - _id: 3
-      position: {x: 12, y: 11, z: 0}
-    - _id: 3
-      position: {x: 10, y: 4, z: 0}
-    - _id: 7
-      position: {x: 10, y: 3, z: 0}
-    - _id: 2
-      position: {x: 9, y: 3, z: 0}
-    - _id: 2
-      position: {x: 8, y: 3, z: 0}
-    - _id: 2
-      position: {x: 7, y: 3, z: 0}
-    - _id: 2
-      position: {x: 6, y: 3, z: 0}
-    - _id: 2
-      position: {x: 5, y: 3, z: 0}
-    - _id: 3
-      position: {x: 4, y: -16, z: 0}
-    - _id: 3
-      position: {x: 4, y: -17, z: 0}
-    - _id: 3
-      position: {x: 4, y: -18, z: 0}
-    - _id: 3
-      position: {x: 4, y: -19, z: 0}
-  - _id: 9
-    _playerStartPosition: {x: -2, y: 10, z: 0}
-    _exitPosition: {x: -22, y: -22, z: 0}
-    _bonus: 1
-    _collectableObjectConfigs:
-    - _id: 0
-      position: {x: -6, y: 16, z: 0}
-    - _id: 0
-      position: {x: -4, y: 16, z: 0}
-    - _id: 0
-      position: {x: -2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 0, y: 16, z: 0}
-    - _id: 0
-      position: {x: 2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 4, y: 16, z: 0}
-    - _id: 0
-      position: {x: 6, y: 16, z: 0}
-    - _id: 0
-      position: {x: 8, y: 16, z: 0}
-    - _id: 0
-      position: {x: 10, y: 16, z: 0}
-    - _id: 0
-      position: {x: 12, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 14, z: 0}
-    - _id: 0
-      position: {x: 14, y: 12, z: 0}
-    - _id: 0
-      position: {x: 14, y: 10, z: 0}
-    - _id: 0
-      position: {x: 14, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 6, z: 0}
-    - _id: 0
-      position: {x: 12, y: 4, z: 0}
-    - _id: 0
-      position: {x: 12, y: 2, z: 0}
-    - _id: 0
-      position: {x: 12, y: 0, z: 0}
-    - _id: 0
-      position: {x: 10, y: 0, z: 0}
-    - _id: 0
-      position: {x: 8, y: 0, z: 0}
-    - _id: 2
-      position: {x: 6, y: 0, z: 0}
-    - _id: 0
-      position: {x: 6, y: -2, z: 0}
-    - _id: 0
-      position: {x: 6, y: -4, z: 0}
-    - _id: 0
-      position: {x: 6, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -8, z: 0}
-    - _id: 0
-      position: {x: 4, y: -10, z: 0}
-    - _id: 0
-      position: {x: 6, y: -10, z: 0}
-    - _id: 0
-      position: {x: 8, y: -10, z: 0}
-    - _id: 0
-      position: {x: 10, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -12, z: 0}
-    - _id: 0
-      position: {x: 12, y: -14, z: 0}
-    - _id: 0
-      position: {x: 12, y: -16, z: 0}
-    - _id: 2
-      position: {x: 12, y: -18, z: 0}
-    - _id: 0
-      position: {x: 10, y: -18, z: 0}
-    - _id: 0
-      position: {x: 8, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -16, z: 0}
-    - _id: 0
-      position: {x: 6, y: -14, z: 0}
-    - _id: 0
-      position: {x: 6, y: -12, z: 0}
-    - _id: 0
-      position: {x: 4, y: -12, z: 0}
-    - _id: 0
-      position: {x: 2, y: -12, z: 0}
-    - _id: 0
-      position: {x: 0, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -10, z: 0}
-    - _id: 0
-      position: {x: -2, y: -8, z: 0}
-    - _id: 0
-      position: {x: -4, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -10, z: 0}
-    - _id: 0
-      position: {x: -6, y: -12, z: 0}
-    - _id: 0
-      position: {x: -8, y: -12, z: 0}
-    - _id: 0
-      position: {x: -10, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -10, z: 0}
-    - _id: 0
-      position: {x: -12, y: -8, z: 0}
-    - _id: 0
-      position: {x: -14, y: -8, z: 0}
-    - _id: 0
-      position: {x: -16, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -10, z: 0}
-    - _id: 0
-      position: {x: -18, y: -12, z: 0}
-    - _id: 2
-      position: {x: -16, y: -12, z: 0}
-    - _id: 0
-      position: {x: -20, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -14, z: 0}
-    - _id: 0
-      position: {x: -22, y: -16, z: 0}
-    - _id: 0
-      position: {x: -22, y: -18, z: 0}
-    - _id: 0
-      position: {x: -22, y: -20, z: 0}
-    _trapObjectConfigs:
-    - _id: 1
-      position: {x: 3, y: 11, z: 0}
-    - _id: 4
-      position: {x: 3, y: 12, z: 0}
-    - _id: 0
-      position: {x: 4, y: 12, z: 0}
-    - _id: 0
-      position: {x: 5, y: 12, z: 0}
-    - _id: 0
-      position: {x: 6, y: 12, z: 0}
-    - _id: 0
-      position: {x: 7, y: 12, z: 0}
-    - _id: 0
-      position: {x: 8, y: 12, z: 0}
-    - _id: 0
-      position: {x: 9, y: 12, z: 0}
-    - _id: 0
-      position: {x: 10, y: 12, z: 0}
-    - _id: 0
-      position: {x: 11, y: 12, z: 0}
-    - _id: 5
-      position: {x: 12, y: 12, z: 0}
-    - _id: 3
-      position: {x: 12, y: 11, z: 0}
-    - _id: 3
-      position: {x: 10, y: 4, z: 0}
-    - _id: 7
-      position: {x: 10, y: 3, z: 0}
-    - _id: 2
-      position: {x: 9, y: 3, z: 0}
-    - _id: 2
-      position: {x: 8, y: 3, z: 0}
-    - _id: 2
-      position: {x: 7, y: 3, z: 0}
-    - _id: 2
-      position: {x: 6, y: 3, z: 0}
-    - _id: 2
-      position: {x: 5, y: 3, z: 0}
-    - _id: 3
-      position: {x: 4, y: -16, z: 0}
-    - _id: 3
-      position: {x: 4, y: -17, z: 0}
-    - _id: 3
-      position: {x: 4, y: -18, z: 0}
-    - _id: 3
-      position: {x: 4, y: -19, z: 0}
-  - _id: 10
-    _playerStartPosition: {x: -2, y: 10, z: 0}
-    _exitPosition: {x: -22, y: -22, z: 0}
-    _bonus: 1
-    _collectableObjectConfigs:
-    - _id: 0
-      position: {x: -6, y: 16, z: 0}
-    - _id: 0
-      position: {x: -4, y: 16, z: 0}
-    - _id: 0
-      position: {x: -2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 0, y: 16, z: 0}
-    - _id: 0
-      position: {x: 2, y: 16, z: 0}
-    - _id: 0
-      position: {x: 4, y: 16, z: 0}
-    - _id: 0
-      position: {x: 6, y: 16, z: 0}
-    - _id: 0
-      position: {x: 8, y: 16, z: 0}
-    - _id: 0
-      position: {x: 10, y: 16, z: 0}
-    - _id: 0
-      position: {x: 12, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 16, z: 0}
-    - _id: 0
-      position: {x: 14, y: 14, z: 0}
-    - _id: 0
-      position: {x: 14, y: 12, z: 0}
-    - _id: 0
-      position: {x: 14, y: 10, z: 0}
-    - _id: 0
-      position: {x: 14, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 8, z: 0}
-    - _id: 0
-      position: {x: 12, y: 6, z: 0}
-    - _id: 0
-      position: {x: 12, y: 4, z: 0}
-    - _id: 0
-      position: {x: 12, y: 2, z: 0}
-    - _id: 0
-      position: {x: 12, y: 0, z: 0}
-    - _id: 0
-      position: {x: 10, y: 0, z: 0}
-    - _id: 0
-      position: {x: 8, y: 0, z: 0}
-    - _id: 2
-      position: {x: 6, y: 0, z: 0}
-    - _id: 0
-      position: {x: 6, y: -2, z: 0}
-    - _id: 0
-      position: {x: 6, y: -4, z: 0}
-    - _id: 0
-      position: {x: 6, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -6, z: 0}
-    - _id: 0
-      position: {x: 4, y: -8, z: 0}
-    - _id: 0
-      position: {x: 4, y: -10, z: 0}
-    - _id: 0
-      position: {x: 6, y: -10, z: 0}
-    - _id: 0
-      position: {x: 8, y: -10, z: 0}
-    - _id: 0
-      position: {x: 10, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -10, z: 0}
-    - _id: 0
-      position: {x: 12, y: -12, z: 0}
-    - _id: 0
-      position: {x: 12, y: -14, z: 0}
-    - _id: 0
-      position: {x: 12, y: -16, z: 0}
-    - _id: 2
-      position: {x: 12, y: -18, z: 0}
-    - _id: 0
-      position: {x: 10, y: -18, z: 0}
-    - _id: 0
-      position: {x: 8, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -18, z: 0}
-    - _id: 0
-      position: {x: 6, y: -16, z: 0}
-    - _id: 0
-      position: {x: 6, y: -14, z: 0}
-    - _id: 0
-      position: {x: 6, y: -12, z: 0}
-    - _id: 0
-      position: {x: 4, y: -12, z: 0}
-    - _id: 0
-      position: {x: 2, y: -12, z: 0}
-    - _id: 0
-      position: {x: 0, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -12, z: 0}
-    - _id: 0
-      position: {x: -2, y: -10, z: 0}
-    - _id: 0
-      position: {x: -2, y: -8, z: 0}
-    - _id: 0
-      position: {x: -4, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -8, z: 0}
-    - _id: 0
-      position: {x: -6, y: -10, z: 0}
-    - _id: 0
-      position: {x: -6, y: -12, z: 0}
-    - _id: 0
-      position: {x: -8, y: -12, z: 0}
-    - _id: 0
-      position: {x: -10, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -12, z: 0}
-    - _id: 0
-      position: {x: -12, y: -10, z: 0}
-    - _id: 0
-      position: {x: -12, y: -8, z: 0}
-    - _id: 0
-      position: {x: -14, y: -8, z: 0}
-    - _id: 0
-      position: {x: -16, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -8, z: 0}
-    - _id: 0
-      position: {x: -18, y: -10, z: 0}
-    - _id: 0
-      position: {x: -18, y: -12, z: 0}
-    - _id: 2
-      position: {x: -16, y: -12, z: 0}
-    - _id: 0
-      position: {x: -20, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -12, z: 0}
-    - _id: 0
-      position: {x: -22, y: -14, z: 0}
-    - _id: 0
-      position: {x: -22, y: -16, z: 0}
-    - _id: 0
-      position: {x: -22, y: -18, z: 0}
-    - _id: 0
-      position: {x: -22, y: -20, z: 0}
-    _trapObjectConfigs:
-    - _id: 1
-      position: {x: 3, y: 11, z: 0}
-    - _id: 4
-      position: {x: 3, y: 12, z: 0}
-    - _id: 0
-      position: {x: 4, y: 12, z: 0}
-    - _id: 0
-      position: {x: 5, y: 12, z: 0}
-    - _id: 0
-      position: {x: 6, y: 12, z: 0}
-    - _id: 0
-      position: {x: 7, y: 12, z: 0}
-    - _id: 0
-      position: {x: 8, y: 12, z: 0}
-    - _id: 0
-      position: {x: 9, y: 12, z: 0}
-    - _id: 0
-      position: {x: 10, y: 12, z: 0}
-    - _id: 0
-      position: {x: 11, y: 12, z: 0}
-    - _id: 5
-      position: {x: 12, y: 12, z: 0}
-    - _id: 3
-      position: {x: 12, y: 11, z: 0}
-    - _id: 3
-      position: {x: 10, y: 4, z: 0}
-    - _id: 7
-      position: {x: 10, y: 3, z: 0}
-    - _id: 2
-      position: {x: 9, y: 3, z: 0}
-    - _id: 2
-      position: {x: 8, y: 3, z: 0}
-    - _id: 2
-      position: {x: 7, y: 3, z: 0}
-    - _id: 2
-      position: {x: 6, y: 3, z: 0}
-    - _id: 2
-      position: {x: 5, y: 3, z: 0}
-    - _id: 3
-      position: {x: 4, y: -16, z: 0}
-    - _id: 3
-      position: {x: 4, y: -17, z: 0}
-    - _id: 3
-      position: {x: 4, y: -18, z: 0}
-    - _id: 3
-      position: {x: 4, y: -19, z: 0}
+    _collectableObjectConfigs: []
+    _trapObjectConfigs: []
