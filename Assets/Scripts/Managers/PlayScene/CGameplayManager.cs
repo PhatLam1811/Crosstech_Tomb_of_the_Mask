@@ -9,7 +9,8 @@ public enum PlayerState
     IS_PLAYING = 0,
     GAME_OVER = 1,
     REVIVED = 2,
-    PROTECTED_BY_SHIELD = 3
+    PROTECTED_BY_SHIELD = 3,
+    PAUSE = 4,
 }
 
 public class CGameplayManager : MonoSingleton<CGameplayManager>
@@ -146,6 +147,22 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     public void OnPlayerShieldExpired()
     {
         this._player.OnShieldStateChanged(false);
+    }
+
+    public void OnPlayerPaused()
+    {
+        CGameplayInputManager.Instance.UnAssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+        CGameplayInputManager.Instance.SetActive(false);
+
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.PAUSE);
+    }
+
+    public void OnPlayerResume()
+    {
+        CGameplayInputManager.Instance.SetActive(true);
+        CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
+
+        this.InvokeOnPlayerStateChangedCallback(PlayerState.IS_PLAYING);
     }
 
     public void OnPlayerDead()

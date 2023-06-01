@@ -62,7 +62,9 @@ public class CGameplayUIManager : MonoSingleton<CGameplayUIManager>
 
     public void OnPauseBtnClicked()
     {
-        Debug.Log("On Paused!");
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CPlaySceneHandler.Instance.ShowPauseDialog(this._canvasTransform);
+        CGameplayManager.Instance.OnPlayerPaused();
     }
 
     public void OnShieldBtnClicked()

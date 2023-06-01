@@ -77,7 +77,7 @@ public class CMapClearedDialog : CBaseDialog
         if (isLastMap)
         {
             this.btn_next_stage.onClick.RemoveListener(this.OnBtnNextStagePressed);
-            this.btn_next_stage.onClick.AddListener(this.OnBtnClosePressed);
+            this.btn_next_stage.onClick.AddListener(this.OnBtnCloseClicked);
             this.tmp_next_stage.fontSize = COMING_SOON_FONT_SIZE;
             this.tmp_next_stage.text = "COMING SOON";
         }
@@ -228,10 +228,5 @@ public class CMapClearedDialog : CBaseDialog
     {
         int nextMapId = CPlaySceneHandler.Instance.GetOnPlayingMapId() + 1;
         CPlaySceneHandler.Instance.LoadMap(nextMapId);
-    }
-
-    public void OnBtnClosePressed()
-    {
-        this.OnHide();
     }
 }

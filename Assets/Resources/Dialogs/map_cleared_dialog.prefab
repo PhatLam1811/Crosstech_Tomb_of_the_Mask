@@ -661,8 +661,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3062861213484912199}
-        m_TargetAssemblyTypeName: CMapClearedDialog, Assembly-CSharp
-        m_MethodName: OnBtnClosePressed
+        m_TargetAssemblyTypeName: CBaseDialog, Assembly-CSharp
+        m_MethodName: OnBtnCloseClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

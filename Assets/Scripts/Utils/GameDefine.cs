@@ -60,6 +60,7 @@ public class GameDefine
     // DIALOGS
     public const string DIALOG_MAP_CLEARED_PATH = "Dialogs/map_cleared_dialog";
     public const string DIALOG_REVIVE_PATH = "Dialogs/revive_dialog";
+    public const string DIALOG_PAUSE_PATH = "Dialogs/pause_dialog";
 
     // LAYERS
     public const int MAP_LAYER = 6;

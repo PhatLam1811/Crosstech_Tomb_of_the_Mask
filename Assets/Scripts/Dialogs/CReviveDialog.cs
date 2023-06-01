@@ -139,11 +139,6 @@ public class CReviveDialog : CBaseDialog
         CGameSoundManager.Instance.PlayFx(GameDefine.RESCUE_YES_FX_KEY);
     }
 
-    public void OnBtnCloseClicked()
-    {
-        this.OnHide();
-    }
-
     public void OnBtnPurchaseClicked()
     {
         bool isSuccess = CPlaySceneHandler.Instance.PurchaseRevive(REVIVE_COST);

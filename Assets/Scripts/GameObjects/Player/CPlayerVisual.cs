@@ -51,7 +51,6 @@ public class CPlayerVisual : CBaseVisual
 
     public void PlayAnimation(string key)
     {
-        // CDeviceDebugger.Instance.Log(this.GetType() + " is playing anim = " + key);
         this.animator.Play(key);
     }
 

@@ -42,6 +42,7 @@ public class CRisingSea : CBaseTrap
         {
             case PlayerState.IS_PLAYING:
                 this.SetIsPlaying(true); break;
+            case PlayerState.PAUSE:
             case PlayerState.GAME_OVER:
                 this.SetIsPlaying(false); break;
             case PlayerState.PROTECTED_BY_SHIELD:

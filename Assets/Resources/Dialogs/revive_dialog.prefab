@@ -1100,7 +1100,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2429103851416565937}
-        m_TargetAssemblyTypeName: CReviveDialog, Assembly-CSharp
+        m_TargetAssemblyTypeName: CBaseDialog, Assembly-CSharp
         m_MethodName: OnBtnCloseClicked
         m_Mode: 1
         m_Arguments:

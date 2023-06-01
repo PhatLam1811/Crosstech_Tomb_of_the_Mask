@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
 {
+    public void ShowPauseDialog(Transform canvasPos)
+    {
+        CGameManager.Instance.ShowDialog<CPauseDialog>(GameDefine.DIALOG_PAUSE_PATH, canvasPos);
+    }
+
     public bool IsLastMap(int mapId)
     {
         return CGameMapDatas.Instance.IsLastMap(mapId);

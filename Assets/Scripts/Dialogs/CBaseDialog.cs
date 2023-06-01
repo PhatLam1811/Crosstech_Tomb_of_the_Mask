@@ -57,4 +57,9 @@ public class CBaseDialog : MonoBehaviour
     {
         this.gameObject.SetActive(false);
     }
+
+    public virtual void OnBtnCloseClicked()
+    {
+        this.OnHide();
+    }
 }
