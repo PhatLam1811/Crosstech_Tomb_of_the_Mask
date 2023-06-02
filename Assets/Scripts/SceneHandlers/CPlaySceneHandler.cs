@@ -104,4 +104,11 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
         bool currentSetting = GetBGMSettings();
         CGameDataManager.Instance.UpdateGameSetting(SettingsType.BGM_SETTINGS, !currentSetting);
     }
+
+    public void PseudoClaimFirstClearChest()
+    {
+        int currentMapId = CGameplayManager.Instance.GetOnPlayingMapId();
+        CGameDataManager.Instance.UpdatePlayerBoosterData(BoosterUpdateType.ADD_VALUE, BoosterType.SHIELD, 1);
+        CGameDataManager.Instance.UpdateGameMapData(GameMapUpdateType.SET_IS_CHEST_CLAIMED, currentMapId);
+    }
 }

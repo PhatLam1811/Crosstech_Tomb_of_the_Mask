@@ -29,6 +29,7 @@ public class CMapClearedDialog : CBaseDialog
     public Button btn_next_stage;
     public TextMeshProUGUI tmp_next_stage;
     public Button btn_close;
+    public GameObject chest_bonus;
 
     private bool _isBonusCoin;
 
@@ -223,7 +224,10 @@ public class CMapClearedDialog : CBaseDialog
 
     public void OnBtnClaimChestPressed()
     {
-        Debug.Log("Show Wheel Bonus");
+        CGameSoundManager.Instance.PlayFx(GameDefine.BUTTON_CLICK_FX_KEY);
+        CPlaySceneHandler.Instance.PseudoClaimFirstClearChest();
+        this.btn_chest_claim.gameObject.SetActive(false);
+        this.chest_bonus.SetActive(true);
     }
 
     public void OnBtnNextStagePressed()
