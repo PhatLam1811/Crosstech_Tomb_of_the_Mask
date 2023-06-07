@@ -12,9 +12,11 @@ public class CDeviceDebugger : MonoSingleton<CDeviceDebugger>
 
     public void Log(string logContent)
     {
+        if (!logPos.gameObject.activeSelf) return;
+
         TextMeshProUGUI log = Instantiate(tmp_debug_log, this.logPos);
         log.text = logContent;
-        // this.SnapTo(log.transform);
+        // this.SnapTo(log.rectTransform);
     }
 
     public void SnapTo(RectTransform target)

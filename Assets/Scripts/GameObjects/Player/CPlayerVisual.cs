@@ -22,7 +22,7 @@ public class CPlayerVisual : CBaseVisual
         DOTween.Kill(this.GetInstanceID() + TWEEN);    
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         this.ReCheckPlayerMovingAnimation();        
     }

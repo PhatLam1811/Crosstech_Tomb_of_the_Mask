@@ -25227,9 +25227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1588668320}
-  maxSwipeTime: 1
-  minSwipeDistance: 2
-  swipeAngleThreshold: 0.75
 --- !u!114 &1588668320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25411,7 +25408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86867bb64f5cd34892de37d43fdde4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollRect: {fileID: 0}
+  scrollRect: {fileID: 1632859208}
   logPos: {fileID: 501712654}
   tmp_debug_log: {fileID: 4258149722451902698, guid: 62980ee9ad7ce38499c58790fcbed639, type: 3}
 --- !u!1 &1693096489
@@ -26917,8 +26914,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -5, y: 15}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 0, y: 15}
+  m_SizeDelta: {x: 50, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1984200432
 MonoBehaviour:
@@ -26940,7 +26937,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

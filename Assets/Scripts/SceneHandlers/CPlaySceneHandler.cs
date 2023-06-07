@@ -66,6 +66,8 @@ public class CPlaySceneHandler : MonoSingleton<CPlaySceneHandler>
 
     public bool TryActivatePlayerShield()
     {
+        if (CGameplayManager.Instance.IsPlayerShieldOn()) return false;
+
         long shieldRemain = CGameDataManager.Instance.GetPlayerBoosterData(BoosterType.SHIELD).value;
 
         if (shieldRemain > 0)

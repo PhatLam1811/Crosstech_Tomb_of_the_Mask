@@ -22,6 +22,8 @@ public class CGameManager : MonoSingleton<CGameManager>
     {
         DontDestroyOnLoad(this.gameObject);
 
+        Application.targetFrameRate = 60;
+
         CGameDataManager.Instance.OpenApp();
         CGameSoundManager.Instance.OpenApp();
         CLoadingSceneManager.Instance.OpenApp();

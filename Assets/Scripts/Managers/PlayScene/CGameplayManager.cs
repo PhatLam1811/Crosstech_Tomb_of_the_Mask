@@ -20,6 +20,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
     private int _onPlayingMapId = 1;
 
     private bool _isRevived;
+    private bool _isReviveDialogShowed;
+    private bool _isShieldOn;
 
     private int collectedDots;
     private int collectedStars;
@@ -46,8 +48,12 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this._player.StartGame();
 
         this._isRevived = false;
+        this._isReviveDialogShowed = false;
+        this._isShieldOn = false;
 
         CGameplayUIManager.Instance.StartGame();
+        CGameplayInputManager.Instance.StartGame();
+
         CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
 
         CGameSoundManager.Instance.PlayFx(GameDefine.GAME_START_FX_KEY);
@@ -139,8 +145,17 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         this.ShowMapClearedDialog();
     }
 
+    public bool IsPlayerShieldOn()
+    {
+        return this._isShieldOn;
+    }
+
     public void OnPlayerShieldStateChanged(bool isActive)
     {
+        this._isShieldOn = isActive;
+
+        Debug.Log(this._isShieldOn);
+
         if (isActive)
             this._player.OnShieldStateChanged(isActive);
         else
@@ -152,6 +167,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     public void OnPlayerShieldExpired()
     {
+        this._isShieldOn = false;
         this._player.OnShieldStateChanged(false);
     }
 
@@ -178,6 +194,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
         this.ShowReviveDialog();
 
+        this._isReviveDialogShowed = true;
+
         this.InvokeOnPlayerStateChangedCallback(PlayerState.GAME_OVER);    
     }
             
@@ -187,6 +205,7 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
         CGameplayInputManager.Instance.AssignOnPlayerSwipedCallback(this.OnPlayerSwiped);
 
         this._isRevived = true;
+        this._isReviveDialogShowed = false;
 
         this._player.gameObject.SetActive(true);
         this._player.OnRevive();
@@ -211,6 +230,8 @@ public class CGameplayManager : MonoSingleton<CGameplayManager>
 
     private void ShowReviveDialog()
     {
+        if (this._isReviveDialogShowed) return;
+
         CGameManager.Instance.ShowDialog<CReviveDialog>(
             path: GameDefine.DIALOG_REVIVE_PATH,
             canvasPos: CGameplayUIManager.Instance.GetCanvasPos(),

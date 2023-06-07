@@ -17,10 +17,6 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
 {
     public PlayerInput playerInput;
 
-    [SerializeField] private float maxSwipeTime = 1.0f;
-    [SerializeField] private float minSwipeDistance = 0.6f;
-    [SerializeField, Range(0.0f, 1.0f)] private float swipeAngleThreshold = 0.8f;
-
     private InputAction screenTouchAction;
     private InputAction screenHoldAction;
 
@@ -28,6 +24,9 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
 
     private Vector3 _startTouchPos = Vector3.negativeInfinity;
     private Vector3 _endTouchPos = Vector3.negativeInfinity;
+
+    private const double MAX_SWIPE_DURATION = 1.0f;
+    private const double DOT_PRODUCT_DIRECTION_THRESHOLD = 0.775f;
 
     private const string SCREEN_TOUCH_ACTION = "ScreenTouch";
     private const string SCREEN_HOLD_ACTION = "ScreenHold";
@@ -45,6 +44,12 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
     private void OnDisable()
     {
         this.UnAssignInputEventListeners();
+    }
+
+    public void StartGame()
+    {
+        this._startTouchPos = Vector3.negativeInfinity;
+        this._endTouchPos = Vector3.negativeInfinity;
     }
 
     public void SetActive(bool isActive)
@@ -76,12 +81,11 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
     private void OnScreenTouchCallback(InputAction.CallbackContext context)
     {
         float isReleased = context.ReadValue<float>();
-        // Debug.Log("On touch = " + isReleased);
 
         if (isReleased == 0)
         {
             this.DectectSwipeAction(context.startTime, context.time);
-            
+
             this._startTouchPos = Vector3.negativeInfinity;
             this._endTouchPos = Vector3.negativeInfinity;
         }
@@ -92,7 +96,7 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
         Vector2 holdPos = context.ReadValue<Vector2>();
         // Debug.Log("On hold = " + holdPos);
 
-        if (holdPos.y >= 1290) return;
+        if (holdPos.y > 1290) return;
 
         if (this._startTouchPos.Equals(Vector3.negativeInfinity))
         {
@@ -100,29 +104,7 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
         }
         else
         {
-            Vector3 holdPosV3 = new Vector3(holdPos.x, holdPos.y);
-
-            this.DetectChangeSwipeDirectionOnHold(holdPosV3);
-
             this._endTouchPos = new Vector3(holdPos.x, holdPos.y);
-        }
-    }
-
-    private void DetectChangeSwipeDirectionOnHold(Vector3 holdPos)
-    {
-        if (this._endTouchPos.Equals(Vector3.negativeInfinity)) return;
-
-        if (Vector3.Distance(this._startTouchPos, this._endTouchPos) < this.minSwipeDistance * 1.5f) return;
-
-        Vector3 lastSwipeDirection = (this._endTouchPos - this._startTouchPos).normalized;
-        Vector3 currentSwipeDirection = (holdPos - this._endTouchPos).normalized;
-        float angleBetween = Vector3.Angle(lastSwipeDirection, currentSwipeDirection);
-
-        if ((angleBetween >= 25f && angleBetween <= 90f) ||
-            (angleBetween >= 175f && angleBetween <= 180f))
-        {
-            this.OnPlayerSwiped();
-            this._startTouchPos = this._endTouchPos;
         }
     }
 
@@ -130,8 +112,9 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
     {
         if (this._startTouchPos.Equals(Vector3.negativeInfinity)) return;
 
-        if (time - startTime <= this.maxSwipeTime &&
-            Vector3.Distance(this._startTouchPos, this._endTouchPos) >= this.minSwipeDistance)
+        if (this._endTouchPos.Equals(Vector3.negativeInfinity)) return;
+
+        if (time - startTime <= MAX_SWIPE_DURATION)
         {
             this.OnPlayerSwiped();
         }
@@ -148,38 +131,29 @@ public class CGameplayInputManager : MonoSingleton<CGameplayInputManager>
 
         float dotMax = Mathf.Max(dotUp, dotLeft, dotDown, dotRight);
 
-        if (dotMax >= this.swipeAngleThreshold)
+        if (dotMax >= DOT_PRODUCT_DIRECTION_THRESHOLD)
         {
             if (dotMax == dotUp)
+            {
+                //CDeviceDebugger.Instance.Log("Move Up");
                 this.InvokeOnPlayerSwipedCallback(SwipeDirection.UP);
-            if (dotMax == dotLeft)
+            }
+            else if (dotMax == dotLeft)
+            {
+                //CDeviceDebugger.Instance.Log("Move Left");
                 this.InvokeOnPlayerSwipedCallback(SwipeDirection.LEFT);
-            if (dotMax == dotDown)
+            }
+            else if (dotMax == dotDown)
+            {
+                //CDeviceDebugger.Instance.Log("Move Down");
                 this.InvokeOnPlayerSwipedCallback(SwipeDirection.DOWN);
-            if (dotMax == dotRight)
+            }
+            else if (dotMax == dotRight)
+            {
+                //CDeviceDebugger.Instance.Log("Move Right");
                 this.InvokeOnPlayerSwipedCallback(SwipeDirection.RIGHT);
+            }
         }
-
-        //if (Vector3.Dot(Vector3.up, swipeDirection) >= this.swipeAngleThreshold)
-        //{
-        //    //Debug.Log("Move Up!");
-        //    this.InvokeOnPlayerSwipedCallback(SwipeDirection.UP);
-        //}
-        //else if (Vector3.Dot(Vector3.left, swipeDirection) >= this.swipeAngleThreshold)
-        //{
-        //    //Debug.Log("Move Left!");
-        //    this.InvokeOnPlayerSwipedCallback(SwipeDirection.LEFT);
-        //}
-        //else if (Vector3.Dot(Vector3.down, swipeDirection) >= this.swipeAngleThreshold)
-        //{
-        //    //Debug.Log("Move Down!");
-        //    this.InvokeOnPlayerSwipedCallback(SwipeDirection.DOWN);
-        //}
-        //else if (Vector3.Dot(Vector3.right, swipeDirection) >= this.swipeAngleThreshold)
-        //{
-        //    //Debug.Log("Move Right!");
-        //    this.InvokeOnPlayerSwipedCallback(SwipeDirection.RIGHT);
-        //}
     }
 
     public void AssignOnPlayerSwipedCallback(UnityAction<SwipeDirection> callback)
